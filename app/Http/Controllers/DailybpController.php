@@ -15,12 +15,11 @@ class DailybpController extends Controller
 {
     public function index()
     {
-        $dailybp = Dailybp::where('user_id', Auth::user()->id)->orderBy('id', 'DESC')->whereBetween('created_at', [
-            Carbon::now()->format('Y-m-d 00:00:00'), Carbon::now()->format('Y-m-d 23:59:59')
-        ])->get();
+        $dailybp = Dailybp::where('user_id', Auth::user()->id)->orderBy('id', 'DESC')->get();
+        $dailybpMobile = Dailybp::where('user_id', Auth::user()->id)->orderBy('id', 'DESC')->simplePaginate(6);
         return view('daily.bisnisprofit.history', [
-            "title" => "Self-Development",
-        ], compact('dailybp'));
+            "title" => "Bisnis & Profit",
+        ], compact('dailybp', 'dailybpMobile'));
     }
 
     public function create()

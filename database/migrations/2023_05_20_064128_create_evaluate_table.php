@@ -16,6 +16,7 @@ class CreateEvaluateTable extends Migration
         Schema::create('tb_evaluate', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('tb_user')->onUpdate('cascade')->onDelete('cascade');
+            $table->string('tgl_ev');
             $table->text('dailyevaluate');
             $table->timestamps();
         });

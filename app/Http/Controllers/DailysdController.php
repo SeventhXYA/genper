@@ -9,19 +9,21 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
-// use Intervention\Image\Facades\Image;
+use Intervention\Image\Facades\Image;
 
 class DailysdController extends Controller
 {
     public function index()
     {
-        $dailysd = Dailysd::where('user_id', Auth::user()->id)->orderBy('id', 'DESC')->whereBetween('created_at', [
-            Carbon::now()->format('Y-m-d 00:00:00'), Carbon::now()->format('Y-m-d 23:59:59')
-        ])->get();
+        $dailysd = Dailysd::where('user_id', Auth::user()->id)->orderBy('id', 'DESC')->get();
+        $dailysdMobile = Dailysd::where('user_id', Auth::user()->id)->orderBy('id', 'DESC')->simplePaginate(6);
+        // $dailysd = Dailysd::where('user_id', Auth::user()->id)->orderBy('id', 'DESC')->whereBetween('created_at', [
+        //     Carbon::now()->format('Y-m-d 00:00:00'), Carbon::now()->format('Y-m-d 23:59:59')
+        // ])->get();
         return view('daily.selfdevelopment.history', [
             "title" => "Self-Development",
             "sesi" => "SELF-DEVELOPMENT"
-        ], compact('dailysd'));
+        ], compact('dailysd', 'dailysdMobile'));
     }
 
     public function create()
@@ -44,17 +46,17 @@ class DailysdController extends Controller
             'foto' => 'image',
         ]);
 
-        // $image_data = $request->file('foto');
-        // $filename = 'uploads/dailysd/' . Auth::user()->username . time() . '.jpg';
+        $image_data = $request->file('foto');
+        $filename = 'uploads/dailysd/' . Auth::user()->username . time() . '.jpg';
 
-        // $image = Image::make($image_data);
+        $image = Image::make($image_data);
 
-        // $image->fit(800, 600);
-        // $image->encode('jpg', 90);
-        // $image->stream();
-        // Storage::disk('local')->put('public/' . $filename, $image, 'public');
+        $image->fit(800, 600);
+        $image->encode('jpg', 90);
+        $image->stream();
+        Storage::disk('local')->put('public/' . $filename, $image, 'public');
 
-        // $validated_data['pict'] = 'storage/' . $filename;
+        $validated_data['foto'] = 'storage/' . $filename;
         $dailysd = new Dailysd($validated_data);
         $dailysd->user()->associate(Auth::user());
         $dailysd->save();

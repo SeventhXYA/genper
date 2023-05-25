@@ -16,7 +16,7 @@
 @section('content')
     <nav class="page-breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Self-Development</a></li>
+            <li class="breadcrumb-item"><a href="#">Kelembagaan</a></li>
             <li class="breadcrumb-item active" aria-current="page">Laporan Baru</li>
         </ol>
     </nav>
@@ -31,8 +31,8 @@
                     {{-- <p class="text-muted mb-3">Read the <a href="https://github.com/mimo84/bootstrap-maxlength"
                             target="_blank"> Official Bootstrap MaxLength Documentation </a>for a full list of instructions
                         and other options.</p> --}}
-                    <form onsubmit="$('#submit').prop('disabled',true)" action="{{ route('newsd.store') }}" method="POST"
-                        enctype="multipart/form-data">
+                    <form onsubmit="$('#submit').prop('disabled',true)" action="/historykl/update/{{ $dailykl->id }}"
+                        method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row mb-3">
                             <div class="col-lg-3">
@@ -40,7 +40,8 @@
                             </div>
                             <div class="col-lg-8">
                                 <div class="input-group date" id="datePickerExample">
-                                    <input type="text" class="form-control"name="tgl_sd" id="defaultconfig-0">
+                                    <input type="text" class="form-control"name="tgl_kl" value="{{ $dailykl->tgl_kl }}"
+                                        id="defaultconfig-0">
                                     <span class="input-group-text input-group-addon"><i data-feather="calendar"></i></span>
                                 </div>
                             </div>
@@ -53,7 +54,7 @@
                                 <div class="input-group date timepicker" id="datetimepickerExample"
                                     data-target-input="nearest">
                                     <input type="text" class="form-control datetimepicker-input" name="wkt_mulai"
-                                        data-target="#datetimepickerExample" />
+                                        value="{{ $dailykl->wkt_mulai }}" data-target="#datetimepickerExample" />
                                     <span class="input-group-text" data-target="#datetimepickerExample"
                                         data-toggle="datetimepicker"><i data-feather="clock"></i></span>
                                 </div>
@@ -62,7 +63,8 @@
                             <div class="col-lg-3">
                                 <div class="input-group date timepicker" id="datetimepickerExample2"
                                     data-target-input="nearest">
-                                    <input type="text" class="form-control datetimepicker-input" name="wkt_selesai"
+                                    <input type="text" class="form-control datetimepicker-input"
+                                        name="wkt_selesai"value="{{ $dailykl->wkt_selesai }}"
                                         data-target="#datetimepickerExample2" />
                                     <span class="input-group-text" data-target="#datetimepickerExample2"
                                         data-toggle="datetimepicker"><i data-feather="clock"></i></span>
@@ -75,7 +77,7 @@
                             </div>
                             <div class="col-lg-8">
                                 <textarea id="maxlength-textarea" class="form-control" id="defaultconfig" maxlength="100" rows="8" name="rencana"
-                                    placeholder="This textarea has a limit of 100 chars."></textarea>
+                                    placeholder="This textarea has a limit of 100 chars.">{{ $dailykl->rencana }}</textarea>
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -84,7 +86,7 @@
                             </div>
                             <div class="col-lg-8">
                                 <textarea id="maxlength-textarea-2" class="form-control" id="defaultconfig" maxlength="100" rows="8"
-                                    name="aktual" placeholder="This textarea has a limit of 100 chars."></textarea>
+                                    name="aktual" placeholder="This textarea has a limit of 100 chars.">{{ $dailykl->aktual }}</textarea>
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -93,9 +95,9 @@
                             </div>
                             <div class="col-lg-8">
                                 <div class="container">
-                                    <input type="range" id="my-slider" min="0" max="100" value="50"
-                                        name="progres" oninput="slider()">
-                                    <div id="slider-value">0</div>
+                                    <input type="range" id="my-slider" min="0" max="100"
+                                        value="{{ $dailykl->progres }}" name="progres" oninput="slider()">
+                                    <div id="slider-value">{{ $dailykl->progres }}</div>
                                 </div>
 
                             </div>
@@ -105,17 +107,15 @@
                                 <label for="defaultconfig-2" class="col-form-label">Upload Dokumentasi</label>
                             </div>
                             <div class="col-lg-8">
-                                <div class="mb-3">
-                                    {{-- <label class="form-label" for="formFile">File upload</label> --}}
-                                    <input class="form-control" type="file" accept="image/*" required id="pict">
-                                    <div id="preview" class="my-3"
-                                        style="aspect-ratio: 4/3; background-color:rgb(196, 196, 196);background-size: cover;scroll-snap-align: center;">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <input type="file" id="myDropify" name="foto" />
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="my-2 d-flex justify-content-end">
-                            <button type="submit" class="btn btn-primary" style="width: 6rem">Kirim</button>
+                            <button type="submit" class="btn btn-primary" style="width: 6rem">Simpan</button>
                         </div>
                     </form>
                 </div>
@@ -130,11 +130,6 @@
             event.target.value = value
             document.getElementById('slider-value').textContent = value + '%'
         })
-
-        document.getElementById('pict').addEventListener('change', function() {
-            const [file] = document.getElementById('pict').files;
-            document.getElementById('preview').style.backgroundImage = 'url(' + URL.createObjectURL(file) + ')';
-        });
     </script>
 @endsection
 

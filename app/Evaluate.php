@@ -10,7 +10,7 @@ class Evaluate extends Model
     use HasFactory;
     protected $table = 'tb_evaluate';
     protected $fillable = [
-        'dailyevaluate'
+        'tgl_ev', 'dailyevaluate'
     ];
 
     public function user()

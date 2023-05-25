@@ -70,12 +70,12 @@
                     <div class="collapse {{ show_class(['kelembagaan/*']) }}" id="kelembagaan">
                         <ul class="nav sub-menu">
                             <li class="nav-item">
-                                <a href="{{ url('/kelembagaan/newkl') }}"
-                                    class="nav-link {{ active_class(['kelembagaan/newkl']) }}">Laporan Baru</a>
+                                <a href="{{ url('/newkl') }}" class="nav-link {{ active_class(['newkl']) }}">Laporan
+                                    Baru</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ url('/kelembagaan/historykl') }}"
-                                    class="nav-link {{ active_class(['kelembagaan/historykl']) }}">Riwayat</a>
+                                <a href="{{ url('/historykl') }}"
+                                    class="nav-link {{ active_class(['historykl']) }}">Riwayat</a>
                             </li>
                         </ul>
                     </div>
@@ -91,12 +91,12 @@
                     <div class="collapse {{ show_class(['inovasicreativity/*']) }}" id="inovasicreativity">
                         <ul class="nav sub-menu">
                             <li class="nav-item">
-                                <a href="{{ url('/inovasicreativity/newic') }}"
-                                    class="nav-link {{ active_class(['inovasicreativity/newic']) }}">Laporan Baru</a>
+                                <a href="{{ url('newic') }}" class="nav-link {{ active_class(['newic']) }}">Laporan
+                                    Baru</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ url('/inovasicreativity/historyic') }}"
-                                    class="nav-link {{ active_class(['inovasicreativity/historyic']) }}">Riwayat</a>
+                                <a href="{{ url('historyic') }}"
+                                    class="nav-link {{ active_class(['historyic']) }}">Riwayat</a>
                             </li>
                         </ul>
                     </div>
@@ -111,12 +111,12 @@
                     <div class="collapse {{ show_class(['evaluasi/*']) }}" id="evaluasi">
                         <ul class="nav sub-menu">
                             <li class="nav-item">
-                                <a href="{{ url('/evaluasi/newev') }}"
-                                    class="nav-link {{ active_class(['evaluasi/newev']) }}">Laporan Baru</a>
+                                <a href="{{ url('/newev') }}" class="nav-link {{ active_class(['newev']) }}">Laporan
+                                    Baru</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ url('/evaluasi/historyev') }}"
-                                    class="nav-link {{ active_class(['evaluasi/historyev']) }}">Riwayat</a>
+                                <a href="{{ url('/historyev') }}"
+                                    class="nav-link {{ active_class(['historyev']) }}">Riwayat</a>
                             </li>
                         </ul>
                     </div>

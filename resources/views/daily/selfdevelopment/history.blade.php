@@ -54,8 +54,10 @@
                                         <td><span class="badge bg-success" style="width: 6rem">{{ $sd->progres }}%</span>
                                         </td>
                                         <td class="inline-flex">
-                                            <button type="button" class="btn btn-inverse-success btn-xs"><i
-                                                    data-feather="eye" class="icon-sm"></i></button>
+                                            <button type="button"
+                                                class="btn btn-inverse-success btn-xs"data-bs-toggle="modal"
+                                                data-bs-target="#viewModal-{{ $sd->id }}"><i data-feather="eye"
+                                                    class="icon-sm"></i></button>
                                             <a href="/historysd/edit/{{ $sd->id }}"
                                                 class="btn btn-inverse-warning btn-xs"><i data-feather="edit"
                                                     class="icon-sm"></i></a>
@@ -63,10 +65,59 @@
                                         </td>
                                     </tr>
                                 </tbody>
+                                <!-- Modal -->
+                                <div class="modal fade" id="viewModal-{{ $sd->id }}" tabindex="-1"
+                                    aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-scrollable">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalScrollableTitle">
+                                                    {{ $sd->tgl_sd }}</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="btn-close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="col mb-3">
+                                                    <label class="form-label fw-bold">Waktu Kegiatan</label>
+                                                    <input type="text" class="form-control"
+                                                        value="{{ $sd->wkt_mulai }} - {{ $sd->wkt_selesai }}" required
+                                                        readonly style="background-color: white" />
+                                                </div>
+                                                <div class="col mb-3">
+                                                    <label class="form-label fw-bold">Rencana</label>
+                                                    <input type="text" class="form-control" value="{{ $sd->rencana }}"
+                                                        required readonly style="background-color: white" />
+                                                </div>
+                                                <div class="col mb-3">
+                                                    <label class="form-label fw-bold">Aktual</label>
+                                                    <input type="text" class="form-control" value="{{ $sd->aktual }}"
+                                                        required readonly style="background-color: white" />
+                                                </div>
+                                                <div class="col mb-3">
+                                                    <label class="form-label fw-bold">Progres</label>
+                                                    <span class="badge bg-success"
+                                                        style="width: 100%">{{ $sd->progres }}%</span>
+                                                    {{-- <input type="text" class="form-control" value="{{ $sd->progres }}"
+                                                    required readonly style="background-color: white" /> --}}
+                                                </div>
+                                                <div class="col mb-3">
+                                                    <label class="form-label fw-bold">Foto</label>
+                                                    <input type="text" class="form-control" value="{{ $sd->aktual }}"
+                                                        required readonly style="background-color: white" />
+                                                </div>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             @endforeach
                         </table>
                     </div>
-                    @foreach ($dailysd as $sd)
+                    @foreach ($dailysdMobile as $sd)
                         <div class="d-inline d-md-none">
                             <div class="card my-2" style="border-width: 2px;">
                                 <div class="card-header d-flex justify-content-between">
@@ -103,6 +154,7 @@
                             </div>
                         </div>
                     @endforeach
+                    {{ $dailysdMobile->links() }}
 
                 </div>
             </div>

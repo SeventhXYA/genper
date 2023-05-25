@@ -28,8 +28,8 @@
                     <span class="badge bg-success card-title">
                         <h6>Buat Laporan Baru</h6>
                     </span>
-                    <form onsubmit="$('#submit').prop('disabled',true)" action="{{ route('newev.store') }}" method="POST"
-                        enctype="multipart/form-data">
+                    <form onsubmit="$('#submit').prop('disabled',true)" action="/historyev/update/{{ $evaluate->id }}"
+                        method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row mb-3">
                             <div class="col-lg-3">
@@ -37,7 +37,8 @@
                             </div>
                             <div class="col-lg-8">
                                 <div class="input-group date" id="datePickerExample">
-                                    <input type="text" class="form-control" name="tgl_ev" id="defaultconfig-0">
+                                    <input type="text" class="form-control" name="tgl_ev"
+                                        value="{{ $evaluate->tgl_ev }}" id="defaultconfig-0">
                                     <span class="input-group-text input-group-addon"><i data-feather="calendar"></i></span>
                                 </div>
                             </div>
@@ -48,12 +49,12 @@
                             </div>
                             <div class="col-lg-8">
                                 <textarea id="maxlength-textarea" class="form-control" id="defaultconfig" name="dailyevaluate" maxlength="255"
-                                    rows="8" placeholder="This textarea has a limit of 255 chars."></textarea>
+                                    rows="8" placeholder="This textarea has a limit of 255 chars.">{{ $evaluate->dailyevaluate }}</textarea>
                             </div>
                         </div>
 
                         <div class="my-2 d-flex justify-content-end">
-                            <button type="submit" class="btn btn-primary" style="width: 6rem">Kirim</button>
+                            <button type="submit" class="btn btn-primary" style="width: 6rem">Simpan</button>
                         </div>
                     </form>
                 </div>

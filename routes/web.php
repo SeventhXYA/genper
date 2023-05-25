@@ -13,6 +13,9 @@
 
 use App\Http\Controllers\DailysdController;
 use App\Http\Controllers\DailybpController;
+use App\Http\Controllers\DailyklController;
+use App\Http\Controllers\DailyicController;
+use App\Http\Controllers\EvaluateController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\HomeController;
 // use App\Http\Controllers\IntervalController;
@@ -75,14 +78,19 @@ Route::group(['middleware' => ['auth']], function () {
         //     });
         // });
 
-        Route::group(['prefix' => 'kelembagaan'], function () {
-            Route::get('newkl', function () {
-                return view('daily.kelembagaan.new');
-            });
-            Route::get('historykl', function () {
-                return view('daily.kelembagaan.history');
-            });
-        });
+        // Route::group(['prefix' => 'kelembagaan'], function () {
+        //     Route::get('newkl', function () {
+        //         return view('daily.kelembagaan.new');
+        //     });
+        //     Route::get('historykl', function () {
+        //         return view('daily.kelembagaan.history');
+        //     });
+        // });
+        Route::get('historykl', [DailyklController::class, 'index'])->name('historykl');
+        Route::get('newkl', [DailyklController::class, 'create'])->name('newkl');
+        Route::post('newkl/store', [DailyklController::class, 'store'])->name('newkl.store');
+        Route::get('historykl/edit/{id}', [DailyklController::class, 'edit'])->name('historykl.edit');
+        Route::post('historykl/update/{id}', [DailyklController::class, 'update'])->name('historykl.update');
 
         Route::group(['prefix' => 'inovasicreativity'], function () {
             Route::get('newic', function () {
@@ -93,14 +101,19 @@ Route::group(['middleware' => ['auth']], function () {
             });
         });
 
-        Route::group(['prefix' => 'evaluasi'], function () {
-            Route::get('newev', function () {
-                return view('daily.evaluasi.new');
-            });
-            Route::get('historyev', function () {
-                return view('daily.evaluasi.history');
-            });
-        });
+        // Route::group(['prefix' => 'evaluasi'], function () {
+        //     Route::get('newev', function () {
+        //         return view('daily.evaluasi.new');
+        //     });
+        //     Route::get('historyev', function () {
+        //         return view('daily.evaluasi.history');
+        //     });
+        // });
+        Route::get('historyic', [DailyicController::class, 'index'])->name('historyic');
+        Route::get('newic', [DailyicController::class, 'create'])->name('newic');
+        Route::post('newic/store', [DailyicController::class, 'store'])->name('newic.store');
+        Route::get('historyic/edit/{id}', [DailyicController::class, 'edit'])->name('historyic.edit');
+        Route::post('historyic/update/{id}', [DailyicController::class, 'update'])->name('historyic.update');
 
         // Route::group(['prefix' => 'interval'], function () {
         //     Route::get('newinterval', function () {
@@ -113,6 +126,13 @@ Route::group(['middleware' => ['auth']], function () {
         //         return view('pages.interval.deleteinterval');
         //     });
         // });
+
+        Route::get('historyev', [EvaluateController::class, 'index'])->name('historyev');
+        Route::get('newev', [EvaluateController::class, 'create'])->name('newev');
+        Route::post('newev/store', [EvaluateController::class, 'store'])->name('newev.store');
+        Route::get('historyev/edit/{id}', [EvaluateController::class, 'edit'])->name('historyev.edit');
+        Route::post('historyev/update/{id}', [EvaluateController::class, 'update'])->name('historyev.update');
+
         Route::resource('interval', IntervalController::class)->only(['store', 'update', 'destroy']);
         // Route::post('interval/store', [IntervalController::class, 'store'])->name('interval.store');
         // Route::get('interval', [IntervalController::class, 'interval'])->name('interval');

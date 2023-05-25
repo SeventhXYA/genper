@@ -66,7 +66,7 @@
                             @endforeach
                         </table>
                     </div>
-                    @foreach ($dailybp as $bp)
+                    @foreach ($dailybpMobile as $bp)
                         <div class="d-inline d-md-none">
                             <div class="card my-2" style="border-width: 2px;">
                                 <div class="card-header d-flex justify-content-between">
@@ -103,6 +103,7 @@
                             </div>
                         </div>
                     @endforeach
+                    {{ $dailybpMobile->links() }}
 
                 </div>
             </div>

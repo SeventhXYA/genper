@@ -31,86 +31,92 @@
                     {{-- <p class="text-muted mb-3">Read the <a href="https://github.com/mimo84/bootstrap-maxlength"
                             target="_blank"> Official Bootstrap MaxLength Documentation </a>for a full list of instructions
                         and other options.</p> --}}
-                    <div class="row mb-3">
-                        <div class="col-lg-3">
-                            <label for="defaultconfig-0" class="col-form-label">Tanggal Kegiatan</label>
-                        </div>
-                        <div class="col-lg-8">
-                            <div class="input-group date" id="datePickerExample">
-                                <input type="text" class="form-control"name="defaultconfig-0" id="defaultconfig-0">
-                                <span class="input-group-text input-group-addon"><i data-feather="calendar"></i></span>
+                    <form onsubmit="$('#submit').prop('disabled',true)" action="{{ route('newkl.store') }}" method="POST"
+                        enctype="multipart/form-data">
+                        @csrf
+                        <div class="row mb-3">
+                            <div class="col-lg-3">
+                                <label for="defaultconfig-0" class="col-form-label">Tanggal Kegiatan</label>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-lg-3">
-                            <label for="defaultconfig-0" class="col-form-label">Waktu Kegiatan</label>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="input-group date timepicker" id="datetimepickerExample" data-target-input="nearest">
-                                <input type="text" class="form-control datetimepicker-input"
-                                    data-target="#datetimepickerExample" />
-                                <span class="input-group-text" data-target="#datetimepickerExample"
-                                    data-toggle="datetimepicker"><i data-feather="clock"></i></span>
-                            </div>
-                        </div>
-                        s/d
-                        <div class="col-lg-3">
-                            <div class="input-group date timepicker" id="datetimepickerExample2"
-                                data-target-input="nearest">
-                                <input type="text" class="form-control datetimepicker-input"
-                                    data-target="#datetimepickerExample2" />
-                                <span class="input-group-text" data-target="#datetimepickerExample2"
-                                    data-toggle="datetimepicker"><i data-feather="clock"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-lg-3">
-                            <label for="defaultconfig" class="col-form-label">Rencana</label>
-                        </div>
-                        <div class="col-lg-8">
-                            <textarea id="maxlength-textarea" class="form-control" id="defaultconfig" maxlength="100" rows="8"
-                                placeholder="This textarea has a limit of 100 chars."></textarea>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-lg-3">
-                            <label for="defaultconfig" class="col-form-label">Aktual</label>
-                        </div>
-                        <div class="col-lg-8">
-                            <textarea id="maxlength-textarea-2" class="form-control" id="defaultconfig" maxlength="100" rows="8"
-                                placeholder="This textarea has a limit of 100 chars."></textarea>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-lg-3">
-                            <label for="defaultconfig" class="col-form-label">Progres</label>
-                        </div>
-                        <div class="col-lg-8">
-                            <div class="container">
-                                <input type="range" id="my-slider" min="0" max="100" value="50"
-                                    oninput="slider()">
-                                <div id="slider-value">0</div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-lg-3">
-                            <label for="defaultconfig-2" class="col-form-label">Upload Dokumentasi</label>
-                        </div>
-                        <div class="col-lg-8">
-                            <div class="card">
-                                <div class="card-body">
-                                    <input type="file" id="myDropify" />
+                            <div class="col-lg-8">
+                                <div class="input-group date" id="datePickerExample">
+                                    <input type="text" class="form-control"name="tgl_kl" id="defaultconfig-0">
+                                    <span class="input-group-text input-group-addon"><i data-feather="calendar"></i></span>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="my-2 d-flex justify-content-end">
-                        <button type="input" class="btn btn-primary" style="width: 6rem">Kirim</button>
-                    </div>
+                        <div class="row mb-3">
+                            <div class="col-lg-3">
+                                <label for="defaultconfig-0" class="col-form-label">Waktu Kegiatan</label>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="input-group date timepicker" id="datetimepickerExample"
+                                    data-target-input="nearest">
+                                    <input type="text" class="form-control datetimepicker-input" name="wkt_mulai"
+                                        data-target="#datetimepickerExample" />
+                                    <span class="input-group-text" data-target="#datetimepickerExample"
+                                        data-toggle="datetimepicker"><i data-feather="clock"></i></span>
+                                </div>
+                            </div>
+                            s/d
+                            <div class="col-lg-3">
+                                <div class="input-group date timepicker" id="datetimepickerExample2"
+                                    data-target-input="nearest">
+                                    <input type="text" class="form-control datetimepicker-input" name="wkt_selesai"
+                                        data-target="#datetimepickerExample2" />
+                                    <span class="input-group-text" data-target="#datetimepickerExample2"
+                                        data-toggle="datetimepicker"><i data-feather="clock"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-lg-3">
+                                <label for="defaultconfig" class="col-form-label">Rencana</label>
+                            </div>
+                            <div class="col-lg-8">
+                                <textarea id="maxlength-textarea" class="form-control" id="defaultconfig" maxlength="100" rows="8" name="rencana"
+                                    placeholder="This textarea has a limit of 100 chars."></textarea>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-lg-3">
+                                <label for="defaultconfig" class="col-form-label">Aktual</label>
+                            </div>
+                            <div class="col-lg-8">
+                                <textarea id="maxlength-textarea-2" class="form-control" id="defaultconfig" maxlength="100" rows="8"
+                                    name="aktual" placeholder="This textarea has a limit of 100 chars."></textarea>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-lg-3">
+                                <label for="defaultconfig" class="col-form-label">Progres</label>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="container">
+                                    <input type="range" id="my-slider" min="0" max="100" value="50"
+                                        name="progres" oninput="slider()">
+                                    <div id="slider-value">0</div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-lg-3">
+                                <label for="defaultconfig-2" class="col-form-label">Upload Dokumentasi</label>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="mb-3">
+                                    {{-- <label class="form-label" for="formFile">File upload</label> --}}
+                                    <input class="form-control" type="file" value="foto" accept="image/*" required
+                                        id="pict">
+                                    <div id="preview" class="my-3"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="my-2 d-flex justify-content-end">
+                            <button type="submit" class="btn btn-primary" style="width: 6rem">Kirim</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
