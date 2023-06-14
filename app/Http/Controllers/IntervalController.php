@@ -10,15 +10,6 @@ use Illuminate\Support\Facades\Auth;
 class IntervalController extends Controller
 {
 
-    // public function create()
-    // {
-    //     $users = User::where('id', Auth::user()->id)->get();
-    //     $interval = Interval::where('id', Auth::user()->id)->get();
-
-    //     return view('pomodoro.pomodororeport', [
-    //         "title" => "Interval Pomodoro",
-    //     ], compact('users', 'interval'));
-    // }
 
     public function store(Request $request)
     {
@@ -38,14 +29,14 @@ class IntervalController extends Controller
         $interval->user()->associate(Auth::user());
         $interval->save();
 
-        return redirect()->route('/')->with(['success' => 'Data berhasil disimpan']);
+        return redirect()->route('/')->with(['success' => 'Data berhasil disimpan!']);
     }
 
     public function destroy(Interval $interval)
     {
         $interval->delete();
         return redirect()->back()->with([
-            'success' => 'Data berhasil dihapus.'
+            'success' => 'Data berhasil dihapus!'
         ]);
     }
 
@@ -83,14 +74,13 @@ class IntervalController extends Controller
         return redirect()->route('/');
     }
 
-    public function recordinterval()
+    public function reportAdmin()
     {
-        $users = User::where('level_id', 3)->get();
-
-        $data = [
-            'title' => 'Record Daily Interval',
-            'users' => $users
-        ];
-        return view('admin.recordinterval', $data);
+        $interval = Interval::orderBy('id', 'DESC')->get();
+        // $users = User::where('level_id', 3)->get();
+        $intervalMobile = Interval::orderBy('id', 'DESC')->simplePaginate(6);
+        return view('logadmin.daily.interval', [
+            "title" => "Interval Pomodoro"
+        ], compact('interval', 'intervalMobile'));
     }
 }

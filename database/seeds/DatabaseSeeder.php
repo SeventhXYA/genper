@@ -1,5 +1,6 @@
 <?php
 
+use App\Akundivisi;
 use Illuminate\Database\Seeder;
 use App\User;
 use App\Divisi;
@@ -17,15 +18,15 @@ class DatabaseSeeder extends Seeder
         // $this->call(UsersTableSeeder::class);
 
         Divisi::create([
-            'divisi' => '-'
+            'divisi' => 'Sentra Pertanian Terpadu (Agro Permata)'
         ]);
 
         Divisi::create([
-            'divisi' => 'Digital Printing (Meta Print)'
+            'divisi' => 'Digital Printing & Advertising (Meta Print)'
         ]);
 
         Divisi::create([
-            'divisi' => 'UKM Center'
+            'divisi' => 'UKM Center Permata (Pojok UKM)'
         ]);
 
         Divisi::create([
@@ -33,11 +34,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Divisi::create([
-            'divisi' => 'Konveksi (Samara Apprarel)'
-        ]);
-
-        Divisi::create([
-            'divisi' => 'Workshop Permata & Training Center'
+            'divisi' => 'Konveksi Permata (Samara Apparel)'
         ]);
 
         Divisi::create([
@@ -45,12 +42,13 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Divisi::create([
-            'divisi' => 'Nursery & Revegetasi (Bentala Nursery)'
+            'divisi' => 'Workshop Permata & Training Center'
         ]);
 
         Divisi::create([
-            'divisi' => 'Sentra Pertanian Terpadu (Tim Maggot & Agro Buah)'
+            'divisi' => 'Nursery & Revegetasi (Bentala Nursery)'
         ]);
+
 
         Level::create([
             'level' => 'Admin'
@@ -62,6 +60,27 @@ class DatabaseSeeder extends Seeder
             'level' => 'Genper'
         ]);
 
+        Akundivisi::create([
+            'id_divisi' => 1,
+            'username' => 'divisiA',
+            'password' => bcrypt('divisiA'),
+            'id_level' => 2,
+        ]);
+
+        Akundivisi::create([
+            'id_divisi' => 2,
+            'username' => 'divisiB',
+            'password' => bcrypt('divisiB'),
+            'id_level' => 2,
+        ]);
+
+        Akundivisi::create([
+            'id_divisi' => 3,
+            'username' => 'divisiC',
+            'password' => bcrypt('divisiC'),
+            'id_level' => 2,
+        ]);
+
         User::create([
             'foto' => 'user.jpg',
             'nm_depan' => 'Admin',
@@ -71,8 +90,6 @@ class DatabaseSeeder extends Seeder
             'tgl_lahir' => '05 Agustus 2002',
             'nohp' => '082254388310',
             'email' => 'deathcrew17@gmail.com',
-            'alamat' => 'Jl. Karya Bersama, RT.19',
-            'id_divisi' => 1,
             'username' => 'admin',
             'password' => bcrypt('admin'),
             'id_level' => 1,
@@ -87,9 +104,22 @@ class DatabaseSeeder extends Seeder
             'tgl_lahir' => '04 Agustus 2002',
             'nohp' => '082254388230',
             'email' => 'deathcrew237@gmail.com',
-            'alamat' => 'Jl. Karya Bersama, RT.19',
             'id_divisi' => 1,
             'username' => 'satria',
+            'password' => bcrypt('1234'),
+            'id_level' => 3,
+        ]);
+        User::create([
+            'foto' => 'user.jpg',
+            'nm_depan' => 'Jaka',
+            'nm_belakang' => 'Permadi',
+            'jk' => 'Laki-laki',
+            'tmp_lahir' => 'Sungai Danau',
+            'tgl_lahir' => '25 Februari 2001',
+            'nohp' => '082223338230',
+            'email' => 'jakaper@gmail.com',
+            'id_divisi' => 2,
+            'username' => 'jaka',
             'password' => bcrypt('1234'),
             'id_level' => 3,
         ]);

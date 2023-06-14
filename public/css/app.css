@@ -24,7 +24,7 @@
     --bs-gray-800: #212a3a;
     --bs-gray-900: #060c17;
     --bs-primary: #05a34a;
-    --bs-primary2: #05a34a;
+    --bs-primary2: #09c85c;
     --bs-secondary: #7987a1;
     --bs-success: #05a34a;
     --bs-info: #66d1d1;
@@ -23069,25 +23069,25 @@ svg.icon-xxl {
     position: fixed;
     left: 0;
     top: 0;
-    transition: width .1s ease, margin .1s ease-in-out;
+    transition: width .1s ease, margin .1s ease-out;
     z-index: 999
 }
 
 .sidebar .sidebar-header {
-    background: #fff;
+    background: #0c1427;
     height: 60px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 25px;
-    border-right: 1px solid #e9ecef;
+    border-right: 1px solid #172340;
     z-index: 999;
     width: 240px;
     transition: width .1s ease
 }
 
 .sidebar-open .sidebar .sidebar-header, .sidebar .sidebar-header {
-    border-bottom: 1px solid #e9ecef
+    border-bottom: 1px solid #172340
 }
 
 .sidebar .sidebar-header .sidebar-brand {
@@ -23096,7 +23096,7 @@ svg.icon-xxl {
     transition: opacity .5s ease;
     font-weight: 700;
     font-size: 25px;
-    color: #000865
+    color: #d0d6e1
 }
 
 .sidebar .sidebar-header .sidebar-brand span {
@@ -23340,10 +23340,10 @@ svg.icon-xxl {
 .sidebar .sidebar-body {
     max-height: calc(100% - 60px);
     position: relative;
-    border-right: 1px solid #e9ecef;
+    border-right: 1px solid #172340;
     height: 100%;
-    box-shadow: 0 8px 10px 0 rgba(183, 192, 206, .2);
-    background: #fff
+    box-shadow: 0 8px 10px 0 #03060b;
+    background: #0c1427
 }
 
 .sidebar .sidebar-body .nav {
@@ -23362,13 +23362,13 @@ svg.icon-xxl {
     padding: 0;
     height: 32px;
     white-space: nowrap;
-    color: #000
+    color: #7987a1
 }
 
 .sidebar .sidebar-body .nav .nav-item .nav-link .link-icon {
     width: 16px;
     height: 16px;
-    fill: rgba(233, 236, 239, .21);
+    fill: none;
     position: absolute;
     color: inherit
 }
@@ -23400,7 +23400,7 @@ svg.icon-xxl {
 }
 
 .sidebar .sidebar-body .nav .nav-item.nav-category {
-    color: #7987a1;
+    color: #d0d6e1;
     font-size: 11px;
     text-transform: uppercase;
     font-weight: 500;
@@ -23423,7 +23423,7 @@ svg.icon-xxl {
 
 .sidebar .sidebar-body .nav .nav-item:hover .nav-link .link-icon {
     color: #05a34a;
-    fill: rgba(239, 243, 255, .5)
+    fill: rgba(101, 113, 255, .2)
 }
 
 .sidebar .sidebar-body .nav .nav-item.active .nav-link {
@@ -23441,7 +23441,8 @@ svg.icon-xxl {
 
 .sidebar .sidebar-body .nav .nav-item.active .nav-link .link-icon {
     fill: rgba(239, 243, 255, .5);
-    color: #05a34a
+    color: #05a34a;
+    fill: rgba(101, 113, 255, .2)
 }
 
 .sidebar .sidebar-body .nav.sub-menu {
@@ -23454,7 +23455,7 @@ svg.icon-xxl {
 
 .sidebar .sidebar-body .nav.sub-menu .nav-item .nav-link {
     height: 25px;
-    color: #000;
+    color: #7987a1;
     font-size: 13px;
     transition: all .3s ease-in-out
 }
@@ -23465,7 +23466,7 @@ svg.icon-xxl {
     height: 6px;
     border-radius: 50%;
     background: transparent;
-    border: 1px solid #aeb9c4;
+    border: 1px solid rgba(101, 113, 255, .6);
     position: absolute;
     left: -29px;
     top: 10px;

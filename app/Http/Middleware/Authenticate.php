@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
+use Illuminate\Support\Facades\Auth;
 
 class Authenticate extends Middleware
 {
@@ -17,5 +18,19 @@ class Authenticate extends Middleware
         if (!$request->expectsJson()) {
             return route('login');
         }
+    }
+    protected function authenticate($request, array $guards)
+    {
+        if (empty($guards)) {
+            $guards = [null];
+        }
+
+        foreach ($guards as $guard) {
+            if (Auth::guard($guard)->check()) {
+                return $this->auth->shouldUse($guard);
+            }
+        }
+
+        $this->unauthenticated($request, $guards);
     }
 }

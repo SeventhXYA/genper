@@ -8,14 +8,10 @@
                 <div class="card">
                     <div class="row">
                         <div class="col-md-4 pe-md-0">
-                            <div class="auth-side-wrapper"
-                                style="background-image: url({{ url('https://via.placeholder.com/219x452') }})">
-
-                            </div>
                         </div>
                         <div class="col-md-8 ps-md-0">
                             <div class="auth-form-wrapper px-4 py-5">
-                                <a href="#" class="noble-ui-logo d-block mb-2">Noble<span>UI</span></a>
+                                <a href="#" class="noble-ui-logo d-block mb-2">Gen<span>Permata</span></a>
                                 <h5 class="text-muted fw-normal mb-4">Welcome back! Log in to your account.</h5>
                                 <form action="{{ route('login') }}" method="post" class="forms-sample">
                                     @csrf
@@ -32,7 +28,7 @@
                                     <div class="form-check mb-3">
                                         <input type="checkbox" class="form-check-input" id="authCheck">
                                         <label class="form-check-label" for="authCheck">
-                                            Remember me
+                                            Tampilkan Password
                                         </label>
                                     </div>
                                     <div>

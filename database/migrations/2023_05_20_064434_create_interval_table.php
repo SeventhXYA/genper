@@ -16,15 +16,10 @@ class CreateIntervalTable extends Migration
         Schema::create('tb_interval', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('tb_user')->onUpdate('cascade')->onDelete('cascade');
-
             $table->string('interval_bp')->nullable();
-
             $table->string('interval_sd')->nullable();
-
             $table->string('interval_ic')->nullable();
-
             $table->string('interval_kl')->nullable();
-
             $table->timestamps();
         });
     }

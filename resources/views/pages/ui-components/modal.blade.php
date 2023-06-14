@@ -16,7 +16,8 @@
 
             <h4 id="default">Basic example</h4>
             <p class="mb-3">Below is a <em>static</em> modal example (meaning its <code>position</code> and
-                <code>display</code> have been overridden).</p>
+                <code>display</code> have been overridden).
+            </p>
             <div class="example">
                 <div class="modal static" tabindex="-1">
                     <div class="modal-dialog">
@@ -188,7 +189,8 @@
                 </div>
             </div>
             <p class="my-3">You can also create a scrollable modal that allows scroll the modal body by adding
-                <code>.modal-dialog-scrollable</code> to <code>.modal-dialog</code>.</p>
+                <code>.modal-dialog-scrollable</code> to <code>.modal-dialog</code>.
+            </p>
             <div class="example">
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal"
@@ -299,7 +301,8 @@
                 <code>event.relatedTarget</code> and <a
                     href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes">HTML
                     <code>data-bs-*</code> attributes</a> (possibly <a href="https://api.jquery.com/data/">via jQuery</a>)
-                to vary the contents of the modal depending on which button was clicked.</p>
+                to vary the contents of the modal depending on which button was clicked.
+            </p>
             <div class="example">
                 <button type="button" class="btn btn-primary mb-1 mb-md-0" data-bs-toggle="modal"
                     data-bs-target="#varyingModal" data-bs-whatever="@mdo">Open modal for @mdo</button>
@@ -395,7 +398,8 @@ varyingModal.addEventListener('show.bs.modal', function (event) {
 
             <h4 id="sizing">Optional sizes</h4>
             <p class="mb-3">Modals have three optional sizes. Add <code>.modal-sm</code>, <code>.modal-lg</code> or
-                <code>.modal-xl</code> to <code>.modal-dialog</code> for additional sizes.</p>
+                <code>.modal-xl</code> to <code>.modal-dialog</code> for additional sizes.
+            </p>
             <div class="example">
                 <!-- Extra large modal -->
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal"

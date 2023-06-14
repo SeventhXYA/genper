@@ -16,7 +16,7 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $table = 'tb_user';
-    protected $fillable = ['foto', 'nm_depan', 'nm_belakang', 'jk', 'tmp_lahir', 'tgl_lahir', 'nohp', 'email', 'alamat', 'id_divisi', 'username', 'password', 'level'];
+    protected $fillable = ['foto', 'nm_depan', 'nm_belakang', 'jk', 'tmp_lahir', 'tgl_lahir', 'nohp', 'email', 'alamat', 'id_divisi', 'username', 'password', 'id_level'];
 
     public function level()
     {
@@ -35,12 +35,17 @@ class User extends Authenticatable
 
     public function divisi()
     {
-        return $this->belongsTo(Divisi::class);
+        return $this->belongsTo(Divisi::class, 'id_divisi');
     }
 
     public function evaluate()
     {
         return $this->hasMany(Evaluate::class)->latest();
+    }
+
+    public function implementasi()
+    {
+        return $this->hasMany(Implementasi::class)->latest();
     }
 
     public function dailysd()

@@ -4,7 +4,7 @@
     </a>
     <div class="navbar-content">
         <ul class="navbar-nav">
-            <li class="nav-item dropdown">
+            {{-- <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="appsDropdown" role="button"
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i data-feather="grid"></i>
@@ -119,22 +119,27 @@
                         <a href="javascript:;">View all</a>
                     </div>
                 </div>
-            </li>
+            </li> --}}
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button"
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img class="wd-30 ht-30 rounded-circle" src="{{ url('https://via.placeholder.com/30x30') }}"
-                        alt="profile">
+                    <img class="wd-30 ht-30 rounded-circle" src="{{ asset('assets/images/user.png') }}" alt="profile">
                 </a>
                 <div class="dropdown-menu p-0" aria-labelledby="profileDropdown">
                     <div class="d-flex flex-column align-items-center border-bottom px-5 py-3">
                         <div class="mb-3">
-                            <img class="wd-80 ht-80 rounded-circle"
-                                src="{{ url('https://via.placeholder.com/80x80') }}" alt="">
+                            <img class="wd-80 ht-80 rounded-circle" src="{{ asset('assets/images/user.png') }}"
+                                alt="">
                         </div>
                         <div class="text-center">
-                            <p class="tx-16 fw-bolder">Amiah Burton</p>
-                            <p class="tx-12 text-muted">amiahburton@gmail.com</p>
+                            @if (Auth::guard('divisi')->user())
+                                <p class="tx-16 fw-bolder">{{ Auth::guard('divisi')->user()->divisi->divisi }}</p>
+                                <p class="tx-12 text-muted">{{ Auth::guard('divisi')->user()->divisi->divisi }}</p>
+                            @elseif(Auth::user())
+                                <p class="tx-16 fw-bolder">
+                                    {{ auth()->user()->nm_depan }} {{ auth()->user()->nm_belakang }}</p>
+                                <p class="tx-12 text-muted">{{ auth()->user()->email }}</p>
+                            @endif
                         </div>
                     </div>
                     <ul class="list-unstyled p-1">
@@ -156,19 +161,17 @@
                                 <span>Switch User</span>
                             </a>
                         </li>
+                        <form id="myForm" action={{ route('logout') }} method="POST">
+                            @csrf
+                            <button type="submit" style="display: none;">
+                            </button>
+                        </form>
                         <li class="dropdown-item py-2">
-                            <form action={{ route('logout') }} method="POST">
-                                @csrf
-                                <button type="submit" class="btn btn-link text-body ms-0">
-                                    <i class="me-2 icon-md" data-feather="log-out"></i>
-                                    <span>Log Out</span>
-                                    {{-- <span>Log Out</span> --}}
-                                </button>
-                            </form>
-                            {{-- <a href="javascript:;" class="text-body ms-0">
+                            <a href="#" class="text-body ms-0" style="padding-right:100%"
+                                onclick="event.preventDefault(); document.getElementById('myForm').submit();">
                                 <i class="me-2 icon-md" data-feather="log-out"></i>
                                 <span>Log Out</span>
-                            </a> --}}
+                            </a>
                         </li>
                     </ul>
                 </div>

@@ -23,8 +23,7 @@ class CreateUserTable extends Migration
             $table->string('tgl_lahir');
             $table->string('nohp', 15);
             $table->string('email', 100)->unique();
-            $table->text('alamat');
-            $table->foreignId('id_divisi')->constrained('tb_divisi')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('id_divisi')->nullable()->constrained('tb_divisi')->onUpdate('cascade')->onDelete('cascade');
             $table->string('username', 50)->unique();
             $table->string('password');
             $table->foreignId('id_level')->constrained('tb_level')->onUpdate('cascade')->onDelete('cascade');

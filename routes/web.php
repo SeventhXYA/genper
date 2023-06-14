@@ -18,7 +18,10 @@ use App\Http\Controllers\DailyicController;
 use App\Http\Controllers\EvaluateController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\HomeController;
-// use App\Http\Controllers\IntervalController;
+use App\Http\Controllers\ImplementasiController;
+use App\Http\Controllers\IntervalController;
+use App\Http\Controllers\PdfController;
+use App\Http\Controllers\WeeklyController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => ['guest']], function () {
@@ -33,99 +36,79 @@ Route::group(['middleware' => ['guest']], function () {
 });
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
-
-// Route::get('/', function () {
-//     return view('dashboard');
-// });
-
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['auth:web,divisi']], function () {
     Route::get('/', [HomeController::class, 'index'])->name('/');
     Route::get('profile', [ProfileController::class, 'index'])->name('profile');
     Route::post('profile/store', [ProfileController::class, 'updatePicture'])->name('profile.store');
     Route::get('profile/edit', [ProfileController::class, 'editData'])->name('profile.edit');
     Route::post('profile/update', [ProfileController::class, 'updateData'])->name('profile.update');
 
-    Route::group(['middleware' => ['cekUserLogin:1,2']], function () {
+    Route::group(['middleware' => ['cekUserLogin:1']], function () {
+        Route::get('selfdevelopment/reportsd', [DailysdController::class, 'reportAdmin'])->name('reportsd');
+        Route::delete('dailysd/delete/{dailysd}', [DailysdController::class, 'destroy'])->name('dailysd.delete');
+
+        Route::get('bisnisprofit/reportbp', [DailybpController::class, 'reportAdmin'])->name('reportbp');
+        Route::delete('dailybp/delete/{dailybp}', [DailybpController::class, 'destroy'])->name('dailybp.delete');
+
+        Route::get('kelembagaan/reportkl', [DailyklController::class, 'reportAdmin'])->name('reportkl');
+        Route::delete('dailykl/delete/{dailykl}', [DailyklController::class, 'destroy'])->name('dailykl.delete');
+
+        Route::get('inovasicreativity/reportic', [DailyicController::class, 'reportAdmin'])->name('reportic');
+        Route::delete('dailyic/delete/{dailyic}', [DailyicController::class, 'destroy'])->name('dailyic.delete');
+
+        Route::get('evaluasi/reportev', [EvaluateController::class, 'reportAdmin'])->name('reportev');
+        Route::delete('evaluasi/delete/{evaluasi}', [EvaluateController::class, 'destroy'])->name('evaluasi.delete');
+
+        Route::get('interval/reportinterval', [IntervalController::class, 'reportAdmin'])->name('reportinterval');
+        Route::delete('interval/delete/{interval}', [IntervalController::class, 'destroy'])->name('interval.delete');
+
+        Route::get('implementasi/history', [ImplementasiController::class, 'index'])->name('implementasi.history');
+        Route::delete('interval/delete/{interval}', [IntervalController::class, 'destroy'])->name('interval.delete');
+
+        Route::get('weekly/list', [WeeklyController::class, 'indexAdmin'])->name('list');
+        Route::get('/cetak-pdf', [PdfController::class, 'generatePdf'])->name('cetak-pdf');
+
+        // Route::delete('weekly/delete/{weekly}', [WeeklyController::class, 'destroy'])->name('weekly.delete');
+    });
+
+    Route::group(['middleware' => ['cekUserLogin:2']], function () {
+        Route::get('events', [HomeController::class, 'events'])->name('events');
+
+        //menampilkan data kalender
+        Route::get('events/{id}', [HomeController::class, 'show'])->name('show');
+
+        Route::get('weekly/history', [WeeklyController::class, 'index'])->name('history');
+        Route::delete('weekly/delete/{weekly}', [WeeklyController::class, 'destroy'])->name('weekly.delete');
+        Route::post('weekly/store', [WeeklyController::class, 'store'])->name('weekly.store');
+        Route::get('weekly/edit/{id}', [WeeklyController::class, 'edit'])->name('weekly.edit');
+        Route::post('weekly/update/{id}', [WeeklyController::class, 'update'])->name('weekly.update');
     });
 
     Route::group(['middleware' => ['cekUserLogin:3']], function () {
-        // Route::group(['prefix' => 'selfdevelopment'], function () {
-        //     Route::get('newsd', function () {
-        //         return view('daily.selfdevelopment.new');
-        //     });
-        //     Route::get('historysd', function () {
-        //         return view('daily.selfdevelopment.history');
-        //     });
-        // });
+
         Route::get('historysd', [DailysdController::class, 'index'])->name('historysd');
         Route::get('newsd', [DailysdController::class, 'create'])->name('newsd');
         Route::post('newsd/store', [DailysdController::class, 'store'])->name('newsd.store');
         Route::get('historysd/edit/{id}', [DailysdController::class, 'edit'])->name('historysd.edit');
         Route::post('historysd/update/{id}', [DailysdController::class, 'update'])->name('historysd.update');
-        // Route::resource('selfdevelopment', DailysdController::class)->only(['store', 'update', 'destroy']);
 
         Route::get('historybp', [DailybpController::class, 'index'])->name('historybp');
         Route::get('newbp', [DailybpController::class, 'create'])->name('newbp');
         Route::post('newbp/store', [DailybpController::class, 'store'])->name('newbp.store');
         Route::get('historybp/edit/{id}', [DailybpController::class, 'edit'])->name('historybp.edit');
         Route::post('historybp/update/{id}', [DailybpController::class, 'update'])->name('historybp.update');
-        // Route::group(['prefix' => 'bisnisprofit'], function () {
-        //     Route::get('newbp', function () {
-        //         return view('daily.bisnisprofit.new');
-        //     });
-        //     Route::get('historybp', function () {
-        //         return view('daily.bisnisprofit.history');
-        //     });
-        // });
 
-        // Route::group(['prefix' => 'kelembagaan'], function () {
-        //     Route::get('newkl', function () {
-        //         return view('daily.kelembagaan.new');
-        //     });
-        //     Route::get('historykl', function () {
-        //         return view('daily.kelembagaan.history');
-        //     });
-        // });
         Route::get('historykl', [DailyklController::class, 'index'])->name('historykl');
         Route::get('newkl', [DailyklController::class, 'create'])->name('newkl');
         Route::post('newkl/store', [DailyklController::class, 'store'])->name('newkl.store');
         Route::get('historykl/edit/{id}', [DailyklController::class, 'edit'])->name('historykl.edit');
         Route::post('historykl/update/{id}', [DailyklController::class, 'update'])->name('historykl.update');
 
-        Route::group(['prefix' => 'inovasicreativity'], function () {
-            Route::get('newic', function () {
-                return view('daily.inovasicreativity.new');
-            });
-            Route::get('historyic', function () {
-                return view('daily.inovasicreativity.history');
-            });
-        });
-
-        // Route::group(['prefix' => 'evaluasi'], function () {
-        //     Route::get('newev', function () {
-        //         return view('daily.evaluasi.new');
-        //     });
-        //     Route::get('historyev', function () {
-        //         return view('daily.evaluasi.history');
-        //     });
-        // });
         Route::get('historyic', [DailyicController::class, 'index'])->name('historyic');
         Route::get('newic', [DailyicController::class, 'create'])->name('newic');
         Route::post('newic/store', [DailyicController::class, 'store'])->name('newic.store');
         Route::get('historyic/edit/{id}', [DailyicController::class, 'edit'])->name('historyic.edit');
         Route::post('historyic/update/{id}', [DailyicController::class, 'update'])->name('historyic.update');
-
-        // Route::group(['prefix' => 'interval'], function () {
-        //     Route::get('newinterval', function () {
-        //         return view('pages.interval.newinterval');
-        //     });
-        //     Route::get('editinterval', function () {
-        //         return view('pages.interval.editinterval');
-        //     });
-        //     Route::get('deleteinterval', function () {
-        //         return view('pages.interval.deleteinterval');
-        //     });
-        // });
 
         Route::get('historyev', [EvaluateController::class, 'index'])->name('historyev');
         Route::get('newev', [EvaluateController::class, 'create'])->name('newev');
@@ -133,12 +116,11 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('historyev/edit/{id}', [EvaluateController::class, 'edit'])->name('historyev.edit');
         Route::post('historyev/update/{id}', [EvaluateController::class, 'update'])->name('historyev.update');
 
-        Route::resource('interval', IntervalController::class)->only(['store', 'update', 'destroy']);
-        // Route::post('interval/store', [IntervalController::class, 'store'])->name('interval.store');
-        // Route::get('interval', [IntervalController::class, 'interval'])->name('interval');
-        // Route::get('interval/create', [IntervalController::class, 'create'])->name('interval.create');
-        // Route::get('interval/edit', [IntervalController::class, 'edit'])->name('interval.edit');
-        // Route::put('interval', [IntervalController::class, 'update'])->name('interval.update');
+        Route::post('interval/store', [IntervalController::class, 'store'])->name('interval.store');
+        Route::post('interval/update/{id}', [IntervalController::class, 'update'])->name('interval.update');
+        // Route::post('historyev/update/{id}', [EvaluateController::class, 'update'])->name('historyev.update');
+
+        // Route::resource('interval', IntervalController::class)->only(['store', 'update', 'destroy']);
     });
 });
 

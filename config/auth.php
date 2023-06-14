@@ -46,6 +46,11 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
+
+        'divisi' => [
+            'driver' => 'session',
+            'provider' => 'akundivisi',
+        ],
     ],
 
     /*
@@ -71,10 +76,10 @@ return [
             'model' => App\User::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'akundivisi' => [
+            'driver' => 'eloquent',
+            'model' => App\Akundivisi::class,
+        ],
     ],
 
     /*

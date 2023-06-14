@@ -7,6 +7,7 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 
 class DailyicController extends Controller
@@ -15,7 +16,7 @@ class DailyicController extends Controller
     {
         $dailyic = Dailyic::where('user_id', Auth::user()->id)->orderBy('id', 'DESC')->get();
         $dailyicMobile = Dailyic::where('user_id', Auth::user()->id)->orderBy('id', 'DESC')->simplePaginate(6);
-        return view('daily.inovasicreativity.history', [
+        return view('loggenper.inovasicreativity.history', [
             "title" => "Self-Development",
         ], compact('dailyic', 'dailyicMobile'));
     }
@@ -23,7 +24,7 @@ class DailyicController extends Controller
     public function create()
     {
         $user = User::all();
-        return view('daily.inovasicreativity.new', [
+        return view('loggenper.inovasicreativity.new', [
             "title" => "Daily Report Bisnis & Profit"
         ], compact('user'));
     }
@@ -41,16 +42,17 @@ class DailyicController extends Controller
         ]);
 
         // $image_data = $request->file('foto');
-        // $filename = 'uploads/dailyic/' . Auth::user()->username . time() . '.jpg';
+        $filename = 'uploads/dailyic/' . Auth::user()->username . time() . '.jpg';
 
+        $image = Image::make($request->file('foto')->getRealPath());
         // $image = Image::make($image_data);
 
-        // $image->fit(800, 600);
-        // $image->encode('jpg', 90);
-        // $image->stream();
-        // Storage::disk('local')->put('public/' . $filename, $image, 'public');
+        $image->fit(800, 600);
+        $image->encode('jpg', 90);
+        $image->stream();
+        Storage::disk('local')->put('public/' . $filename, $image, 'public');
 
-        // $validated_data['pict'] = 'storage/' . $filename;
+        $validated_data['foto'] = 'storage/' . $filename;
         $dailyic = new Dailyic($validated_data);
         $dailyic->user()->associate(Auth::user());
         $dailyic->save();
@@ -62,7 +64,7 @@ class DailyicController extends Controller
     {
         $dailyic = Dailyic::find($id);
 
-        return view('daily.inovasicreativity.edit', [
+        return view('loggenper.inovasicreativity.edit', [
             "title" => "Edit Daily Bisnis & Profit"
         ], compact('dailyic'));
     }
@@ -80,22 +82,37 @@ class DailyicController extends Controller
             'foto' => 'image',
         ]);
 
-        // if (array_key_exists('pict', $validated_data)) {
-        //     $image_data = $request->file('pict');
-        //     $filename = 'uploads/dailyic/' . Auth::user()->username . time() . '.jpg';
+        if (array_key_exists('foto', $validated_data)) {
+            $image_data = $request->file('foto');
+            $filename = 'uploads/dailyic/' . Auth::user()->username . time() . '.jpg';
 
-        //     $image = Image::make($image_data);
+            $image = Image::make($image_data);
 
-        //     $image->fit(800, 600);
-        //     $image->encode('jpg', 90);
-        //     $image->stream();
-        //     Storage::disk('local')->put('public/' . $filename, $image, 'public');
-        //     Storage::disk('local')->delete($dailyic->pict);
+            $image->fit(800, 600);
+            $image->encode('jpg', 90);
+            $image->stream();
+            Storage::disk('local')->put('public/' . $filename, $image, 'public');
+            Storage::disk('local')->delete($dailyic->foto);
 
-        //     $validated_data['pict'] = 'storage/' . $filename;
-        // }
+            $validated_data['foto'] = 'storage/' . $filename;
+        }
 
         $dailyic->update($validated_data);
         return  redirect('historyic')->with('success', 'Data berhasil diubah!');
+    }
+
+    public function reportAdmin()
+    {
+        $dailyic = Dailyic::orderBy('id', 'DESC')->get();
+        $dailyicMobile = Dailyic::orderBy('id', 'DESC')->simplePaginate(6);
+        return view('logadmin.daily.inovasicreativity', [
+            "title" => "Inovasi & Creativity",
+        ], compact('dailyic', 'dailyicMobile'));
+    }
+
+    public function destroy(Dailyic $dailyic)
+    {
+        $dailyic->delete();
+        return redirect()->back()->with('success', 'Data berhasil dihapus!');
     }
 }

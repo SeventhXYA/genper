@@ -8,6 +8,7 @@ use App\Dailysd;
 use App\Dailybp;
 use App\Dailykl;
 use App\Dailyic;
+use App\Divisi;
 use App\Evaluate;
 use App\IntervalBp;
 use App\IntervalIc;
@@ -17,6 +18,7 @@ use App\IntervalSd;
 use App\Longtermtarget;
 use App\Interval;
 use App\User;
+use App\Weekly;
 use App\Weeklybp;
 use App\Weeklyic;
 use App\Weeklykl;
@@ -28,71 +30,68 @@ class HomeController extends Controller
 {
     public function index()
     {
-        // $dailysd = Dailysd::whereBetween('created_at', [
-        //     Carbon::now()->format('Y-m-d 00:00:00'), Carbon::now()->format('Y-m-d 23:59:59')
-        // ])->count();
-        // $dailybp = Dailybp::whereBetween('created_at', [
-        //     Carbon::now()->format('Y-m-d 00:00:00'), Carbon::now()->format('Y-m-d 23:59:59')
-        // ])->count();
-        // $dailykl = Dailykl::whereBetween('created_at', [
-        //     Carbon::now()->format('Y-m-d 00:00:00'), Carbon::now()->format('Y-m-d 23:59:59')
-        // ])->count();
-        // $dailyic = Dailyic::whereBetween('created_at', [
-        //     Carbon::now()->format('Y-m-d 00:00:00'), Carbon::now()->format('Y-m-d 23:59:59')
-        // ])->count();
-        // $evaluate = Evaluate::whereBetween('created_at', [
-        //     Carbon::now()->format('Y-m-d 00:00:00'), Carbon::now()->format('Y-m-d 23:59:59')
-        // ])->count();
+        if (Auth::guard('divisi')->user()) {
+            $akundivisi = Auth::guard('divisi')->user();
+            $userDivisi = User::where('id_divisi', Auth::guard('divisi')->user()->divisi->id)->count();
+            $weeklyPlan = Weekly::where('id_akundivisi', Auth::guard('divisi')->user()->id)->whereBetween('start_date', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->whereBetween('end_date', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->get();
+            $weeklyPlanCount = Weekly::where('id_akundivisi', Auth::guard('divisi')->user()->id)->whereBetween('start_date', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->whereBetween('end_date', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->count();
+        }
 
-        // $dailysduser = Dailysd::where('user_id', Auth::user()->id)->whereBetween('created_at', [
-        //     Carbon::now()->format('Y-m-d 00:00:00'), Carbon::now()->format('Y-m-d 23:59:59')
-        // ])->count();
-        // $dailybpuser = Dailybp::where('user_id', Auth::user()->id)->whereBetween('created_at', [
-        //     Carbon::now()->format('Y-m-d 00:00:00'), Carbon::now()->format('Y-m-d 23:59:59')
-        // ])->count();
-        // $dailykluser = Dailykl::where('user_id', Auth::user()->id)->whereBetween('created_at', [
-        //     Carbon::now()->format('Y-m-d 00:00:00'), Carbon::now()->format('Y-m-d 23:59:59')
-        // ])->count();
-        // $dailyicuser = Dailyic::where('user_id', Auth::user()->id)->whereBetween('created_at', [
-        //     Carbon::now()->format('Y-m-d 00:00:00'), Carbon::now()->format('Y-m-d 23:59:59')
-        // ])->count();
-        // $evaluateuser = Evaluate::where('user_id', Auth::user()->id)->whereBetween('created_at', [
-        //     Carbon::now()->format('Y-m-d 00:00:00'), Carbon::now()->format('Y-m-d 23:59:59')
-        // ])->count();
+        $dailysd = Dailysd::whereBetween('created_at', [
+            Carbon::now()->format('Y-m-d 00:00:00'), Carbon::now()->format('Y-m-d 23:59:59')
+        ])->count();
+        $dailybp = Dailybp::whereBetween('created_at', [
+            Carbon::now()->format('Y-m-d 00:00:00'), Carbon::now()->format('Y-m-d 23:59:59')
+        ])->count();
+        $dailykl = Dailykl::whereBetween('created_at', [
+            Carbon::now()->format('Y-m-d 00:00:00'), Carbon::now()->format('Y-m-d 23:59:59')
+        ])->count();
+        $dailyic = Dailyic::whereBetween('created_at', [
+            Carbon::now()->format('Y-m-d 00:00:00'), Carbon::now()->format('Y-m-d 23:59:59')
+        ])->count();
+        $evaluate = Evaluate::whereBetween('created_at', [
+            Carbon::now()->format('Y-m-d 00:00:00'), Carbon::now()->format('Y-m-d 23:59:59')
+        ])->count();
+
+        $divisi = Divisi::count();
 
         $user = Auth::user();
-        // $pomodoro = User::where('level_id', 3)->get();
-        // $users = User::where('level_id', 3)->get();
 
-        // Carbon::setWeekStartsAt(Carbon::SUNDAY);
-        // Carbon::setWeekEndsAt(Carbon::SATURDAY);
-        // $weeklysd = Weeklysd::where('user_id', Auth::user()->id)->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
-        // $weeklybp = Weeklybp::where('user_id', Auth::user()->id)->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
-        // $weeklykl = Weeklykl::where('user_id', Auth::user()->id)->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
-        // $weeklyic = Weeklyic::where('user_id', Auth::user()->id)->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
+        $users = User::where('id_level', 3)->count();
 
-        // return view('index', [
-        //     "title" => "Beranda"
-        // ], compact('users', 'user', 'ltt_pending', 'ltt_approve', 'ltt_decline', 'dailysd', 'dailybp', 'dailykl', 'dailyic', 'dailysduser', 'dailybpuser', 'dailykluser', 'dailyicuser',  'ltt_pendinguser', 'ltt_approveuser', 'ltt_declineuser', 'pomodoro', 'evaluate', 'evaluateuser'));
+        $pengguna = User::where('id_level', 3)->get();
+        $dailysdReport = Dailysd::whereBetween('created_at', [
+            Carbon::now()->format('Y-m-d 00:00:00'), Carbon::now()->format('Y-m-d 23:59:59')
+        ])->get();
+        $dailybpReport = Dailybp::whereBetween('created_at', [
+            Carbon::now()->format('Y-m-d 00:00:00'), Carbon::now()->format('Y-m-d 23:59:59')
+        ])->get();
+        $dailyklReport = Dailykl::whereBetween('created_at', [
+            Carbon::now()->format('Y-m-d 00:00:00'), Carbon::now()->format('Y-m-d 23:59:59')
+        ])->get();
+        $dailyicReport = Dailyic::whereBetween('created_at', [
+            Carbon::now()->format('Y-m-d 00:00:00'), Carbon::now()->format('Y-m-d 23:59:59')
+        ])->get();
+        $evaluateReport = Evaluate::whereBetween('created_at', [
+            Carbon::now()->format('Y-m-d 00:00:00'), Carbon::now()->format('Y-m-d 23:59:59')
+        ])->get();
+        $kalenderweekly = Weekly::all();
+
+
         return view('dashboard', [
             "title" => "Beranda"
-        ], compact('user'));
+        ], compact('user', 'users', 'dailysd', 'dailybp', 'dailykl', 'dailyic', 'evaluate', 'divisi', 'dailysdReport', 'dailybpReport', 'dailyklReport', 'dailyicReport', 'evaluateReport', 'pengguna', 'kalenderweekly', (Auth::guard('divisi')->user() ? ['akundivisi', 'userDivisi', 'weeklyPlan', 'weeklyPlanCount'] : [])));
     }
-    public function create()
-    {
-        $users = User::where('id', Auth::user()->id)->get();
-        $interval = Interval::where('id', Auth::user()->id)->get();
 
-        return view('pomodoro.pomodororeport', [
-            "title" => "Interval Pomodoro",
-        ], compact('users', 'interval'));
+    public function events()
+    {
+        $akundivisi = Auth::guard('divisi')->user();
+        $kalenderweekly = Weekly::where('id_akundivisi', $akundivisi->id)->select('id', 'rencana as title', 'start_date as start', 'end_date as end')->get()->toArray();
+        return response()->json($kalenderweekly);
     }
-    public function interval()
+    public function show($id)
     {
-        $user = Auth::user();
-
-        return view('pomodoro.pomodoro', [
-            "title" => "Interval Pomodoro",
-        ], compact('user'));
+        $kalenderweekly = Weekly::findOrFail($id);
+        return response()->json($kalenderweekly);
     }
 }

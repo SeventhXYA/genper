@@ -18,6 +18,7 @@ class LoginController extends Controller
     {
         return view('login.index');
     }
+
     public function authenticate(Request $request)
     {
         $credentials = $request->validate(
@@ -27,10 +28,12 @@ class LoginController extends Controller
             ]
         );
 
-        // dd('berhasil login');
+        if (Auth::guard('web')->attempt($credentials)) {
+            return redirect()->intended('/');
+        }
 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
+        $divisiGuard = Auth::guard('divisi');
+        if ($divisiGuard->attempt($credentials)) {
             return redirect()->intended('/');
         }
 

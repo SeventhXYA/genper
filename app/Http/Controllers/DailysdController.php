@@ -17,10 +17,7 @@ class DailysdController extends Controller
     {
         $dailysd = Dailysd::where('user_id', Auth::user()->id)->orderBy('id', 'DESC')->get();
         $dailysdMobile = Dailysd::where('user_id', Auth::user()->id)->orderBy('id', 'DESC')->simplePaginate(6);
-        // $dailysd = Dailysd::where('user_id', Auth::user()->id)->orderBy('id', 'DESC')->whereBetween('created_at', [
-        //     Carbon::now()->format('Y-m-d 00:00:00'), Carbon::now()->format('Y-m-d 23:59:59')
-        // ])->get();
-        return view('daily.selfdevelopment.history', [
+        return view('loggenper.selfdevelopment.history', [
             "title" => "Self-Development",
             "sesi" => "SELF-DEVELOPMENT"
         ], compact('dailysd', 'dailysdMobile'));
@@ -29,7 +26,7 @@ class DailysdController extends Controller
     public function create()
     {
         $user = User::all();
-        return view('daily.selfdevelopment.new', [
+        return view('loggenper.selfdevelopment.new', [
             "title" => "Daily Report Self-Development"
         ], compact('user'));
     }
@@ -46,10 +43,9 @@ class DailysdController extends Controller
             'foto' => 'image',
         ]);
 
-        $image_data = $request->file('foto');
         $filename = 'uploads/dailysd/' . Auth::user()->username . time() . '.jpg';
 
-        $image = Image::make($image_data);
+        $image = Image::make($request->file('foto')->getRealPath());
 
         $image->fit(800, 600);
         $image->encode('jpg', 90);
@@ -68,7 +64,7 @@ class DailysdController extends Controller
     {
         $dailysd = Dailysd::find($id);
 
-        return view('daily.selfdevelopment.edit', [
+        return view('loggenper.selfdevelopment.edit', [
             "title" => "Edit Daily Self-Development"
         ], compact('dailysd'));
     }
@@ -86,22 +82,38 @@ class DailysdController extends Controller
             'foto' => 'image',
         ]);
 
-        // if (array_key_exists('pict', $validated_data)) {
-        //     $image_data = $request->file('pict');
-        //     $filename = 'uploads/dailysd/' . Auth::user()->username . time() . '.jpg';
+        if (array_key_exists('foto', $validated_data)) {
+            $image_data = $request->file('foto');
+            $filename = 'uploads/dailysd/' . Auth::user()->username . time() . '.jpg';
 
-        //     $image = Image::make($image_data);
+            $image = Image::make($image_data);
 
-        //     $image->fit(800, 600);
-        //     $image->encode('jpg', 90);
-        //     $image->stream();
-        //     Storage::disk('local')->put('public/' . $filename, $image, 'public');
-        //     Storage::disk('local')->delete($dailysd->pict);
+            $image->fit(800, 600);
+            $image->encode('jpg', 90);
+            $image->stream();
+            Storage::disk('local')->put('public/' . $filename, $image, 'public');
+            Storage::disk('local')->delete($dailysd->foto);
 
-        //     $validated_data['pict'] = 'storage/' . $filename;
-        // }
+            $validated_data['foto'] = 'storage/' . $filename;
+        }
 
         $dailysd->update($validated_data);
         return  redirect('historysd')->with('success', 'Data berhasil diubah!');
+    }
+
+    public function reportAdmin()
+    {
+        $dailysd = Dailysd::orderBy('id', 'DESC')->get();
+        $dailysdMobile = Dailysd::orderBy('id', 'DESC')->simplePaginate(6);
+        return view('logadmin.daily.selfdevelopment', [
+            "title" => "Self-Development",
+            "sesi" => "SELF-DEVELOPMENT"
+        ], compact('dailysd', 'dailysdMobile'));
+    }
+
+    public function destroy(Dailysd $dailysd)
+    {
+        $dailysd->delete();
+        return redirect()->back()->with('success', 'Data berhasil dihapus!');
     }
 }

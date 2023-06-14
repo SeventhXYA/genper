@@ -18,7 +18,7 @@ class EvaluateController extends Controller
         // $evaluate = evaluate::where('user_id', Auth::user()->id)->orderBy('id', 'DESC')->whereBetween('created_at', [
         //     Carbon::now()->format('Y-m-d 00:00:00'), Carbon::now()->format('Y-m-d 23:59:59')
         // ])->get();
-        return view('daily.evaluasi.history', [
+        return view('loggenper.evaluasi.history', [
             "title" => "Evaluasi Harian",
             "sesi" => "Evaluasi Harian"
         ], compact('evaluate', 'evaluateMobile'));
@@ -27,7 +27,7 @@ class EvaluateController extends Controller
     public function create()
     {
         $user = User::all();
-        return view('daily.evaluasi.new', [
+        return view('loggenper.evaluasi.new', [
             "title" => "Daily Report Evaluasi Harian"
         ], compact('user'));
     }
@@ -38,18 +38,6 @@ class EvaluateController extends Controller
             'tgl_ev' => 'required',
             'dailyevaluate' => 'required'
         ]);
-
-        // $image_data = $request->file('foto');
-        // $filename = 'uploads/evaluate/' . Auth::user()->username . time() . '.jpg';
-
-        // $image = Image::make($image_data);
-
-        // $image->fit(800, 600);
-        // $image->encode('jpg', 90);
-        // $image->stream();
-        // Storage::disk('local')->put('public/' . $filename, $image, 'public');
-
-        // $validated_data['pict'] = 'storage/' . $filename;
         $evaluate = new Evaluate($validated_data);
         $evaluate->user()->associate(Auth::user());
         $evaluate->save();
@@ -61,7 +49,7 @@ class EvaluateController extends Controller
     {
         $evaluate = Evaluate::find($id);
 
-        return view('daily.evaluasi.edit', [
+        return view('loggenper.evaluasi.edit', [
             "title" => "Edit Daily Evaluasi Harian"
         ], compact('evaluate'));
     }
@@ -73,23 +61,21 @@ class EvaluateController extends Controller
             'tgl_ev' => 'required',
             'dailyevaluate' => 'required'
         ]);
-
-        // if (array_key_exists('pict', $validated_data)) {
-        //     $image_data = $request->file('pict');
-        //     $filename = 'uploads/evaluate/' . Auth::user()->username . time() . '.jpg';
-
-        //     $image = Image::make($image_data);
-
-        //     $image->fit(800, 600);
-        //     $image->encode('jpg', 90);
-        //     $image->stream();
-        //     Storage::disk('local')->put('public/' . $filename, $image, 'public');
-        //     Storage::disk('local')->delete($evaluate->pict);
-
-        //     $validated_data['pict'] = 'storage/' . $filename;
-        // }
-
         $evaluate->update($validated_data);
         return  redirect('historyev')->with('success', 'Data berhasil diubah!');
+    }
+
+    public function reportAdmin()
+    {
+        $dailyev = Evaluate::orderBy('id', 'DESC')->get();
+        $dailyevMobile = Evaluate::orderBy('id', 'DESC')->simplePaginate(6);
+        return view('logadmin.daily.evaluasi', [
+            "title" => "Evaluasi Harian",
+        ], compact('dailyev', 'dailyevMobile'));
+    }
+    public function destroy(Evaluate $evaluasi)
+    {
+        $evaluasi->delete();
+        return redirect()->back()->with('success', 'Data berhasil dihapus!');
     }
 }

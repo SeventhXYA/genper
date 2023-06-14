@@ -25,9 +25,10 @@ $(function () {
             data: {
                 labels: [
                     "Self-Development",
-                    "Bisnis&Profit",
+                    "Bisnis & Profit",
                     "Kelembagaan",
-                    "Inovasi&Creativity",
+                    "Inovasi & Creativity",
+                    "Evaluasi Harian",
                 ],
                 datasets: [
                     {
@@ -36,15 +37,81 @@ $(function () {
                             colors.danger,
                             colors.success,
                             colors.warning,
+                            colors.info,
                             colors.primary,
                         ],
-                        data: [2478, 5267, 734, 2084],
+                        data: [1293, 5267, 734, 2084, 129],
                     },
                 ],
             },
             options: {
                 plugins: {
-                    legend: { display: false },
+                    legend: {
+                        display: false,
+                    },
+                },
+                scales: {
+                    x: {
+                        display: true,
+                        grid: {
+                            display: true,
+                            color: colors.gridBorder,
+                            borderColor: colors.gridBorder,
+                        },
+                        ticks: {
+                            color: colors.bodyColor,
+                            font: {
+                                size: 12,
+                            },
+                        },
+                    },
+                    y: {
+                        grid: {
+                            display: true,
+                            color: colors.gridBorder,
+                            borderColor: colors.gridBorder,
+                        },
+                        ticks: {
+                            color: colors.bodyColor,
+                            font: {
+                                size: 12,
+                            },
+                        },
+                    },
+                },
+            },
+        });
+    }
+    if ($("#chartjsBar2").length) {
+        new Chart($("#chartjsBar2"), {
+            type: "bar",
+            data: {
+                labels: [
+                    "Self-Development",
+                    "Bisnis & Profit",
+                    "Kelembagaan",
+                    "Inovasi & Creativity",
+                    "Evaluasi Harian",
+                ],
+                datasets: [
+                    {
+                        label: "Population",
+                        backgroundColor: [
+                            colors.danger,
+                            colors.success,
+                            colors.warning,
+                            colors.info,
+                            colors.primary,
+                        ],
+                        data: [2478, 5267, 734, 2084, 129],
+                    },
+                ],
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
                 },
                 scales: {
                     x: {
