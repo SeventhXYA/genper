@@ -56,7 +56,7 @@ class DailyklController extends Controller
         $dailykl->user()->associate(Auth::user());
         $dailykl->save();
 
-        return redirect('historykl')->with('success', 'Data berhasil disimpan!');
+        return redirect('kelembagaan/historykl')->with('success', 'Data berhasil disimpan!');
     }
 
     public function edit($id)
@@ -97,7 +97,7 @@ class DailyklController extends Controller
         }
 
         $dailykl->update($validated_data);
-        return  redirect('historykl')->with('success', 'Data berhasil diubah!');
+        return  redirect('kelembagaan/historykl')->with('success', 'Data berhasil diubah!');
     }
 
     public function reportAdmin()

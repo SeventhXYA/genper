@@ -59,7 +59,7 @@ class DailybpController extends Controller
         $dailybp->user()->associate(Auth::user());
         $dailybp->save();
 
-        return redirect('historybp')->with('success', 'Data berhasil disimpan!');
+        return redirect('bisnisprofit/historybp')->with('success', 'Data berhasil disimpan!');
     }
 
     public function edit($id)
@@ -100,7 +100,7 @@ class DailybpController extends Controller
         }
 
         $dailybp->update($validated_data);
-        return  redirect('historybp')->with('success', 'Data berhasil diubah!');
+        return  redirect('bisnisprofit/historybp')->with('success', 'Data berhasil diubah!');
     }
 
     public function reportAdmin()

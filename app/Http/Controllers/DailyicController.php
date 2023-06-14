@@ -57,7 +57,7 @@ class DailyicController extends Controller
         $dailyic->user()->associate(Auth::user());
         $dailyic->save();
 
-        return redirect('historyic')->with('success', 'Data berhasil disimpan!');
+        return redirect('inovasicreativity/historyic')->with('success', 'Data berhasil disimpan!');
     }
 
     public function edit($id)
@@ -98,7 +98,7 @@ class DailyicController extends Controller
         }
 
         $dailyic->update($validated_data);
-        return  redirect('historyic')->with('success', 'Data berhasil diubah!');
+        return  redirect('inovasicreativity/historyic')->with('success', 'Data berhasil diubah!');
     }
 
     public function reportAdmin()

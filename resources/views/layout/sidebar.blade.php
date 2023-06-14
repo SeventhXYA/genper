@@ -516,13 +516,13 @@
                     <div class="collapse {{ show_class(['selfdevelopment/*']) }}" id="selfdevelopment">
                         <ul class="nav sub-menu">
                             <li class="nav-item">
-                                <a href="{{ url('/newsd') }}"
-                                    class="nav-link {{ active_class(['newsd']) }}">Laporan
+                                <a href="{{ url('/selfdevelopment/newsd') }}"
+                                    class="nav-link {{ active_class(['selfdevelopment/newsd']) }}">Laporan
                                     Baru</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ url('/historysd') }}"
-                                    class="nav-link {{ active_class(['historysd']) }}">Riwayat</a>
+                                <a href="{{ url('/selfdevelopment/historysd') }}"
+                                    class="nav-link {{ active_class(['selfdevelopment/historysd']) }}">Riwayat</a>
                             </li>
                         </ul>
                     </div>
@@ -537,13 +537,13 @@
                     <div class="collapse {{ show_class(['bisnisprofit/*']) }}" id="bisnisprofit">
                         <ul class="nav sub-menu">
                             <li class="nav-item">
-                                <a href="{{ url('/newbp') }}"
-                                    class="nav-link {{ active_class(['newbp']) }}">Laporan
+                                <a href="{{ url('/bisnisprofit/newbp') }}"
+                                    class="nav-link {{ active_class(['bisnisprofit/newbp']) }}">Laporan
                                     Baru</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ url('/historybp') }}"
-                                    class="nav-link {{ active_class(['historybp']) }}">Riwayat</a>
+                                <a href="{{ url('/bisnisprofit/historybp') }}"
+                                    class="nav-link {{ active_class(['bisnisprofit/historybp']) }}">Riwayat</a>
                             </li>
                         </ul>
                     </div>
@@ -558,13 +558,13 @@
                     <div class="collapse {{ show_class(['kelembagaan/*']) }}" id="kelembagaan">
                         <ul class="nav sub-menu">
                             <li class="nav-item">
-                                <a href="{{ url('/newkl') }}"
-                                    class="nav-link {{ active_class(['newkl']) }}">Laporan
+                                <a href="{{ url('/kelembagaan/newkl') }}"
+                                    class="nav-link {{ active_class(['kelembagaan/newkl']) }}">Laporan
                                     Baru</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ url('/historykl') }}"
-                                    class="nav-link {{ active_class(['historykl']) }}">Riwayat</a>
+                                <a href="{{ url('/kelembagaan/historykl') }}"
+                                    class="nav-link {{ active_class(['kelembagaan/historykl']) }}">Riwayat</a>
                             </li>
                         </ul>
                     </div>
@@ -580,13 +580,13 @@
                     <div class="collapse {{ show_class(['inovasicreativity/*']) }}" id="inovasicreativity">
                         <ul class="nav sub-menu">
                             <li class="nav-item">
-                                <a href="{{ url('/newic') }}"
-                                    class="nav-link {{ active_class(['newic']) }}">Laporan
+                                <a href="{{ url('/inovasicreativity/newic') }}"
+                                    class="nav-link {{ active_class(['inovasicreativity/newic']) }}">Laporan
                                     Baru</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ url('/historyic') }}"
-                                    class="nav-link {{ active_class(['historyic']) }}">Riwayat</a>
+                                <a href="{{ url('/inovasicreativity/historyic') }}"
+                                    class="nav-link {{ active_class(['inovasicreativity/historyic']) }}">Riwayat</a>
                             </li>
                         </ul>
                     </div>
@@ -601,13 +601,13 @@
                     <div class="collapse {{ show_class(['evaluasi/*']) }}" id="evaluasi">
                         <ul class="nav sub-menu">
                             <li class="nav-item">
-                                <a href="{{ url('/newev') }}"
-                                    class="nav-link {{ active_class(['newev']) }}">Laporan
+                                <a href="{{ url('/evaluasi/newev') }}"
+                                    class="nav-link {{ active_class(['evaluasi/newev']) }}">Laporan
                                     Baru</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ url('/historyev') }}"
-                                    class="nav-link {{ active_class(['historyev']) }}">Riwayat</a>
+                                <a href="{{ url('/evaluasi/historyev') }}"
+                                    class="nav-link {{ active_class(['evaluasi/historyev']) }}">Riwayat</a>
                             </li>
                         </ul>
                     </div>

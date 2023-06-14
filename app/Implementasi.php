@@ -11,9 +11,10 @@ class Implementasi extends Model
     protected $table = 'tb_implementasi';
     protected $fillable = [
         'program',
-        'tgl_pelaksanaan',
+        'start_date',
+        'end_date',
         'pelaksana',
-        'jmlh',
+        'jumlah',
         'penerima_manfaat',
         'rab',
         'realisasi',

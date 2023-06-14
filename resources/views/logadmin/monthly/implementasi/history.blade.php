@@ -17,45 +17,65 @@
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
+                    <div class="d-flex justify-content-end">
+                        <a href="{{ url('/implementasi/new') }}" type="button" class="btn btn-primary btn-icon-text mb-3">
+                            <h6><i data-feather="plus" class="icon-sm"></i>
+                                Tambah</h6>
+                        </a>
+                    </div>
                     <div class="table-responsive">
                         <table id="dataTableExample" class="table">
                             <thead>
                                 <tr>
-                                    <th style="width:5rem;"> Tgl Laporan </th>
+                                    <th style="width:1rem;"> # </th>
+                                    <th style="width:1rem;"> Tgl Laporan </th>
                                     <th>Program</th>
                                     <th>Pelaksana</th>
-                                    <th>Penerima Manfaat</th>
-                                    <th>Keterangan</th>
+                                    <th style="width:1rem;">RAB</th>
+                                    <th style="width:1rem;">Keterangan</th>
                                     <th style="width:1rem;"> Aksi </th>
                                 </tr>
                             </thead>
-                            @foreach ($implementasi as $imp)
-                                <tbody>
+                            <tbody>
+                                @foreach ($implementasi as $imp)
                                     <tr>
+                                        <td>{{ $loop->iteration }}</td>
                                         <td>{{ $imp->created_at->format('Y-m-d') }}</td>
                                         <td>{{ $imp->program }}</td>
                                         <td>{{ $imp->pelaksana }}</td>
-                                        <td>{{ $imp->penerima_manfaat }}</td>
-                                        <td>{{ $imp->keterangan }}</td>
+                                        <td class="text-center">{{ $imp->rab }}</td>
+                                        <td class="text-center">
+                                            @if ($imp->keterangan == 0)
+                                                <span class="badge bg-warning text-white">Progress</span>
+                                            @elseif($imp->keterangan == 1)
+                                                <span class="badge bg-success text-white">Completed</span>
+                                            @elseif($imp->keterangan == 2)
+                                                <span class="badge bg-danger text-white">Dana Dialihkan</span>
+                                            @endif
+                                        </td>
 
                                         <td class="d-flex inline">
                                             <button type="button"
-                                                class="btn btn-inverse-secondary btn-xs btn-icon"data-bs-toggle="modal"
+                                                class="btn btn-outline-secondary btn-xs btn-icon"data-bs-toggle="modal"
                                                 data-bs-target="#viewModal-{{ $imp->id }}"><i data-feather="eye"
                                                     class="icon-sm"></i></button>
+                                            <a href="/implementasi/edit/{{ $imp->id }}"
+                                                class="btn btn-outline-warning btn-xs btn-icon ms-2"><i data-feather="edit"
+                                                    class="icon-sm"></i></a>
                                             <form name="delete" action="{{ route('implementasi.delete', $imp) }}"
                                                 method="POST">
                                                 @method('delete')
                                                 @csrf
-                                                <button type="submit" class="btn btn-inverse-danger btn-xs btn-icon ms-2"
+                                                <button type="submit" class="btn btn-outline-danger btn-xs btn-icon ms-2"
                                                     data-id="{{ $imp->id }}"><i data-feather="trash"
                                                         class="icon-sm"></i></button>
                                             </form>
                                         </td>
                                     </tr>
-                                </tbody>
-                                <!-- Modal -->
-                                {{-- <div class="modal fade" id="viewModal-{{ $imp->id }}" tabindex="-1"
+                                @endforeach
+                            </tbody>
+                            <!-- Modal -->
+                            {{-- <div class="modal fade" id="viewModal-{{ $imp->id }}" tabindex="-1"
                                     aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-scrollable">
                                         <div class="modal-content">
@@ -104,7 +124,6 @@
                                         </div>
                                     </div>
                                 </div> --}}
-                            @endforeach
                         </table>
                     </div>
                 </div>

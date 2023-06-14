@@ -28,7 +28,7 @@
                     <span class="badge bg-success card-title">
                         <h6>Buat Laporan Baru</h6>
                     </span>
-                    <form onsubmit="$('#submit').prop('disabled',true)" action="/historybp/update/{{ $dailybp->id }}"
+                    <form onsubmit="$('#submit').prop('disabled',true)" action="/bisnisprofit/update/{{ $dailybp->id }}"
                         method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row mb-3">

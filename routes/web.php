@@ -63,7 +63,11 @@ Route::group(['middleware' => ['auth:web,divisi']], function () {
         Route::delete('interval/delete/{interval}', [IntervalController::class, 'destroy'])->name('interval.delete');
 
         Route::get('implementasi/history', [ImplementasiController::class, 'index'])->name('implementasi.history');
-        Route::delete('interval/delete/{interval}', [IntervalController::class, 'destroy'])->name('interval.delete');
+        Route::get('implementasi/new', [ImplementasiController::class, 'create'])->name('implementasi.new');
+        Route::post('implementasi/store', [ImplementasiController::class, 'store'])->name('implementasi.store');
+        Route::get('implementasi/edit/{id}', [ImplementasiController::class, 'edit'])->name('implementasi.edit');
+        Route::post('implementasi/update/{id}', [ImplementasiController::class, 'update'])->name('implementasi.update');
+        Route::delete('implementasi/delete/{implementasi}', [ImplementasiController::class, 'destroy'])->name('implementasi.delete');
 
         Route::get('weekly/list', [WeeklyController::class, 'indexAdmin'])->name('list');
         Route::get('/cetak-pdf', [PdfController::class, 'generatePdf'])->name('cetak-pdf');
@@ -86,35 +90,35 @@ Route::group(['middleware' => ['auth:web,divisi']], function () {
 
     Route::group(['middleware' => ['cekUserLogin:3']], function () {
 
-        Route::get('historysd', [DailysdController::class, 'index'])->name('historysd');
-        Route::get('newsd', [DailysdController::class, 'create'])->name('newsd');
-        Route::post('newsd/store', [DailysdController::class, 'store'])->name('newsd.store');
-        Route::get('historysd/edit/{id}', [DailysdController::class, 'edit'])->name('historysd.edit');
-        Route::post('historysd/update/{id}', [DailysdController::class, 'update'])->name('historysd.update');
+        Route::get('selfdevelopment/historysd', [DailysdController::class, 'index'])->name('selfdevelopment.historysd');
+        Route::get('selfdevelopment/newsd', [DailysdController::class, 'create'])->name('selfdevelopment.newsd');
+        Route::post('selfdevelopment/store', [DailysdController::class, 'store'])->name('selfdevelopment.store');
+        Route::get('selfdevelopment/edit/{id}', [DailysdController::class, 'edit'])->name('selfdevelopment.edit');
+        Route::post('selfdevelopment/update/{id}', [DailysdController::class, 'update'])->name('selfdevelopment.update');
 
-        Route::get('historybp', [DailybpController::class, 'index'])->name('historybp');
-        Route::get('newbp', [DailybpController::class, 'create'])->name('newbp');
-        Route::post('newbp/store', [DailybpController::class, 'store'])->name('newbp.store');
-        Route::get('historybp/edit/{id}', [DailybpController::class, 'edit'])->name('historybp.edit');
-        Route::post('historybp/update/{id}', [DailybpController::class, 'update'])->name('historybp.update');
+        Route::get('bisnisprofit/historybp', [DailybpController::class, 'index'])->name('bisnisprofit.historybp');
+        Route::get('bisnisprofit/newbp', [DailybpController::class, 'create'])->name('bisnisprofit.newbp');
+        Route::post('bisnisprofit/store', [DailybpController::class, 'store'])->name('bisnisprofit.store');
+        Route::get('bisnisprofit/edit/{id}', [DailybpController::class, 'edit'])->name('bisnisprofit.edit');
+        Route::post('bisnisprofit/update/{id}', [DailybpController::class, 'update'])->name('bisnisprofit.update');
 
-        Route::get('historykl', [DailyklController::class, 'index'])->name('historykl');
-        Route::get('newkl', [DailyklController::class, 'create'])->name('newkl');
-        Route::post('newkl/store', [DailyklController::class, 'store'])->name('newkl.store');
-        Route::get('historykl/edit/{id}', [DailyklController::class, 'edit'])->name('historykl.edit');
-        Route::post('historykl/update/{id}', [DailyklController::class, 'update'])->name('historykl.update');
+        Route::get('kelembagaan/historykl', [DailyklController::class, 'index'])->name('kelembagaan.historykl');
+        Route::get('kelembagaan/newkl', [DailyklController::class, 'create'])->name('kelembagaan.newkl');
+        Route::post('kelembagaan/store', [DailyklController::class, 'store'])->name('kelembagaan.store');
+        Route::get('kelembagaan/edit/{id}', [DailyklController::class, 'edit'])->name('kelembagaan.edit');
+        Route::post('kelembagaan/update/{id}', [DailyklController::class, 'update'])->name('kelembagaan.update');
 
-        Route::get('historyic', [DailyicController::class, 'index'])->name('historyic');
-        Route::get('newic', [DailyicController::class, 'create'])->name('newic');
-        Route::post('newic/store', [DailyicController::class, 'store'])->name('newic.store');
-        Route::get('historyic/edit/{id}', [DailyicController::class, 'edit'])->name('historyic.edit');
-        Route::post('historyic/update/{id}', [DailyicController::class, 'update'])->name('historyic.update');
+        Route::get('inovasicreativity/historyic', [DailyicController::class, 'index'])->name('inovasicreativity.historyic');
+        Route::get('inovasicreativity/newic', [DailyicController::class, 'create'])->name('inovasicreativity.newic');
+        Route::post('inovasicreativity/store', [DailyicController::class, 'store'])->name('inovasicreativity.store');
+        Route::get('inovasicreativity/edit/{id}', [DailyicController::class, 'edit'])->name('inovasicreativity.edit');
+        Route::post('inovasicreativity/update/{id}', [DailyicController::class, 'update'])->name('inovasicreativity.update');
 
-        Route::get('historyev', [EvaluateController::class, 'index'])->name('historyev');
-        Route::get('newev', [EvaluateController::class, 'create'])->name('newev');
-        Route::post('newev/store', [EvaluateController::class, 'store'])->name('newev.store');
-        Route::get('historyev/edit/{id}', [EvaluateController::class, 'edit'])->name('historyev.edit');
-        Route::post('historyev/update/{id}', [EvaluateController::class, 'update'])->name('historyev.update');
+        Route::get('evaluasi/historyev', [EvaluateController::class, 'index'])->name('evaluasi.historyev');
+        Route::get('evaluasi/newev', [EvaluateController::class, 'create'])->name('evaluasi.newev');
+        Route::post('evaluasi/store', [EvaluateController::class, 'store'])->name('evaluasi.store');
+        Route::get('evaluasi/edit/{id}', [EvaluateController::class, 'edit'])->name('evaluasi.edit');
+        Route::post('evaluasi/update/{id}', [EvaluateController::class, 'update'])->name('evaluasi.update');
 
         Route::post('interval/store', [IntervalController::class, 'store'])->name('interval.store');
         Route::post('interval/update/{id}', [IntervalController::class, 'update'])->name('interval.update');

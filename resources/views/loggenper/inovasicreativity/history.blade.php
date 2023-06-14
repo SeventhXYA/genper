@@ -53,7 +53,7 @@
                                                 class="btn btn-inverse-secondary btn-xs btn-icon"data-bs-toggle="modal"
                                                 data-bs-target="#viewModal-{{ $ic->id }}"><i data-feather="eye"
                                                     class="icon-sm"></i></button>
-                                            <a href="/historyic/edit/{{ $ic->id }}"
+                                            <a href="/inovasicreativity/edit/{{ $ic->id }}"
                                                 class="btn btn-inverse-warning btn-xs btn-icon ms-2"><i data-feather="edit"
                                                     class="icon-sm"></i></a>
                                         </td>
@@ -123,7 +123,7 @@
                                             <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a href="/historyic/edit/{{ $ic->id }}"
+                                            <a href="/inovasicreativity/edit/{{ $ic->id }}"
                                                 class="dropdown-item d-flex align-items-center" href="javascript:;"><i
                                                     data-feather="edit-2" class="icon-sm me-2"></i> <span
                                                     class="">Edit</span></a>

@@ -1251,7 +1251,7 @@
                                 <div class="row justify-content-xl-center mt-2">
                                     <div class="col-4 col-xl-2">
                                         <div class="text-center">
-                                            <a href="{{ url('/newsd') }}" type="button"
+                                            <a href="{{ url('/selfdevelopment/newsd') }}" type="button"
                                                 class="btn btn-inverse-danger"><img
                                                     src="{{ asset('assets/images/book-open-page-variant.png') }}"
                                                     width="50px" height="50px" alt=""></a>
@@ -1262,7 +1262,7 @@
                                     </div>
                                     <div class="col-4 col-xl-2">
                                         <div class="text-center">
-                                            <a href="{{ url('/newbp') }}" type="button"
+                                            <a href="{{ url('/bisnisprofit/newbp') }}" type="button"
                                                 class="btn btn-inverse-success"><img
                                                     src="{{ asset('assets/images/chart-areaspline.png') }}"
                                                     width="50px" height="50px" alt=""></a>
@@ -1273,7 +1273,7 @@
                                     </div>
                                     <div class="col-4 col-xl-2">
                                         <div class="text-center">
-                                            <a href="{{ url('/newkl') }}" type="button"
+                                            <a href="{{ url('/kelembagaan/newkl') }}" type="button"
                                                 class="btn btn-inverse-warning"><img
                                                     src="{{ asset('assets/images/bank.png') }}" width="50px"
                                                     height="50px" alt=""></a>
@@ -1284,7 +1284,7 @@
                                     </div>
                                     <div class="col-4 col-xl-2">
                                         <div class="text-center">
-                                            <a href="{{ url('/newic') }}" type="button"
+                                            <a href="{{ url('/inovasicreativity/newic') }}" type="button"
                                                 class="btn btn-inverse-info"><img
                                                     src="{{ asset('assets/images/brush.png') }}" width="50px"
                                                     height="50px" alt=""></a>
@@ -1295,7 +1295,7 @@
                                     </div>
                                     <div class="col-4 col-xl-2">
                                         <div class="text-center">
-                                            <a href="{{ url('/newev') }}" type="button"
+                                            <a href="{{ url('/evaluasi/newev') }}" type="button"
                                                 class="btn btn-inverse-primary"><img
                                                     src="{{ asset('assets/images/clipboard-text.png') }}" width="50px"
                                                     height="50px" alt=""></a>

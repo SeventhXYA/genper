@@ -28,8 +28,8 @@
                     <span class="badge bg-success card-title">
                         <h6>Buat Laporan Baru</h6>
                     </span>
-                    <form onsubmit="$('#submit').prop('disabled',true)" action="{{ route('newic.store') }}" method="POST"
-                        enctype="multipart/form-data">
+                    <form onsubmit="$('#submit').prop('disabled',true)" action="{{ route('inovasicreativity.store') }}"
+                        method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row mb-3">
                             <div class="col-lg-3">

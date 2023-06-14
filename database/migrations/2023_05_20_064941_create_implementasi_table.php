@@ -17,13 +17,14 @@ class CreateImplementasiTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('tb_user')->onUpdate('cascade')->onDelete('cascade');
             $table->string('program');
-            $table->string('tgl_pelaksanaan');
+            $table->string('start_date');
+            $table->string('end_date')->nullable();
             $table->string('pelaksana');
-            $table->string('jmlh', 4);
+            $table->string('jumlah');
             $table->string('penerima_manfaat', 20);
             $table->string('rab', 20);
             $table->string('realisasi', 20);
-            $table->string('keterangan', 20);
+            $table->integer('keterangan');
             $table->timestamps();
         });
     }

@@ -23,7 +23,45 @@ class ImplementasiController extends Controller
     {
         $user = User::all();
         return view('logadmin.monthly.implementasi.new', [
-            "title" => "Daily Report Self-Development"
+            "title" => "Implementasi",
+            "sub" => "Tambah Data Baru",
         ], compact('user'));
+    }
+
+    public function store(Request $request)
+    {
+        $validated_data = $request->validate([
+            'program' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'sometimes',
+            'pelaksana' => 'required',
+            'jumlah' => 'required',
+            'penerima_manfaat' => 'required',
+            'rab' => 'required',
+            'realisasi' => 'required',
+            'keterangan' => 'required',
+        ]);
+
+        $implementasi = new Implementasi($validated_data);
+        $implementasi->user()->associate(Auth::user());
+        $implementasi->save();
+
+        return redirect('implementasi/history')->with('success', 'Data berhasil disimpan!');
+    }
+
+    public function edit($id)
+    {
+        $implementasi = Implementasi::find($id);
+
+        return view('logadmin.monthly.implementasi.edit', [
+            "title" => "Implementasi",
+            "sub" => "Ubah Data",
+        ], compact('implementasi'));
+    }
+
+    public function destroy(Implementasi $implementasi)
+    {
+        $implementasi->delete();
+        return redirect()->back()->with('success', 'Data berhasil dihapus!');
     }
 }

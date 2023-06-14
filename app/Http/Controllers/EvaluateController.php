@@ -42,7 +42,7 @@ class EvaluateController extends Controller
         $evaluate->user()->associate(Auth::user());
         $evaluate->save();
 
-        return redirect('historyev')->with('success', 'Data berhasil disimpan!');
+        return redirect('evaluasi/historyev')->with('success', 'Data berhasil disimpan!');
     }
 
     public function edit($id)
@@ -62,7 +62,7 @@ class EvaluateController extends Controller
             'dailyevaluate' => 'required'
         ]);
         $evaluate->update($validated_data);
-        return  redirect('historyev')->with('success', 'Data berhasil diubah!');
+        return  redirect('evaluasi/historyev')->with('success', 'Data berhasil diubah!');
     }
 
     public function reportAdmin()
