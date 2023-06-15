@@ -18,7 +18,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-end">
-                        <a href="{{ url('/implementasi/new') }}" type="button" class="btn btn-primary btn-icon-text mb-3">
+                        <a href="{{ url('/kgkoperasi/new') }}" type="button" class="btn btn-primary btn-icon-text mb-3">
                             <h6><i data-feather="plus" class="icon-sm"></i>
                                 Tambah</h6>
                         </a>
@@ -27,47 +27,36 @@
                         <table id="dataTableExample" class="table">
                             <thead>
                                 <tr>
-                                    <th style="width:1rem;"> # </th>
+                                    <th style="width:1rem;"> No </th>
                                     <th style="width:1rem;"> Tgl Laporan </th>
-                                    <th>Program</th>
+                                    <th>Kegiatan</th>
                                     <th>Pelaksana</th>
-                                    <th style="width:1rem;">RAB</th>
-                                    <th style="width:1rem;">Keterangan</th>
+                                    <th>Keterangan</th>
                                     <th style="width:1rem;"> Aksi </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($implementasi as $imp)
+                                @foreach ($kgkoperasi as $kgk)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $imp->created_at->format('d-M-Y') }}</td>
-                                        <td>{{ $imp->program }}</td>
-                                        <td>{{ $imp->pelaksana }}</td>
-                                        <td class="text-center">{{ $imp->rab }}</td>
-                                        <td class="text-center">
-                                            @if ($imp->keterangan == 0)
-                                                <span class="badge bg-warning text-white">Progress</span>
-                                            @elseif($imp->keterangan == 1)
-                                                <span class="badge bg-success text-white">Completed</span>
-                                            @elseif($imp->keterangan == 2)
-                                                <span class="badge bg-danger text-white">Dana Dialihkan</span>
-                                            @endif
-                                        </td>
-
+                                        <td>{{ $kgk->created_at->format('d-M-Y') }}</td>
+                                        <td>{{ $kgk->kegiatan }}</td>
+                                        <td>{{ $kgk->pelaksana }}</td>
+                                        <td>{{ $kgk->keterangan }}</td>
                                         <td class="d-flex inline">
                                             <button type="button"
                                                 class="btn btn-outline-secondary btn-xs btn-icon"data-bs-toggle="modal"
-                                                data-bs-target="#viewModal-{{ $imp->id }}"><i data-feather="eye"
+                                                data-bs-target="#viewModal-{{ $kgk->id }}"><i data-feather="eye"
                                                     class="icon-sm"></i></button>
-                                            <a href="/implementasi/edit/{{ $imp->id }}"
+                                            <a href="/kgkoperasi/edit/{{ $kgk->id }}"
                                                 class="btn btn-outline-warning btn-xs btn-icon ms-2"><i data-feather="edit"
                                                     class="icon-sm"></i></a>
-                                            <form name="delete" action="{{ route('implementasi.delete', $imp) }}"
+                                            <form name="delete" action="{{ route('kgkoperasi.delete', $kgk) }}"
                                                 method="POST">
                                                 @method('delete')
                                                 @csrf
                                                 <button type="submit" class="btn btn-outline-danger btn-xs btn-icon ms-2"
-                                                    data-id="{{ $imp->id }}"><i data-feather="trash"
+                                                    data-id="{{ $kgk->id }}"><i data-feather="trash"
                                                         class="icon-sm"></i></button>
                                             </form>
                                         </td>
@@ -75,46 +64,46 @@
                                 @endforeach
                             </tbody>
                             <!-- Modal -->
-                            {{-- <div class="modal fade" id="viewModal-{{ $imp->id }}" tabindex="-1"
+                            {{-- <div class="modal fade" id="viewModal-{{ $kgk->id }}" tabindex="-1"
                                     aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-scrollable">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="exampleModalScrollableTitle">
-                                                    {{ $imp->tgl_sd }}</h5>
+                                                    {{ $kgk->tgl_sd }}</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="btn-close"></button>
                                             </div>
                                             <div class="modal-body">
                                                 <div class="col mb-3">
-                                                    <label class="form-label fw-bold">{{ $imp->user->nm_depan }}
-                                                        {{ $imp->user->nm_belakang }}</label> <br>
-                                                    {{ $imp->user->divisi->divisi }} <br>
-                                                    {{ $imp->user->nohp }} <br>
-                                                    {{ $imp->user->email }}
+                                                    <label class="form-label fw-bold">{{ $kgk->user->nm_depan }}
+                                                        {{ $kgk->user->nm_belakang }}</label> <br>
+                                                    {{ $kgk->user->divisi->divisi }} <br>
+                                                    {{ $kgk->user->nohp }} <br>
+                                                    {{ $kgk->user->email }}
                                                 </div>
                                                 <div class="col mb-3">
                                                     <label class="form-label fw-bold">Waktu Kegiatan</label>
                                                     <input type="text" class="form-control"
-                                                        value="{{ $imp->wkt_mulai }} - {{ $imp->wkt_selesai }}" required
+                                                        value="{{ $kgk->wkt_mulai }} - {{ $kgk->wkt_selesai }}" required
                                                         readonly style="background-color: #f5f5f5" />
                                                 </div>
                                                 <div class="col mb-3">
                                                     <label class="form-label fw-bold">Rencana</label>
-                                                    <textarea class="form-control" maxlength="2500" rows="7" readonly style="background-color: #f5f5f5;">{{ $imp->rencana }}</textarea>
+                                                    <textarea class="form-control" maxlength="2500" rows="7" readonly style="background-color: #f5f5f5;">{{ $kgk->rencana }}</textarea>
                                                 </div>
                                                 <div class="col mb-3">
                                                     <label class="form-label fw-bold">Aktual</label>
-                                                    <textarea class="form-control" maxlength="2500" rows="7" readonly style="background-color: #f5f5f5;">{{ $imp->aktual }}</textarea>
+                                                    <textarea class="form-control" maxlength="2500" rows="7" readonly style="background-color: #f5f5f5;">{{ $kgk->aktual }}</textarea>
                                                 </div>
                                                 <div class="col mb-3">
                                                     <label class="form-label fw-bold">Progres</label>
                                                     <span class="badge bg-success"
-                                                        style="width: 100%">{{ $imp->progres }}%</span>
+                                                        style="width: 100%">{{ $kgk->progres }}%</span>
                                                 </div>
                                                 <div class="col mb-3">
                                                     <label class="form-label fw-bold">Foto</label>
-                                                    <img src="{{ asset($imp->foto) }}" class="img-fluid" alt="">
+                                                    <img src="{{ asset($kgk->foto) }}" class="img-fluid" alt="">
                                                 </div>
                                             </div>
                                             <div class="modal-footer">

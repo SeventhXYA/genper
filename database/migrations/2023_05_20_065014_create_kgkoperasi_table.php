@@ -17,13 +17,11 @@ class CreateKgkoperasiTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('tb_user')->onUpdate('cascade')->onDelete('cascade');
             $table->string('kegiatan');
-            $table->string('tgl_pelaksanaan1', 2);
-            $table->string('tgl_pelaksanaan2', 2)->nullable();
-            $table->string('bulan_pelaksanaan');
-            $table->string('tahun_pelaksanaan', 4);
+            $table->dateTime('start_date');
+            $table->dateTime('end_date')->nullable();
             $table->string('pelaksana');
-            $table->string('jmlh', 4);
-            $table->string('keterangan');
+            $table->integer('jumlah');
+            $table->text('keterangan');
             $table->timestamps();
         });
     }

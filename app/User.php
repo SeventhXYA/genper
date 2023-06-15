@@ -48,6 +48,16 @@ class User extends Authenticatable
         return $this->hasMany(Implementasi::class)->latest();
     }
 
+    public function kgkoperasi()
+    {
+        return $this->hasMany(Kgkoperasi::class)->latest();
+    }
+
+    public function monitoring()
+    {
+        return $this->hasMany(Monitoring::class)->latest();
+    }
+
     public function dailysd()
     {
         return $this->hasMany(Dailysd::class)->latest();

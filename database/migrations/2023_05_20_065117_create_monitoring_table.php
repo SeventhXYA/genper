@@ -17,9 +17,9 @@ class CreateMonitoringTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('tb_user')->onUpdate('cascade')->onDelete('cascade');
             $table->string('program');
-            $table->string('keterangan', 20);
-            $table->string('output');
-            $table->string('outcome');
+            $table->integer('keterangan');
+            $table->text('output');
+            $table->text('outcome');
             $table->timestamps();
         });
     }

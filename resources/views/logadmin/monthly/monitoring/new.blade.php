@@ -25,54 +25,28 @@
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <form onsubmit="$('#submit').prop('disabled',true)" action="{{ route('implementasi.store') }}"
+                    <form onsubmit="$('#submit').prop('disabled',true)" action="{{ route('kgkoperasi.store') }}"
                         method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row mb-3">
                             <div class="col-lg-3">
-                                <label for="defaultconfig-0" class="col-form-label">Program</label>
+                                <label for="defaultconfig-0" class="col-form-label">Kegiatan</label>
                             </div>
                             <div class="col-lg-8">
-                                <textarea class="form-control" maxlength="500" rows="3" name="program" placeholder="Program" autocomplete="off"></textarea>
+                                <textarea class="form-control" maxlength="500" rows="3" name="kegiatan" placeholder="Kegiatan" autocomplete="off"
+                                    required></textarea>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-lg-3">
                                 <label for="defaultconfig-2" class="col-form-label">Waktu Kegiatan</label>
                             </div>
-                            <div class="col-lg-8 inline">
-                                <select class="js-example-basic-single form-select" name="start_date" data-width="40%"
-                                    required>
-                                    <option selected disabled readonly>-- Dari --</option>
-                                    <option value="Januari">Januari</option>
-                                    <option value="Februari">Februari</option>
-                                    <option value="Maret">Maret</option>
-                                    <option value="April">April</option>
-                                    <option value="Mei">Mei</option>
-                                    <option value="Juni">Juni</option>
-                                    <option value="Juli">Juli</option>
-                                    <option value="Agustus">Agustus</option>
-                                    <option value="September">September</option>
-                                    <option value="Oktober">Oktober</option>
-                                    <option value="November">November</option>
-                                    <option value="Desember">Desember</option>
-                                </select>
-                                s/d
-                                <select class="js-example-basic-single form-select" name="end_date" data-width="40%">
-                                    <option selected disabled readonly>-- Sampai --</option>
-                                    <option value="Januari">Januari</option>
-                                    <option value="Februari">Februari</option>
-                                    <option value="Maret">Maret</option>
-                                    <option value="April">April</option>
-                                    <option value="Mei">Mei</option>
-                                    <option value="Juni">Juni</option>
-                                    <option value="Juli">Juli</option>
-                                    <option value="Agustus">Agustus</option>
-                                    <option value="September">September</option>
-                                    <option value="Oktober">Oktober</option>
-                                    <option value="November">November</option>
-                                    <option value="Desember">Desember</option>
-                                </select>
+                            <div class="col-lg-8 d-flex inline">
+                                <input class="form-control" name="start_date" type="date" autocomplete="off" required />
+                                <span class="mx-2 mt-1">
+                                    s/d
+                                </span>
+                                <input class="form-control" name="end_date" type="date" autocomplete="off" />
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -109,48 +83,17 @@
                                 <label for="defaultconfig" class="col-form-label">Jumlah</label>
                             </div>
                             <div class="col-lg-8">
-                                <input class="form-control" maxlength="255" name="jumlah" style="width: 7%;"
-                                    id="jumlah" type="text" placeholder="0" autocomplete="off">
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-lg-3">
-                                <label for="defaultconfig" class="col-form-label">Penerima Manfaat</label>
-                            </div>
-                            <div class="col-lg-8">
-                                <input class="form-control" maxlength="255" name="penerima_manfaat" style="width: 10%;"
-                                    id="penerima_manfaat" type="text" placeholder=">0" autocomplete="off">
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-lg-3">
-                                <label for="defaultconfig" class="col-form-label">RAB</label>
-                            </div>
-                            <div class="col-lg-8">
-                                <input class="form-control" maxlength="255" name="rab" style="width: 20%;"
-                                    id="rab" type="text" autocomplete="off">
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-lg-3">
-                                <label for="defaultconfig" class="col-form-label">Realisasi</label>
-                            </div>
-                            <div class="col-lg-8">
-                                <input class="form-control" maxlength="255" name="realisasi" style="width: 20%;"
-                                    id="realisasi" type="text" autocomplete="off">
+                                <input class="form-control" maxlength="255" name="jumlah" style="width: 7%;" id="jumlah"
+                                    type="text" placeholder="0" autocomplete="off">
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-lg-3">
                                 <label for="defaultconfig-0" class="col-form-label">Keterangan</label>
                             </div>
-                            <div class="col-lg-2 ">
-                                <select class="form-select" id="exampleFormControlSelect1" name="keterangan">
-                                    <option selected disabled>--Pilih--</option>
-                                    <option value="0">Progress</option>
-                                    <option value="1">Completed</option>
-                                    <option value="2">Dana Dialihkan</option>
-                                </select>
+                            <div class="col-lg-8 ">
+                                <textarea class="form-control" maxlength="500" rows="3" name="keterangan" placeholder="Keterangan"
+                                    autocomplete="off" required></textarea>
                             </div>
                         </div>
                         <div class="my-2 d-flex justify-content-end">

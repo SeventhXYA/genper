@@ -33,8 +33,7 @@
                                 <label for="defaultconfig-0" class="col-form-label">Program</label>
                             </div>
                             <div class="col-lg-8">
-                                <textarea id="maxlength-textarea" class="form-control" id="defaultconfig" maxlength="500" rows="3" name="program"
-                                    placeholder="Program">{{ $implementasi->program }}</textarea>
+                                <textarea class="form-control" maxlength="500" rows="3" name="program" placeholder="Program">{{ $implementasi->program }}</textarea>
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -60,7 +59,11 @@
                                 </select>
                                 s/d
                                 <select class="js-example-basic-single form-select" name="end_date" data-width="40%">
-                                    <option selected disabled readonly>{{ $implementasi->end_date }}</option>
+                                    @if ($implementasi->end_date == null)
+                                        <option selected disabled readonly>-- Pilih --</option>
+                                    @else
+                                        <option selected disabled readonly>{{ $implementasi->end_date }}</option>
+                                    @endif
                                     <option value="Januari">Januari</option>
                                     <option value="Februari">Februari</option>
                                     <option value="Maret">Maret</option>
@@ -111,8 +114,8 @@
                             </div>
                             <div class="col-lg-8">
                                 <input class="form-control" maxlength="255" name="jumlah" style="width: 7%;"
-                                    id="defaultconfig" type="text" placeholder="0"
-                                    value="{{ $implementasi->jumlah }}">
+                                    type="text" placeholder="0" value="{{ $implementasi->jumlah }}"
+                                    autocomplete="off">
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -121,8 +124,8 @@
                             </div>
                             <div class="col-lg-8">
                                 <input class="form-control" maxlength="255" name="penerima_manfaat" style="width: 10%;"
-                                    id="defaultconfig" type="text"
-                                    placeholder=">0"{{ $implementasi->penerima_manfaat }}>
+                                    type="text" placeholder=">0" value="{{ $implementasi->penerima_manfaat }}"
+                                    autocomplete="off">
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -131,7 +134,7 @@
                             </div>
                             <div class="col-lg-8">
                                 <input class="form-control" maxlength="255" name="rab" style="width: 20%;"
-                                    id="rab" type="text" value="{{ $implementasi->rab }}">
+                                    id="rab" type="text" value="{{ $implementasi->rab }}" autocomplete="off">
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -140,7 +143,8 @@
                             </div>
                             <div class="col-lg-8">
                                 <input class="form-control" maxlength="255" name="realisasi" style="width: 20%;"
-                                    id="realisasi" type="text" value="{{ $implementasi->realisasi }}">
+                                    id="realisasi" type="text" value="{{ $implementasi->realisasi }}"
+                                    autocomplete="off">
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -233,7 +237,7 @@
             }
         }
     </script>
-    <script>
+    {{-- <script>
         window.addEventListener('DOMContentLoaded', function() {
             // Mengambil elemen input RAB
             const rabInput = document.getElementById('rab');
@@ -253,25 +257,10 @@
             // Mengisi nilai input Realisasi dengan format mata uang Rupiah
             realisasiInput.value = formattedRealisasi;
         });
-    </script>
+    </script> --}}
     <script>
         $(document).ready(function() {
             $('.js-example-basic-single').select2();
-        });
-    </script>
-
-    <script>
-        const selectElement = document.querySelector('#pelaksana');
-        const otherInput = document.getElementById('otherInput');
-
-        selectElement.addEventListener('change', function() {
-            if (selectElement.value === 'other') {
-                otherInput.style.display = 'block';
-                otherInput.setAttribute('required', 'required');
-            } else {
-                otherInput.style.display = 'none';
-                otherInput.removeAttribute('required');
-            }
         });
     </script>
 @endpush

@@ -20,6 +20,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImplementasiController;
 use App\Http\Controllers\IntervalController;
+use App\Http\Controllers\KgkoperasiController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\WeeklyController;
 use Illuminate\Support\Facades\Route;
@@ -68,6 +69,13 @@ Route::group(['middleware' => ['auth:web,divisi']], function () {
         Route::get('implementasi/edit/{id}', [ImplementasiController::class, 'edit'])->name('implementasi.edit');
         Route::post('implementasi/update/{id}', [ImplementasiController::class, 'update'])->name('implementasi.update');
         Route::delete('implementasi/delete/{implementasi}', [ImplementasiController::class, 'destroy'])->name('implementasi.delete');
+
+        Route::get('kgkoperasi/history', [KgkoperasiController::class, 'index'])->name('kgkoperasi.history');
+        Route::get('kgkoperasi/new', [KgkoperasiController::class, 'create'])->name('kgkoperasi.new');
+        Route::post('kgkoperasi/store', [KgkoperasiController::class, 'store'])->name('kgkoperasi.store');
+        Route::get('kgkoperasi/edit/{id}', [KgkoperasiController::class, 'edit'])->name('kgkoperasi.edit');
+        Route::post('kgkoperasi/update/{id}', [KgkoperasiController::class, 'update'])->name('kgkoperasi.update');
+        Route::delete('kgkoperasi/delete/{kgkoperasi}', [KgkoperasiController::class, 'destroy'])->name('kgkoperasi.delete');
 
         Route::get('weekly/list', [WeeklyController::class, 'indexAdmin'])->name('list');
         Route::get('/cetak-pdf', [PdfController::class, 'generatePdf'])->name('cetak-pdf');

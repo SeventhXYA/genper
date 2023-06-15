@@ -59,6 +59,25 @@ class ImplementasiController extends Controller
         ], compact('implementasi'));
     }
 
+    public function update(Request $request, $id)
+    {
+        $implementasi = Implementasi::find($id);
+        $validated_data = $request->validate([
+            'program' => 'sometimes',
+            'start_date' => 'sometimes',
+            'end_date' => 'sometimes',
+            'pelaksana' => 'sometimes',
+            'jumlah' => 'sometimes',
+            'penerima_manfaat' => 'sometimes',
+            'rab' => 'sometimes',
+            'realisasi' => 'sometimes',
+            'keterangan' => 'sometimes',
+        ]);
+
+        $implementasi->update($validated_data);
+        return  redirect('implementasi/history')->with('success', 'Data berhasil diubah!');
+    }
+
     public function destroy(Implementasi $implementasi)
     {
         $implementasi->delete();
