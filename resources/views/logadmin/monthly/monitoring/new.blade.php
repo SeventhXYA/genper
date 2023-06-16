@@ -22,78 +22,49 @@
     </nav>
 
     <div class="row">
-        <div class="col-lg-12 grid-margin stretch-card">
+        <div class="col-lg-8 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <form onsubmit="$('#submit').prop('disabled',true)" action="{{ route('kgkoperasi.store') }}"
+                    <form onsubmit="$('#submit').prop('disabled',true)" action="{{ route('monitoring.store') }}"
                         method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row mb-3">
                             <div class="col-lg-3">
-                                <label for="defaultconfig-0" class="col-form-label">Kegiatan</label>
+                                <label for="defaultconfig-0" class="col-form-label">Program</label>
                             </div>
-                            <div class="col-lg-8">
-                                <textarea class="form-control" maxlength="500" rows="3" name="kegiatan" placeholder="Kegiatan" autocomplete="off"
-                                    required></textarea>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-lg-3">
-                                <label for="defaultconfig-2" class="col-form-label">Waktu Kegiatan</label>
-                            </div>
-                            <div class="col-lg-8 d-flex inline">
-                                <input class="form-control" name="start_date" type="date" autocomplete="off" required />
-                                <span class="mx-2 mt-1">
-                                    s/d
-                                </span>
-                                <input class="form-control" name="end_date" type="date" autocomplete="off" />
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-lg-3">
-                                <label for="defaultconfig-0" class="col-form-label">Pelaksana</label>
-                            </div>
-                            <div class="col-lg-8 d-flex inline">
-                                <select class="js-example-basic-single form-select" id="pelaksana-select" name="pelaksana"
-                                    data-width="50%" onchange="selectChange()">
-                                    <option selected readonly>-- Pilih --</option>
-                                    <option value="Tim Pengelola Unit Bisnis">Tim Pengelola Unit Bisnis</option>
-                                    <option value="Tim Rumah CSR">Tim Rumah CSR</option>
-                                    <option value="Tim Agro Permata">Tim Agro Permata</option>
-                                    <option value="Tim Agro Wisata Buah">Tim Agro Wisata Buah</option>
-                                    <option value="Tim Meta Print">Tim Meta Print</option>
-                                    <option value="Tim UKM Center">Tim UKM Center</option>
-                                    <option value="Tim Urban Farming">Tim Urban Farming</option>
-                                    <option value="Tim Konveksi Permata">Tim Konveksi Permata</option>
-                                    <option value="Tim Biruni Cafe">Tim Biruni Cafe</option>
-                                    <option value="Tim Workshop">Tim Workshop</option>
-                                    <option value="Tim Bentala Nursery">Tim Bentala Nursery</option>
-                                </select>
-                                <span class="mx-2 mt-1">
-                                    atau
-                                </span>
-                                <input class="form-control" maxlength="255" name="pelaksana" style="width: 50%;"
-                                    id="defaultconfig-text" type="text"
-                                    placeholder="Isi jika tidak ada pada pilihan di samping (optional)"
-                                    oninput="textInputChange()" autocomplete="off">
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-lg-3">
-                                <label for="defaultconfig" class="col-form-label">Jumlah</label>
-                            </div>
-                            <div class="col-lg-8">
-                                <input class="form-control" maxlength="255" name="jumlah" style="width: 7%;" id="jumlah"
-                                    type="text" placeholder="0" autocomplete="off">
+                            <div class="col-lg-9">
+                                <textarea class="form-control" id="maxlength-textarea" maxlength="2500" rows="3" name="program"
+                                    placeholder="Program" autocomplete="off" required></textarea>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-lg-3">
                                 <label for="defaultconfig-0" class="col-form-label">Keterangan</label>
                             </div>
-                            <div class="col-lg-8 ">
-                                <textarea class="form-control" maxlength="500" rows="3" name="keterangan" placeholder="Keterangan"
-                                    autocomplete="off" required></textarea>
+                            <div class="col-lg-3 ">
+                                <select class="form-select" id="exampleFormControlSelect1" name="keterangan" required>
+                                    <option selected hidden disabled>--Pilih--</option>
+                                    <option value="0">Progress</option>
+                                    <option value="1">Completed</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-lg-3">
+                                <label for="defaultconfig-0" class="col-form-label">Output</label>
+                            </div>
+                            <div class="col-lg-9">
+                                <textarea class="form-control" id="maxlength-textarea-1" maxlength="2500" rows="3" name="output"
+                                    placeholder="Output" autocomplete="off" required></textarea>
+                            </div>
+                        </div>
+                        <div class="row mb-5">
+                            <div class="col-lg-3">
+                                <label for="defaultconfig-0" class="col-form-label">Outcome</label>
+                            </div>
+                            <div class="col-lg-9">
+                                <textarea class="form-control"id="maxlength-textarea-2" maxlength="2500" rows="3" name="outcome"
+                                    placeholder="Outcome" autocomplete="off" required></textarea>
                             </div>
                         </div>
                         <div class="my-2 d-flex justify-content-end">

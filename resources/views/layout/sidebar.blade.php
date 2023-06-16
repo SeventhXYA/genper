@@ -77,27 +77,11 @@
                         <span class="link-title" style="margin-left:15px">Kegiatan Koperasi</span>
                     </a>
                 </li>
-
-                <li class="nav-item {{ active_class(['rencana/*']) }}">
-                    <a class="nav-link" data-bs-toggle="collapse" href="#rencana" role="button"
-                        aria-expanded="{{ is_active_route(['rencana/*']) }}" aria-controls="email">
-                        {{-- <i class="link-icon" data-feather="mail"></i> --}}
+                <li class="nav-item {{ active_class(['monitoring/*']) }}">
+                    <a href="{{ url('/monitoring/history') }}" class="nav-link">
                         <i class="mdi mdi-chart-bar"></i>
                         <span class="link-title" style="margin-left:15px">Monitoring & Evaluasi</span>
-                        <i class="link-arrow" data-feather="chevron-down"></i>
                     </a>
-                    <div class="collapse {{ show_class(['rencana/*']) }}" id="rencana">
-                        <ul class="nav sub-menu">
-                            <li class="nav-item">
-                                <a href="{{ url('/rencana/inbox') }}"
-                                    class="nav-link {{ active_class(['rencana/inbox']) }}">List</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ url('/rencana/read') }}"
-                                    class="nav-link {{ active_class(['rencana/read']) }}">Kalender</a>
-                            </li>
-                        </ul>
-                    </div>
                 </li>
 
                 <li class="nav-item nav-category">web apps</li>

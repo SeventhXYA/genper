@@ -317,7 +317,8 @@
                                         <a href="{{ url('/inovasicreativity/newic') }}" type="button"
                                             class="btn btn-inverse-info"><img
                                                 src="{{ asset('assets/images/brush.png') }}" width="50px"
-                                                height="50px" alt=""></a>
+                                                height="50px" alt="">
+                                        </a>
                                         <div class="my-2">
                                             <h5 class="fs-sm-4 fs-6">Inovasi & Creativity</h5>
                                         </div>
@@ -372,7 +373,12 @@
                                                 @endif
                                             </td>
                                             <td>{{ $user->last_login_at }}</td>
-                                            <td>2011/04/25</td>
+                                            <td class="text-center">
+                                                <button type="button"
+                                                    class="btn btn-inverse-secondary btn-xs btn-icon"data-bs-toggle="modal"
+                                                    data-bs-target="#viewModal-"><i data-feather="eye"
+                                                        class="icon-sm"></i></button>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>

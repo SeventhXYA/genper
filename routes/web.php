@@ -21,6 +21,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImplementasiController;
 use App\Http\Controllers\IntervalController;
 use App\Http\Controllers\KgkoperasiController;
+use App\Http\Controllers\MonitoringController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\WeeklyController;
 use Illuminate\Support\Facades\Route;
@@ -76,6 +77,13 @@ Route::group(['middleware' => ['auth:web,divisi']], function () {
         Route::get('kgkoperasi/edit/{id}', [KgkoperasiController::class, 'edit'])->name('kgkoperasi.edit');
         Route::post('kgkoperasi/update/{id}', [KgkoperasiController::class, 'update'])->name('kgkoperasi.update');
         Route::delete('kgkoperasi/delete/{kgkoperasi}', [KgkoperasiController::class, 'destroy'])->name('kgkoperasi.delete');
+
+        Route::get('monitoring/history', [MonitoringController::class, 'index'])->name('monitoring.history');
+        Route::get('monitoring/new', [MonitoringController::class, 'create'])->name('monitoring.new');
+        Route::post('monitoring/store', [MonitoringController::class, 'store'])->name('monitoring.store');
+        Route::get('monitoring/edit/{id}', [MonitoringController::class, 'edit'])->name('monitoring.edit');
+        Route::post('monitoring/update/{id}', [MonitoringController::class, 'update'])->name('monitoring.update');
+        Route::delete('monitoring/delete/{monitoring}', [MonitoringController::class, 'destroy'])->name('monitoring.delete');
 
         Route::get('weekly/list', [WeeklyController::class, 'indexAdmin'])->name('list');
         Route::get('/cetak-pdf', [PdfController::class, 'generatePdf'])->name('cetak-pdf');

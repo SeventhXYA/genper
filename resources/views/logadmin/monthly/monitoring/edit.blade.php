@@ -22,87 +22,55 @@
     </nav>
 
     <div class="row">
-        <div class="col-lg-12 grid-margin stretch-card">
+        <div class="col-lg-8 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <form onsubmit="$('#submit').prop('disabled',true)" action="/kgkoperasi/update/{{ $kgkoperasi->id }}"
+                    <form onsubmit="$('#submit').prop('disabled',true)" action="/monitoring/update/{{ $monitoring->id }}"
                         method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row mb-3">
                             <div class="col-lg-3">
-                                <label for="defaultconfig-0" class="col-form-label">Kegiatan</label>
+                                <label for="defaultconfig-0" class="col-form-label">Program</label>
                             </div>
-                            <div class="col-lg-8">
-                                <textarea class="form-control" maxlength="500" rows="3" name="kegiatan" placeholder="Kegiatan" autocomplete="off"
-                                    required>{{ $kgkoperasi->kegiatan }}</textarea>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-lg-3">
-                                <label for="defaultconfig-2" class="col-form-label">Waktu Kegiatan</label>
-                            </div>
-                            <div class="col-lg-8 d-flex inline">
-                                <input class="form-control mb-4 mb-md-0" name="start_date"
-                                    data-inputmask="'alias': 'datetime'" data-inputmask-inputformat="yyyy-mm-dd"
-                                    autocomplete="off" value="{{ $kgkoperasi->start_date }}" required />
-                                <span class="mx-2 mt-1">
-                                    s/d
-                                </span>
-                                @if ($kgkoperasi->end_date == null)
-                                    <input class="form-control" name="end_date" type="date" autocomplete="off" />
-                                @else
-                                    <input class="form-control mb-4 mb-md-0" name="end_date"
-                                        data-inputmask="'alias': 'datetime'" data-inputmask-inputformat="yyyy-mm-dd"
-                                        autocomplete="off" value="{{ $kgkoperasi->end_date }}" />
-                                @endif
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-lg-3">
-                                <label for="defaultconfig-0" class="col-form-label">Pelaksana</label>
-                            </div>
-                            <div class="col-lg-8 d-flex inline">
-                                <select class="js-example-basic-single form-select" id="pelaksana-select" name="pelaksana"
-                                    data-width="50%" onchange="selectChange()">
-                                    <option selected readonly>-- Pilih --</option>
-                                    <option value="Tim Pengelola Unit Bisnis">Tim Pengelola Unit Bisnis</option>
-                                    <option value="Tim Rumah CSR">Tim Rumah CSR</option>
-                                    <option value="Tim Agro Permata">Tim Agro Permata</option>
-                                    <option value="Tim Agro Wisata Buah">Tim Agro Wisata Buah</option>
-                                    <option value="Tim Meta Print">Tim Meta Print</option>
-                                    <option value="Tim UKM Center">Tim UKM Center</option>
-                                    <option value="Tim Urban Farming">Tim Urban Farming</option>
-                                    <option value="Tim Konveksi Permata">Tim Konveksi Permata</option>
-                                    <option value="Tim Biruni Cafe">Tim Biruni Cafe</option>
-                                    <option value="Tim Workshop">Tim Workshop</option>
-                                    <option value="Tim Bentala Nursery">Tim Bentala Nursery</option>
-                                </select>
-                                <span class="mx-2 mt-1">
-                                    atau
-                                </span>
-                                <input class="form-control" maxlength="255" name="pelaksana" style="width: 50%;"
-                                    id="defaultconfig-text" type="text" value="{{ $kgkoperasi->pelaksana }}"
-                                    placeholder="Isi jika tidak ada pada pilihan di samping (optional)"
-                                    oninput="textInputChange()">
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-lg-3">
-                                <label for="defaultconfig" class="col-form-label">Jumlah</label>
-                            </div>
-                            <div class="col-lg-8">
-                                <input class="form-control" maxlength="255" name="jumlah" style="width: 7%;"
-                                    id="jumlah" value="{{ $kgkoperasi->jumlah }}" type="text" placeholder="0"
-                                    autocomplete="off">
+                            <div class="col-lg-9">
+                                <textarea class="form-control" id="maxlength-textarea" maxlength="2500" rows="3" name="program"
+                                    placeholder="Program" autocomplete="off" required>{{ $monitoring->program }}</textarea>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-lg-3">
                                 <label for="defaultconfig-0" class="col-form-label">Keterangan</label>
                             </div>
-                            <div class="col-lg-8 ">
-                                <textarea class="form-control" maxlength="500" rows="3" name="keterangan" placeholder="Keterangan"
-                                    autocomplete="off" required>{{ $kgkoperasi->keterangan }}</textarea>
+                            <div class="col-lg-3 ">
+                                <select class="form-select" id="exampleFormControlSelect1" name="keterangan" required>
+                                    <option selected hidden value="{{ $monitoring->keterangan }}">
+                                        @if ($monitoring->keterangan == 0)
+                                            Progress
+                                        @elseif($monitoring->keterangan == 1)
+                                            Completed
+                                        @endif
+                                    </option>
+                                    <option value="0">Progress</option>
+                                    <option value="1">Completed</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-lg-3">
+                                <label for="defaultconfig-0" class="col-form-label">Output</label>
+                            </div>
+                            <div class="col-lg-9">
+                                <textarea class="form-control" id="maxlength-textarea-1" maxlength="2500" rows="3" name="output"
+                                    placeholder="Output" autocomplete="off" required>{{ $monitoring->output }}</textarea>
+                            </div>
+                        </div>
+                        <div class="row mb-5">
+                            <div class="col-lg-3">
+                                <label for="defaultconfig-0" class="col-form-label">Outcome</label>
+                            </div>
+                            <div class="col-lg-9">
+                                <textarea class="form-control"id="maxlength-textarea-2" maxlength="2500" rows="3" name="outcome"
+                                    placeholder="Outcome" autocomplete="off" required>{{ $monitoring->outcome }}</textarea>
                             </div>
                         </div>
                         <div class="my-2 d-flex justify-content-end">

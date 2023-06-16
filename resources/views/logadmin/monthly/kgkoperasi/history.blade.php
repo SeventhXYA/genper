@@ -6,6 +6,9 @@
 @endpush
 
 @section('content')
+    @php
+        use Carbon\Carbon;
+    @endphp
     <nav class="page-breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">{{ $title }}</a></li>
@@ -61,58 +64,54 @@
                                             </form>
                                         </td>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                            <!-- Modal -->
-                            {{-- <div class="modal fade" id="viewModal-{{ $kgk->id }}" tabindex="-1"
-                                    aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-scrollable">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalScrollableTitle">
-                                                    {{ $kgk->tgl_sd }}</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="btn-close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="col mb-3">
-                                                    <label class="form-label fw-bold">{{ $kgk->user->nm_depan }}
-                                                        {{ $kgk->user->nm_belakang }}</label> <br>
-                                                    {{ $kgk->user->divisi->divisi }} <br>
-                                                    {{ $kgk->user->nohp }} <br>
-                                                    {{ $kgk->user->email }}
+                                    <div class="modal fade" id="viewModal-{{ $kgk->id }}" tabindex="-1"
+                                        aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-scrollable">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalScrollableTitle">
+                                                        {{ $kgk->created_at->format('d-M-Y') }}</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="btn-close"></button>
                                                 </div>
-                                                <div class="col mb-3">
-                                                    <label class="form-label fw-bold">Waktu Kegiatan</label>
-                                                    <input type="text" class="form-control"
-                                                        value="{{ $kgk->wkt_mulai }} - {{ $kgk->wkt_selesai }}" required
-                                                        readonly style="background-color: #f5f5f5" />
+                                                <div class="modal-body">
+                                                    <div class="col mb-3">
+                                                        <label class="form-label fw-bold">Kegiatan</label>
+                                                        <textarea class="form-control" maxlength="2500" rows="5" readonly style="background-color: #f5f5f5;">{{ $kgk->kegiatan }}</textarea>
+                                                    </div>
+                                                    <div class="col mb-3">
+                                                        <label class="form-label fw-bold">Tanggal Pelaksanaan</label>
+                                                        <input type="text" class="form-control"
+                                                            value="@if ($kgk->end_date == null) {{ \Carbon\Carbon::parse($kgk->start_date)->format('d-M-Y') }}@else{{ \Carbon\Carbon::parse($kgk->start_date)->format('d') }} - {{ \Carbon\Carbon::parse($kgk->end_date)->format('d-M-Y') }} @endif"
+                                                            readonly style="background-color: #f5f5f5;" />
+                                                    </div>
+
+                                                    <div class="col mb-3">
+                                                        <label class="form-label fw-bold">Pelaksana</label>
+                                                        <input type="text" class="form-control"
+                                                            value="{{ $kgk->pelaksana }}" readonly
+                                                            style="background-color: #f5f5f5;" />
+                                                    </div>
+                                                    <div class="col mb-3">
+                                                        <label class="form-label fw-bold">Jumlah</label>
+                                                        <input type="text" class="form-control"
+                                                            value="{{ $kgk->jumlah }}" readonly
+                                                            style="background-color: #f5f5f5;" />
+                                                    </div>
+                                                    <div class="col mb-3">
+                                                        <label class="form-label fw-bold">Keterangan</label>
+                                                        <textarea class="form-control" maxlength="2500" rows="5" readonly style="background-color: #f5f5f5;">{{ $kgk->keterangan }}</textarea>
+                                                    </div>
                                                 </div>
-                                                <div class="col mb-3">
-                                                    <label class="form-label fw-bold">Rencana</label>
-                                                    <textarea class="form-control" maxlength="2500" rows="7" readonly style="background-color: #f5f5f5;">{{ $kgk->rencana }}</textarea>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Close</button>
                                                 </div>
-                                                <div class="col mb-3">
-                                                    <label class="form-label fw-bold">Aktual</label>
-                                                    <textarea class="form-control" maxlength="2500" rows="7" readonly style="background-color: #f5f5f5;">{{ $kgk->aktual }}</textarea>
-                                                </div>
-                                                <div class="col mb-3">
-                                                    <label class="form-label fw-bold">Progres</label>
-                                                    <span class="badge bg-success"
-                                                        style="width: 100%">{{ $kgk->progres }}%</span>
-                                                </div>
-                                                <div class="col mb-3">
-                                                    <label class="form-label fw-bold">Foto</label>
-                                                    <img src="{{ asset($kgk->foto) }}" class="img-fluid" alt="">
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">Close</button>
                                             </div>
                                         </div>
                                     </div>
-                                </div> --}}
+                                @endforeach
+                            </tbody>
                         </table>
                     </div>
                 </div>
