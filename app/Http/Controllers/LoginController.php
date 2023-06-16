@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ForgetPasswordEmail;
 use App\Mail\ResetPasswordMail;
 use App\PasswordReset;
 use App\User;
@@ -83,7 +84,8 @@ class LoginController extends Controller
         $reset->expired_at = $expiry;
         $reset->save();
 
-        // TODO: Send Email
+        $url = env('APP_URL') . '/reset?token=' . $token;
+        Mail::to($user->email)->send(new ForgetPasswordEmail($user->name, $url));
 
         $redacted_email = substr($user->email, 0, 1) . '*****' . substr($user->email, strpos($user->email, '@') - 1);
 
