@@ -30,8 +30,8 @@ Route::group(['middleware' => ['guest']], function () {
     Route::get('login', [LoginController::class, 'login'])->name('login');
     Route::post('login', [LoginController::class, 'authenticate']);
 
-    Route::get('forget', [LoginController::class, 'forget'])->name('login.forget');
-    Route::post('forget', [LoginController::class, 'sendResetEmail'])->name('login.sendemail');
+    Route::get('forget', [LoginController::class, 'forget'])->name('forget');
+    Route::post('forget', [LoginController::class, 'sendResetEmail'])->name('sendemail');
 
     Route::get('reset', [LoginController::class, 'reset'])->name('reset');
     Route::post('reset', [LoginController::class, 'resetPassword'])->name('resetPassword');
