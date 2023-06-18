@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ForgetPasswordEmail;
 use App\Mail\ResetPasswordMail;
 use App\PasswordReset;
 use App\User;
@@ -54,105 +55,86 @@ class LoginController extends Controller
         return redirect('login');
     }
 
-    // public function forget()
-    // {
-    //     return view('login.forget');
-    // }
+    public function forget()
+    {
+        return view('login.forget');
+    }
 
-    // public function sendResetEmail(Request $request)
-    // {
-    //     $username = $request->validate([
-    //         'username' => ['required']
-    //     ])['username'];
+    public function sendResetEmail(Request $request)
+    {
+        $validated_data = $request->validate([
+            'username' => ['required', 'exists:tb_user,username']
+        ]);
 
-    //     $user = User::where('username', '=', $username)
-    //         ->orWhere('email', '=', $username)
-    //         ->first();
+        $user = User::where('username', $validated_data['username'])->first();
 
-    //     if (is_null($user)) {
-    //         return redirect()->back()->withErrors([
-    //             'username' => 'Username atau Email tidak terdaftar.'
-    //         ]);
-    //     }
+        if ($user->password_reset()->exists()) {
+            $user->password_reset()->delete();
+        }
 
-    //     $token = Str::random(64);
+        $token = Str::random(32);
+        while (PasswordReset::where('token', $token)->exists()) {
+            $token = Str::random(32);
+        }
+        $expiry = Carbon::now()->addDay();
 
-    //     $reset = new PasswordReset;
-    //     $reset->token = $token;
-    //     $reset->user()->associate($user);
-    //     $reset->save();
+        $reset = new PasswordReset;
+        $reset->token = $token;
+        $reset->user()->associate($user);
+        $reset->expired_at = $expiry;
+        $reset->save();
 
-    //     $reset->token = $token;
+        $url = env('APP_URL') . '/reset?token=' . $token;
+        Mail::to($user->email)->send(new ForgetPasswordEmail($user->name, $url));
 
-    //     Mail::to($reset->user->email)->send(new ResetPasswordMail($reset));
+        $redacted_email = substr($user->email, 0, 1) . '*****' . substr($user->email, strpos($user->email, '@') - 1);
 
-    //     if (Mail::flushMacros()) {
-    //         return redirect()->back()->with([
-    //             'error' => 'Gagal mengirimkan Email untuk Reset Password.'
-    //         ]);
-    //     }
+        return view('login.success', [
+            'message' => 'Silahkan cek ' . $redacted_email . ' untuk melakukan reset password.',
+        ]);
+    }
 
-    //     return redirect()->back()->with([
-    //         'success' => 'Silakan cek Email Anda untuk menyelesaikan Reset Password.'
-    //     ]);
-    // }
+    public function reset(Request $request)
+    {
+        if (!$request->has('token')) {
+            return redirect()->route('login');
+        }
 
-    // public function reset(Request $request)
-    // {
-    //     if (!$request->has('token')) {
-    //         return redirect()->route('login');
-    //     }
+        $token = $request->query('token');
+        $reset = PasswordReset::where('token', $token)->first();
 
-    //     $token = $request->query('token');
-    //     $reset = PasswordReset::find($token);
+        if (is_null($reset)) {
+            return view('login.expired');
+        }
 
-    //     if (is_null($reset)) {
-    //         return redirect()->route('login');
-    //     }
+        if (Carbon::parse($reset->expired_at)->lessThan(Carbon::now())) {
+            return view('login.expired');
+        }
 
-    //     if (Carbon::parse($reset->created_at)->diffInDays(Carbon::now()) > 0) {
-    //         return view('login.message', [
-    //             'title' => 'Error',
-    //             'message' => 'Permintaan Reset Password Anda telah kedaluarsa. Silakan ajukan Reset Password kembali.',
-    //             'button_title' => 'Reset Password',
-    //             'button_href' => route('login.forget')
-    //         ]);
-    //     }
+        return view('login.reset', [
+            'reset' => $reset
+        ]);
+    }
 
-    //     return view('login.reset', [
-    //         'reset' => $reset
-    //     ]);
-    // }
+    public function resetPassword(Request $request)
+    {
+        $validated_data = $request->validate([
+            'token' => ['required', 'exists:password_resets,token'],
+            'password' => ['required', 'confirmed']
+        ]);
 
-    // public function resetPassword(Request $request)
-    // {
-    //     $validated_data = $request->validate([
-    //         'token' => ['required', 'exists:password_resets'],
-    //         'password' => ['required', 'confirmed']
-    //     ]);
+        $reset = PasswordReset::where('token', $validated_data['token'])->first();
+        if (Carbon::parse($reset->expired_at)->lessThan(Carbon::now())) {
+            return view('login.expired');
+        }
 
-    //     $reset = PasswordReset::find($validated_data['token']);
+        $user = $reset->user;
+        $user->password = Hash::make($validated_data['password']);
+        $user->save();
+        $user->password_reset()->delete();
 
-    //     if (Carbon::parse($reset->created_at)->diffInDays(Carbon::now()) > 0) {
-    //         return view('login.message', [
-    //             'title' => 'Error',
-    //             'message' => 'Permintaan Reset Password Anda telah kedaluarsa. Silakan ajukan Reset Password kembali.',
-    //             'button_title' => 'Reset Password',
-    //             'button_href' => route('login.forget')
-    //         ]);
-    //     }
-
-    //     $user = User::find($reset->user->id);
-    //     $user->password = Hash::make($validated_data['password']);
-    //     $user->save();
-
-    //     $user->password_reset()->delete();
-
-    //     return view('login.message', [
-    //         'title' => 'Sukses',
-    //         'message' => 'Password Anda berhasil direset. Silakan login untuk melanjutkan',
-    //         'button_title' => 'Login',
-    //         'button_href' => route('login')
-    //     ]);
-    // }
+        return view('login.success', [
+            'message' => 'Password Anda berhasil direset. Silakan login untuk melanjutkan',
+        ]);
+    }
 }

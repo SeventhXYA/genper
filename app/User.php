@@ -28,9 +28,14 @@ class User extends Authenticatable
         return Cache::has('user-is-online-' . $this->id);
     }
 
+    public function getNameAttribute()
+    {
+        return $this->nm_depan . ' ' . $this->nm_belakang;
+    }
+
     public function password_reset()
     {
-        return $this->hasMany(PasswordReset::class);
+        return $this->hasOne(PasswordReset::class);
     }
 
     public function divisi()

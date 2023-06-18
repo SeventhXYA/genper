@@ -1,5 +1,6 @@
 <?php
 
+use App\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,9 +15,10 @@ class CreatePasswordResetsTable extends Migration
     public function up()
     {
         Schema::create('password_resets', function (Blueprint $table) {
-            $table->string('token')->primary();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('tb_user')->onDelete('cascade');
+            $table->id();
+            $table->foreignIdFor(User::class);
+            $table->string('token')->unique();
+            $table->dateTime('expired_at');
             $table->timestamps();
         });
     }
