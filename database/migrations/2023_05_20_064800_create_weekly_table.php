@@ -16,6 +16,7 @@ class CreateWeeklyTable extends Migration
         Schema::create('tb_weekly', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_akundivisi')->constrained('tb_akundivisi')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('id_divisi')->constrained('tb_divisi')->onUpdate('cascade')->onDelete('cascade');
             $table->dateTime('start_date');
             $table->dateTime('end_date');
             $table->text('rencana');

@@ -15,7 +15,6 @@ class CreateAkundivisiTable extends Migration
     {
         Schema::create('tb_akundivisi', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_divisi')->constrained('tb_divisi')->onUpdate('cascade')->onDelete('cascade');
             $table->string('username', 50)->unique();
             $table->string('password');
             $table->foreignId('id_level')->constrained('tb_level')->onUpdate('cascade')->onDelete('cascade');

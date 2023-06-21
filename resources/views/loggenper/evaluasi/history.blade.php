@@ -7,6 +7,9 @@
 
 
 @section('content')
+    @php
+        use Carbon\Carbon;
+    @endphp
     <nav class="page-breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Evaluasi Harian</a></li>
@@ -19,7 +22,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-end">
-                        <a href="{{ url('/newev') }}" type="button" class="btn btn-primary btn-icon-text mb-3">
+                        <a href="{{ url('/evaluasi/newev') }}" type="button" class="btn btn-primary btn-icon-text mb-3">
                             <h6><i data-feather="plus" class="icon-sm"></i>
                                 Tambah</h6>
                         </a>
@@ -28,60 +31,63 @@
                         <table id="dataTableExample" class="table">
                             <thead>
                                 <tr>
-                                    <th style="width:5rem;"> Tgl Laporan </th>
-                                    <th style="width:5rem;"> Tgl Kegiatan </th>
+                                    <th style="width:1rem;"> Tgl Laporan </th>
+                                    <th style="width:1rem;"> Tgl Kegiatan </th>
                                     <th>Evaluasi</th>
                                     <th style="width:1rem;"> Aksi </th>
                                 </tr>
                             </thead>
-                            @foreach ($evaluate as $ev)
-                                <tbody>
+                            <tbody>
+                                @foreach ($evaluate as $ev)
                                     <tr>
-                                        <td>{{ $ev->created_at->format('Y-m-d') }}</td>
-                                        <td>{{ $ev->tgl_ev }}</td>
+                                        <td>{{ $ev->created_at->format('d-M-Y') }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($ev->tgl_ev)->format('d-M-Y') }}</td>
                                         <td>
                                             <?php
-                                            $num_char = 120;
+                                            $num_char = 100;
                                             $text = $ev->dailyevaluate;
-                                            echo substr($text, 0, $num_char) . '...';
+                                            if (strlen($text) > $num_char) {
+                                                $text = substr($text, 0, $num_char) . '...';
+                                            }
+                                            echo $text;
                                             ?>
                                         </td>
                                         <td class="d-flex inline">
                                             <button type="button"
-                                                class="btn btn-inverse-secondary btn-xs btn-icon"data-bs-toggle="modal"
+                                                class="btn btn-outline-secondary btn-xs btn-icon"data-bs-toggle="modal"
                                                 data-bs-target="#viewModal-{{ $ev->id }}"><i data-feather="eye"
                                                     class="icon-sm"></i></button>
                                             <a href="/evaluasi/edit/{{ $ev->id }}"
-                                                class="btn btn-inverse-warning btn-xs btn-icon ms-2"><i data-feather="edit"
+                                                class="btn btn-outline-warning btn-xs btn-icon ms-2"><i data-feather="edit"
                                                     class="icon-sm"></i></a>
                                         </td>
                                     </tr>
-                                </tbody>
-                                <div class="modal fade" id="viewModal-{{ $ev->id }}" tabindex="-1"
-                                    aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-scrollable">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalScrollableTitle">
-                                                    {{ $ev->tgl_ev }}</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="btn-close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="col mb-3">
-                                                    <label class="form-label fw-bold">Rencana</label>
-                                                    <textarea class="form-control"id="exampleFormControlTextarea1" style="background-color: white"rows="20" required
-                                                        readonly>{{ $ev->dailyevaluate }}</textarea>
+                                    <div class="modal fade" id="viewModal-{{ $ev->id }}" tabindex="-1"
+                                        aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-scrollable">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalScrollableTitle">
+                                                        {{ \Carbon\Carbon::parse($ev->tgl_ev)->format('d-M-Y') }}</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="btn-close"></button>
                                                 </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">Close</button>
+                                                <div class="modal-body">
+                                                    <div class="col mb-3">
+                                                        <label class="form-label fw-bold">Evaluasi Harian</label>
+                                                        <textarea class="form-control"id="exampleFormControlTextarea1" style="background-color: #f5f5f5;"rows="20" required
+                                                            readonly>{{ $ev->dailyevaluate }}</textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            @endforeach
+                                @endforeach
+                            </tbody>
                         </table>
                     </div>
                     @foreach ($evaluateMobile as $ev)
@@ -89,7 +95,7 @@
                             <div class="card my-2" style="border-width: 2px;">
                                 <div class="card-header d-flex justify-content-between"
                                     style="background-color: white; border:none">
-                                    <b>{{ $ev->created_at->format('Y-m-d') }}</b>
+                                    <b>{{ $ev->created_at->format('d-M-Y') }}</b>
                                     <div class="dropdown">
                                         <button class="btn p-0" type="button" id="dropdownMenuButton"
                                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -105,15 +111,18 @@
                                 </div>
                                 <div class="card-body" style="background-color: white; border:none">
                                     <?php
-                                    $num_char = 50;
+                                    $num_char = 40;
                                     $text = $ev->dailyevaluate;
-                                    echo substr($text, 0, $num_char) . '...';
+                                    if (strlen($text) > $num_char) {
+                                        $text = substr($text, 0, $num_char) . '...';
+                                    }
+                                    echo $text;
                                     ?>
                                 </div>
                                 <div class="card-footer d-flex justify-content-end"
                                     style="background-color: white; border:none">
 
-                                    <button type="button" class="btn btn-inverse-info" data-bs-toggle="modal"
+                                    <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal"
                                         data-bs-target="#viewModalModal-{{ $ev->id }}"><i data-feather="eye"
                                             class="icon-sm"></i></button>
                                 </div>
@@ -125,14 +134,14 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="exampleModalScrollableTitle">
-                                            {{ $ev->tgl_ev }}</h5>
+                                            {{ \Carbon\Carbon::parse($ev->tgl_ev)->format('d-M-Y') }}</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="btn-close"></button>
                                     </div>
                                     <div class="modal-body">
                                         <div class="col mb-3">
-                                            <label class="form-label fw-bold">Rencana</label>
-                                            <textarea class="form-control"id="exampleFormControlTextarea1" style="background-color: white"rows="20"
+                                            <label class="form-label fw-bold">Evaluasi Harian</label>
+                                            <textarea class="form-control"id="exampleFormControlTextarea1" style="background-color: #f5f5f5;"rows="20"
                                                 required readonly>{{ $ev->dailyevaluate }}</textarea>
                                         </div>
                                     </div>

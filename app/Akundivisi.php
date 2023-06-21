@@ -13,7 +13,7 @@ class Akundivisi extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $table = 'tb_akundivisi';
-    protected $fillable = ['id_divisi', 'username', 'password', 'id_level'];
+    protected $fillable = ['username', 'password', 'id_level'];
 
     public function level()
     {
@@ -22,7 +22,7 @@ class Akundivisi extends Authenticatable
 
     public function divisi()
     {
-        return $this->belongsTo(Divisi::class, 'id_divisi');
+        return $this->hasOne(Divisi::class);
     }
 
     public function weekly()

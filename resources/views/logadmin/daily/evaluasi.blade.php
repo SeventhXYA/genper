@@ -36,9 +36,12 @@
                                         <td>{{ $ev->user->divisi->divisi }}</td>
                                         <td>
                                             <?php
-                                            $num_char = 70;
+                                            $num_char = 60;
                                             $text = $ev->dailyevaluate;
-                                            echo substr($text, 0, $num_char) . '...';
+                                            if (strlen($text) > $num_char) {
+                                                $text = substr($text, 0, $num_char) . '...';
+                                            }
+                                            echo $text;
                                             ?>
                                         </td>
                                         <td class="d-flex inline">
@@ -103,9 +106,12 @@
                                         {{ $ev->user->nm_belakang }}</label><br>
                                     {{ $ev->user->divisi->divisi }} <br> <br>
                                     <?php
-                                    $num_char = 30;
+                                    $num_char = 100;
                                     $text = $ev->dailyevaluate;
-                                    echo substr($text, 0, $num_char) . '...';
+                                    if (strlen($text) > $num_char) {
+                                        $text = substr($text, 0, $num_char) . '...';
+                                    }
+                                    echo $text;
                                     ?>
                                 </div>
                                 <div class="card-footer d-flex justify-content-end"

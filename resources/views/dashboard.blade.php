@@ -20,6 +20,9 @@
 
 
 @section('content')
+    @php
+        use Carbon\Carbon;
+    @endphp
     @if (auth()->user()->id_level == 1)
         <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
             <div>
@@ -209,7 +212,7 @@
                                     </div>
                                     <div class="row text-success">
                                         <div class="col-8 col-md-12 col-xl-8">
-                                            <h2 class="mb-2">21</h2>
+                                            <h2 class="mb-2">{{ $users }}</h2>
                                         </div>
                                         <div class="col-4 col-md-12 col-xl-4">
                                             <i class="link-icon icon-xxl" data-feather="users"></i>
@@ -237,7 +240,7 @@
                                     </div>
                                     <div class="row text-warning">
                                         <div class="col-8 col-md-12 col-xl-8">
-                                            <h2 class="mb-2">8</h2>
+                                            <h2 class="mb-2">{{ $divisi }}</h2>
                                         </div>
                                         <div class="col-4 col-md-12 col-xl-4">
                                             <i class="link-icon icon-xxl" data-feather="briefcase"></i>
@@ -353,9 +356,9 @@
                                     <tr>
                                         <th>Nama</th>
                                         <th>Divisi</th>
-                                        <th>Status</th>
-                                        <th>Riwayat Login</th>
-                                        <th>Laporan Harian</th>
+                                        <th style="width: 1rem;">Status</th>
+                                        <th style="width: 1rem;">Riwayat Login</th>
+                                        <th style="width: 1rem;">Laporan Harian</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -365,20 +368,123 @@
                                             <td>{{ $user->divisi->divisi }}</td>
                                             <td>
                                                 @if ($user->isOnline())
-                                                    <strong><span
-                                                            class="text-success text-xs p-1 m-1 uppercase">Online</span></strong>
+                                                    <span class="badge bg-success text-white">Online</span>
                                                 @else
-                                                    <strong><span
-                                                            class="text-secondary text-xs p-1 m-1 uppercase">Offline</span></strong>
+                                                    <span class="badge bg-danger text-white">Offline</span>
                                                 @endif
                                             </td>
-                                            <td>{{ $user->last_login_at }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($user->last_login_at)->format('d-M-Y H:i:s') }}
+                                            </td>
                                             <td class="text-center">
                                                 <button type="button"
                                                     class="btn btn-inverse-secondary btn-xs btn-icon"data-bs-toggle="modal"
-                                                    data-bs-target="#viewModal-"><i data-feather="eye"
+                                                    data-bs-target="#viewModal-{{ $user->id }}"><i data-feather="eye"
                                                         class="icon-sm"></i></button>
                                             </td>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="viewModal-{{ $user->id }}" tabindex="-1"
+                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Laporan Harian
+                                                            </h5>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="btn-close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="col mb-3">
+                                                                <label class="form-label fw-bold">
+                                                                    {{ $user->nm_depan }}
+                                                                    {{ $user->nm_belakang }}</label> <br>
+                                                                {{ $user->divisi->divisi }} <br>
+                                                                {{ $user->nohp }} <br>
+                                                                {{ $user->email }}
+                                                            </div>
+                                                            <div class="col mb-3">
+                                                                <p class="d-flex justify-content-between">
+                                                                    <span><i
+                                                                            class="mdi mdi-book-open-page-variant text-danger"></i>
+                                                                        Self-Development:</span>
+                                                                    <span>{{ gmdate('H:i:s', $user->totalSd) }}<b>
+                                                                            /01:00:00</b></span>
+                                                                </p>
+                                                                <div class="progress">
+                                                                    <div class="progress-bar bg-danger" role="progressbar"
+                                                                        style="width: {{ $user->percentageSd }}%"
+                                                                        aria-valuemin="0" aria-valuemax="100">
+                                                                    </div>
+                                                                </div>
+                                                                <p class="d-flex justify-content-between">
+                                                                    <span><i
+                                                                            class="mdi mdi-chart-areaspline text-success"></i>
+                                                                        Bisnis &
+                                                                        Profit:</span>
+                                                                    <span>{{ gmdate('H:i:s', $user->totalBp) }}<b>
+                                                                            /04:00:00</b></span>
+                                                                </p>
+                                                                <div class="progress">
+                                                                    <div class="progress-bar bg-success"
+                                                                        role="progressbar"
+                                                                        style="width: {{ $user->percentageBp }}%"
+                                                                        aria-valuenow="50" aria-valuemin="0"
+                                                                        aria-valuemax="100"></div>
+                                                                </div>
+                                                                <p class="d-flex justify-content-between">
+                                                                    <span><i class="mdi mdi-bank text-warning"></i>
+                                                                        Kelembagaan:</span>
+                                                                    <span>{{ gmdate('H:i:s', $user->totalKl) }}<b>
+                                                                            /00:30:00</b></span>
+                                                                </p>
+                                                                <div class="progress">
+                                                                    <div class="progress-bar bg-warning"
+                                                                        role="progressbar"
+                                                                        style="width: {{ $user->percentageKl }}%"
+                                                                        aria-valuenow="75" aria-valuemin="0"
+                                                                        aria-valuemax="100"></div>
+                                                                </div>
+                                                                <p class="d-flex justify-content-between">
+                                                                    <span><i class="mdi mdi-brush text-info"></i> Inovasi &
+                                                                        Creativity:</span>
+                                                                    <span>{{ gmdate('H:i:s', $user->totalIc) }}<b>
+                                                                            /00:30:00</b></span>
+                                                                </p>
+                                                                <div class="progress">
+                                                                    <div class="progress-bar bg-info" role="progressbar"
+                                                                        style="width: {{ $user->percentageIc }}%"
+                                                                        aria-valuenow="100" aria-valuemin="0"
+                                                                        aria-valuemax="100"></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col mb-3">
+                                                                <label class="form-label fw-bold">Laporan
+                                                                    Harian</label><br>
+                                                                <span><i
+                                                                        class="mdi mdi-book-open-page-variant text-danger"></i>
+                                                                    Self-Development:</span>
+                                                                {{ $dailysdCounts[$user->id] }} <br>
+                                                                <span><i class="mdi mdi-chart-areaspline text-success"></i>
+                                                                    Bisnis & Profit:</span>
+                                                                {{ $dailybpCounts[$user->id] }}<br>
+                                                                <span><i class="mdi mdi-bank text-warning"></i>
+                                                                    Kelembagaan:</span>
+                                                                {{ $dailyklCounts[$user->id] }}<br>
+                                                                <span><i class="mdi mdi-brush text-info"></i>
+                                                                    Inovasi & Creativity:</span>
+                                                                {{ $dailyicCounts[$user->id] }}<br>
+                                                                <span><i
+                                                                        class="mdi mdi mdi-clipboard-text text-primary"></i>
+                                                                    Evaluasi Harian:</span>
+                                                                {{ $dailyevCounts[$user->id] }}<br>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -388,202 +494,6 @@
                 </div>
             </div>
         </div>
-
-        {{-- <div class="row">
-            <div class="col-lg-7 col-xl-8 grid-margin stretch-card">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-baseline mb-2">
-                            <h6 class="card-title mb-0">Monthly sales</h6>
-                            <div class="dropdown mb-2">
-                                <button class="btn p-0" type="button" id="dropdownMenuButton4"
-                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton4">
-                                    <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i
-                                            data-feather="eye" class="icon-sm me-2"></i> <span
-                                            class="">View</span></a>
-                                    <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i
-                                            data-feather="edit-2" class="icon-sm me-2"></i> <span
-                                            class="">Edit</span></a>
-                                    <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i
-                                            data-feather="trash" class="icon-sm me-2"></i> <span
-                                            class="">Delete</span></a>
-                                    <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i
-                                            data-feather="printer" class="icon-sm me-2"></i> <span
-                                            class="">Print</span></a>
-                                    <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i
-                                            data-feather="download" class="icon-sm me-2"></i> <span
-                                            class="">Download</span></a>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="text-muted">Sales are activities related to selling or the number of goods or services
-                            sold in a given time period.</p>
-                        <div id="monthlySalesChart"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-5 col-xl-4 grid-margin stretch-card">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-baseline mb-2">
-                            <h6 class="card-title mb-0">Cloud storage</h6>
-                            <div class="dropdown mb-2">
-                                <button class="btn p-0" type="button" id="dropdownMenuButton5"
-                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton5">
-                                    <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i
-                                            data-feather="eye" class="icon-sm me-2"></i> <span
-                                            class="">View</span></a>
-                                    <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i
-                                            data-feather="edit-2" class="icon-sm me-2"></i> <span
-                                            class="">Edit</span></a>
-                                    <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i
-                                            data-feather="trash" class="icon-sm me-2"></i> <span
-                                            class="">Delete</span></a>
-                                    <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i
-                                            data-feather="printer" class="icon-sm me-2"></i> <span
-                                            class="">Print</span></a>
-                                    <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i
-                                            data-feather="download" class="icon-sm me-2"></i> <span
-                                            class="">Download</span></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="storageChart"></div>
-                        <div class="row mb-3">
-                            <div class="col-6 d-flex justify-content-end">
-                                <div>
-                                    <label
-                                        class="d-flex align-items-center justify-content-end tx-10 text-uppercase fw-bolder">Total
-                                        storage <span class="p-1 ms-1 rounded-circle bg-secondary"></span></label>
-                                    <h5 class="fw-bolder mb-0 text-end">8TB</h5>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div>
-                                    <label class="d-flex align-items-center tx-10 text-uppercase fw-bolder"><span
-                                            class="p-1 me-1 rounded-circle bg-primary"></span> Used storage</label>
-                                    <h5 class="fw-bolder mb-0">~5TB</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-grid">
-                            <button class="btn btn-primary">Upgrade storage</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> <!-- row -->
-
-        <div class="row">
-            <div class="col-lg-5 col-xl-4 grid-margin grid-margin-xl-0 stretch-card">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-baseline mb-2">
-                            <h6 class="card-title mb-0">Inbox</h6>
-                            <div class="dropdown mb-2">
-                                <button class="btn p-0" type="button" id="dropdownMenuButton6"
-                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton6">
-                                    <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i
-                                            data-feather="eye" class="icon-sm me-2"></i> <span
-                                            class="">View</span></a>
-                                    <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i
-                                            data-feather="edit-2" class="icon-sm me-2"></i> <span
-                                            class="">Edit</span></a>
-                                    <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i
-                                            data-feather="trash" class="icon-sm me-2"></i> <span
-                                            class="">Delete</span></a>
-                                    <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i
-                                            data-feather="printer" class="icon-sm me-2"></i> <span
-                                            class="">Print</span></a>
-                                    <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i
-                                            data-feather="download" class="icon-sm me-2"></i> <span
-                                            class="">Download</span></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-flex flex-column">
-                            <a href="javascript:;" class="d-flex align-items-center border-bottom pb-3">
-                                <div class="me-3">
-                                    <img src="{{ url('https://via.placeholder.com/35x35') }}"
-                                        class="rounded-circle wd-35" alt="user">
-                                </div>
-                                <div class="w-100">
-                                    <div class="d-flex justify-content-between">
-                                        <h6 class="fw-normal text-body mb-1">Leonardo Payne</h6>
-                                        <p class="text-muted tx-12">12.30 PM</p>
-                                    </div>
-                                    <p class="text-muted tx-13">Hey! there I'm available...</p>
-                                </div>
-                            </a>
-                            <a href="javascript:;" class="d-flex align-items-center border-bottom py-3">
-                                <div class="me-3">
-                                    <img src="{{ url('https://via.placeholder.com/35x35') }}"
-                                        class="rounded-circle wd-35" alt="user">
-                                </div>
-                                <div class="w-100">
-                                    <div class="d-flex justify-content-between">
-                                        <h6 class="fw-normal text-body mb-1">Carl Henson</h6>
-                                        <p class="text-muted tx-12">02.14 AM</p>
-                                    </div>
-                                    <p class="text-muted tx-13">I've finished it! See you so..</p>
-                                </div>
-                            </a>
-                            <a href="javascript:;" class="d-flex align-items-center border-bottom py-3">
-                                <div class="me-3">
-                                    <img src="{{ url('https://via.placeholder.com/35x35') }}"
-                                        class="rounded-circle wd-35" alt="user">
-                                </div>
-                                <div class="w-100">
-                                    <div class="d-flex justify-content-between">
-                                        <h6 class="fw-normal text-body mb-1">Jensen Combs</h6>
-                                        <p class="text-muted tx-12">08.22 PM</p>
-                                    </div>
-                                    <p class="text-muted tx-13">This template is awesome!</p>
-                                </div>
-                            </a>
-                            <a href="javascript:;" class="d-flex align-items-center border-bottom py-3">
-                                <div class="me-3">
-                                    <img src="{{ url('https://via.placeholder.com/35x35') }}"
-                                        class="rounded-circle wd-35" alt="user">
-                                </div>
-                                <div class="w-100">
-                                    <div class="d-flex justify-content-between">
-                                        <h6 class="fw-normal text-body mb-1">Amiah Burton</h6>
-                                        <p class="text-muted tx-12">05.49 AM</p>
-                                    </div>
-                                    <p class="text-muted tx-13">Nice to meet you</p>
-                                </div>
-                            </a>
-                            <a href="javascript:;" class="d-flex align-items-center border-bottom py-3">
-                                <div class="me-3">
-                                    <img src="{{ url('https://via.placeholder.com/35x35') }}"
-                                        class="rounded-circle wd-35" alt="user">
-                                </div>
-                                <div class="w-100">
-                                    <div class="d-flex justify-content-between">
-                                        <h6 class="fw-normal text-body mb-1">Yaretzi Mayo</h6>
-                                        <p class="text-muted tx-12">01.19 AM</p>
-                                    </div>
-                                    <p class="text-muted tx-13">Hey! there I'm available...</p>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-7 col-xl-8 stretch-card">
-
-            </div>
-        </div> <!-- row --> --}}
     @endif
     @if (auth()->user()->id_level == 2)
         <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
@@ -692,8 +602,8 @@
                                                                 Kegiatan</label>
                                                         </div>
                                                         <div class="col-lg-8">
-                                                            <input class="form-control" name="start_date"
-                                                                type="datetime-local" autocomplete="off" />
+                                                            <input class="form-control" name="start_date" type="date"
+                                                                autocomplete="off" />
                                                         </div>
                                                     </div>
                                                     <div class="row mb-3">
@@ -702,8 +612,8 @@
                                                                 Kegiatan</label>
                                                         </div>
                                                         <div class="col-lg-8">
-                                                            <input class="form-control" name="end_date"
-                                                                type="datetime-local" autocomplete="off" />
+                                                            <input class="form-control" name="end_date" type="date"
+                                                                autocomplete="off" />
                                                         </div>
                                                     </div>
                                                     <div class="row mb-3">
@@ -822,9 +732,6 @@
                                                 data-bs-target="#editInterval"><i data-feather="edit-2"
                                                     class="icon-sm me-2"></i>
                                                 <span class="">Edit</span></a>
-                                            <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i
-                                                    data-feather="trash" class="icon-sm me-2"></i> <span
-                                                    class="">Delete</span></a>
                                         </div>
                                         <div class="example">
                                             <div class="modal fade" id="addInterval" tabindex="-1"
@@ -1324,24 +1231,21 @@
                     <div class="col-md-3 d-none d-md-block">
                         <div class="card">
                             <div class="card-body">
-                                <h6 class="card-title mb-4">Full calendar</h6>
+                                <h6 class="card-title mb-4">Rencana Mingguan</h6>
                                 <div id='external-events' class='external-events'>
-                                    <h6 class="mb-2 text-muted">Draggable Events</h6>
-                                    <div class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event'>
-                                        <div class='fc-event-main'>Birth Day</div>
-                                    </div>
-                                    <div class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event'>
-                                        <div class='fc-event-main'>New Project</div>
-                                    </div>
-                                    <div class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event'>
-                                        <div class='fc-event-main'>Anniversary</div>
-                                    </div>
-                                    <div class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event'>
-                                        <div class='fc-event-main'>Clent Meeting</div>
-                                    </div>
-                                    <div class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event'>
-                                        <div class='fc-event-main'>Office Trip</div>
-                                    </div>
+                                    @foreach ($weekly as $wk)
+                                        <div class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event'
+                                            style="background-color:rgba(13, 250, 1, 0.15)">
+                                            <div class='fc-event-main'>
+                                                {{ $wk->start_date }},
+                                                <?php
+                                                $num_char = 10;
+                                                $text = $wk->rencana;
+                                                echo substr($text, 0, $num_char) . '...';
+                                                ?>
+                                            </div>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -1349,56 +1253,46 @@
                     <div class="col-12 col-md-9">
                         <div class="card">
                             <div class="card-body">
-                                <div id='fullcalendar'></div>
+                                <div id='fullcalendar2'></div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                        <div class="modal fade" id="lihatRencana" tabindex="-1"
+                            aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-scrollable">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalScrollableTitle">
+                                        </h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="btn-close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="col mb-3">
+                                            <label class="form-label fw-bold">Tanggal
+                                                Mulai Kegiatan</label>
+                                            <input type="text" class="form-control" id="start_date" readonly
+                                                style="background-color: #f5f5f5;" />
+                                        </div>
+                                        <div class="col mb-3">
+                                            <label class="form-label fw-bold">Tanggal
+                                                Selesai Kegiatan</label>
+                                            <input type="text" class="form-control" id="end_date" readonly
+                                                style="background-color: #f5f5f5;" />
+                                        </div>
 
-        <div id="fullCalModal" class="modal fade">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 id="modalTitle1" class="modal-title"></h4>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"><span
-                                class="visually-hidden">close</span></button>
-                    </div>
-                    <div id="modalBody1" class="modal-body"></div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
-                        <button class="btn btn-primary">Event Page</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="createEventModal" class="modal fade">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 id="modalTitle2" class="modal-title">Add event</h4>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"><span
-                                class="visually-hidden">close</span></button>
-                    </div>
-                    <div id="modalBody2" class="modal-body">
-                        <form>
-                            <div class="mb-3">
-                                <label for="formGroupExampleInput" class="form-label">Example label</label>
-                                <input type="text" class="form-control" id="formGroupExampleInput"
-                                    placeholder="Example input">
+                                        <div class="col mb-3">
+                                            <label class="form-label fw-bold">Rencana</label>
+                                            <textarea class="form-control" id="rencana" maxlength="255" rows="8" readonly
+                                                style="background-color: #f5f5f5;"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="mb-3">
-                                <label for="formGroupExampleInput2" class="form-label">Another label</label>
-                                <input type="text" class="form-control" id="formGroupExampleInput2"
-                                    placeholder="Another input">
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
-                        <button class="btn btn-primary">Add</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1413,7 +1307,7 @@
     <script src="{{ asset('assets/plugins/apexcharts/apexcharts.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/progressbar-js/progressbar.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/moment/moment.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/fullcalendar/main.min.js') }}"></script>
+    {{-- <script src="{{ asset('assets/plugins/fullcalendar/main.min.js') }}"></script> --}}
     <script src="{{ asset('assets/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatables-net/jquery.dataTables.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatables-net-bs4/dataTables.bootstrap4.js') }}"></script>
@@ -1626,6 +1520,36 @@
                             'YYYY-MM-DD HH:mm:ss'));
                         $('#end_date').val(moment(data.end_date).format(
                             'YYYY-MM-DD HH:mm:ss'));
+                        $('#rencana').val(data.rencana);
+                    });
+                },
+            });
+        });
+
+        $(document).ready(function() {
+            var color = 'rgba(13, 250, 1, 0.15)';
+            var calendar = $('#fullcalendar2').fullCalendar({
+                editable: false,
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                },
+                events: '/eventsUser',
+                displayEventTime: false,
+                selectable: true,
+                selectHelper: true,
+                themeSystem: 'standard',
+                eventRender: function(event, element) {
+                    element.css('background-color', color);
+                },
+                eventClick: function(event) {
+                    $.get('/eventsUser/' + event.id, function(data) {
+                        $('#exampleModalScrollableTitle').text('Detail Rencana Kerja');
+                        $('#lihatRencana').modal('show');
+                        $('#start_date').val(moment(data.start_date).format(
+                            'YYYY-MM-DD HH:mm:ss'));
+                        $('#end_date').val(moment(data.end_date).format('YYYY-MM-DD HH:mm:ss'));
                         $('#rencana').val(data.rencana);
                     });
                 },

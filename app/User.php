@@ -16,11 +16,16 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $table = 'tb_user';
-    protected $fillable = ['foto', 'nm_depan', 'nm_belakang', 'jk', 'tmp_lahir', 'tgl_lahir', 'nohp', 'email', 'alamat', 'id_divisi', 'username', 'password', 'id_level'];
+    protected $fillable = ['nm_depan', 'nm_belakang', 'jk', 'tmp_lahir', 'tgl_lahir', 'nohp', 'email',  'id_divisi', 'username', 'password', 'id_level'];
 
     public function level()
     {
-        return $this->belongsTo(Level::class);
+        return $this->belongsTo(Level::class, 'id_level');
+    }
+
+    public function divisi()
+    {
+        return $this->belongsTo(Divisi::class, 'id_divisi');
     }
 
     public function isOnline()
@@ -36,11 +41,6 @@ class User extends Authenticatable
     public function password_reset()
     {
         return $this->hasOne(PasswordReset::class);
-    }
-
-    public function divisi()
-    {
-        return $this->belongsTo(Divisi::class, 'id_divisi');
     }
 
     public function evaluate()

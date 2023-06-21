@@ -8,11 +8,7 @@ $(function () {
                 confirmButtonClass: "btn btn-danger",
             });
         } else if (type === "title-and-text") {
-            Swal.fire(
-                "The Internet?",
-                "That thing is still around?",
-                "question"
-            );
+            Swal.fire("Login Gagal", message, "warning");
         } else if (type === "title-icon-text-footer") {
             Swal.fire({
                 type: "error",

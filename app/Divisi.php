@@ -11,6 +11,7 @@ class Divisi extends Model
     protected $table = 'tb_divisi';
     protected $fillable = [
         'divisi',
+        'akundivisi_id'
     ];
 
     public function user()
@@ -20,6 +21,11 @@ class Divisi extends Model
 
     public function akundivisi()
     {
-        return $this->hasMany(Akundivisi::class);
+        return $this->belongsTo(Akundivisi::class);
+    }
+
+    public function weekly()
+    {
+        return $this->hasMany(Weekly::class);
     }
 }

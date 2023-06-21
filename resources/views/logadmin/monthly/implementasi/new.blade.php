@@ -140,7 +140,7 @@
                                     id="realisasi" type="text" autocomplete="off">
                             </div>
                         </div>
-                        <div class="row mb-3">
+                        <div class="row mb-5">
                             <div class="col-lg-3">
                                 <label for="defaultconfig-0" class="col-form-label">Keterangan</label>
                             </div>
@@ -153,8 +153,10 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="my-2 d-flex justify-content-end">
-                            <button type="submit" class="btn btn-primary" style="width: 6rem">Simpan</button>
+                        <div class="my-2 d-flex justify-content-between">
+                            <a href="{{ url('/implementasi/history') }}" type="button" class="btn btn-secondary me-2"
+                                style="width: 6rem">Kembali</a>
+                            <button type="submit" class="btn btn-primary" style="width: 6rem">Tambah</button>
                         </div>
                     </form>
                 </div>

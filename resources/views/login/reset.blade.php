@@ -42,8 +42,8 @@
                                         </label>
                                     </div>
                                     <div>
-                                        <input class="btn btn-primary me-2 mb-2 mb-md-0" type="submit" value="Login" />
-                                        <a href="{{ route('forget') }}">Lupa password</a>
+                                        <input class="btn btn-primary me-2 mb-2 mb-md-0" type="submit"
+                                            value="Konfirmasi" />
                                     </div>
                                 </form>
                             </div>

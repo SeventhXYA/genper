@@ -6,6 +6,9 @@
 @endpush
 
 @section('content')
+    @php
+        use Carbon\Carbon;
+    @endphp
     <nav class="page-breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Self-Development</a></li>
@@ -18,7 +21,8 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-end">
-                        <a href="{{ url('/newsd') }}" type="button" class="btn btn-primary btn-icon-text mb-3">
+                        <a href="{{ url('/selfdevelopment/newsd') }}" type="button"
+                            class="btn btn-primary btn-icon-text mb-3">
                             <h6><i data-feather="plus" class="icon-sm"></i>
                                 Tambah</h6>
                         </a>
@@ -27,87 +31,93 @@
                         <table id="dataTableExample" class="table">
                             <thead>
                                 <tr>
-                                    <th style="width:5rem;"> Tgl Laporan </th>
-                                    <th style="width:5rem;"> Tgl Kegiatan </th>
-                                    <th>Mulai</th>
-                                    <th>Selesai</th>
-                                    <th style="width:24rem;"> Plan </th>
-                                    <th> Progres </th>
+                                    <th style="width:1rem;"> Tgl Laporan </th>
+                                    <th style="width:1rem;"> Tgl Kegiatan </th>
+                                    <th style="width:1rem;">Mulai</th>
+                                    <th style="width:1rem;">Selesai</th>
+                                    <th> Plan </th>
+                                    <th style="width:1rem;"> Progres </th>
                                     <th style="width:1rem;"> Aksi </th>
                                 </tr>
                             </thead>
-                            @foreach ($dailysd as $sd)
-                                <tbody>
+                            <tbody>
+                                @foreach ($dailysd as $sd)
                                     <tr>
-                                        <td>{{ $sd->created_at->format('Y-m-d') }}</td>
-                                        <td>{{ $sd->tgl_sd }}</td>
+                                        <td>{{ $sd->created_at->format('d-M-Y') }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($sd->tgl_sd)->format('d-M-Y') }}</td>
                                         <td>{{ $sd->wkt_mulai }}</td>
                                         <td>{{ $sd->wkt_selesai }}</td>
-                                        <td>{{ $sd->rencana }}</td>
-                                        {{-- <td>{{ $sd->progres }}</td> --}}
+                                        <td>
+                                            <?php
+                                            $num_char = 60;
+                                            $text = $sd->rencana;
+                                            if (strlen($text) > $num_char) {
+                                                $text = substr($text, 0, $num_char) . '...';
+                                            }
+                                            echo $text;
+                                            ?>
+                                        </td>
 
                                         <td><span class="badge bg-success" style="width: 6rem">{{ $sd->progres }}%</span>
                                         </td>
                                         <td class="d-flex inline">
                                             <button type="button"
-                                                class="btn btn-inverse-secondary btn-xs btn-icon"data-bs-toggle="modal"
+                                                class="btn btn-outline-secondary btn-xs btn-icon"data-bs-toggle="modal"
                                                 data-bs-target="#viewModal-{{ $sd->id }}"><i data-feather="eye"
                                                     class="icon-sm"></i></button>
                                             <a href="/selfdevelopment/edit/{{ $sd->id }}"
-                                                class="btn btn-inverse-warning btn-xs btn-icon ms-2"><i data-feather="edit"
+                                                class="btn btn-outline-warning btn-xs btn-icon ms-2"><i data-feather="edit"
                                                     class="icon-sm"></i></a>
                                         </td>
                                     </tr>
-                                </tbody>
-                                <!-- Modal -->
-                                <div class="modal fade" id="viewModal-{{ $sd->id }}" tabindex="-1"
-                                    aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-scrollable">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalScrollableTitle">
-                                                    {{ $sd->tgl_sd }}</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="btn-close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="col mb-3">
-                                                    <label class="form-label fw-bold">Waktu Kegiatan</label>
-                                                    <input type="text" class="form-control"
-                                                        value="{{ $sd->wkt_mulai }} - {{ $sd->wkt_selesai }}" required
-                                                        readonly style="background-color: white" />
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="viewModal-{{ $sd->id }}" tabindex="-1"
+                                        aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-scrollable">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalScrollableTitle">
+                                                        {{ \Carbon\Carbon::parse($sd->tgl_sd)->format('d-M-Y') }}</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="btn-close"></button>
                                                 </div>
-                                                <div class="col mb-3">
-                                                    <label class="form-label fw-bold">Rencana</label>
-                                                    <input type="text" class="form-control" value="{{ $sd->rencana }}"
-                                                        required readonly style="background-color: white" />
-                                                </div>
-                                                <div class="col mb-3">
-                                                    <label class="form-label fw-bold">Aktual</label>
-                                                    <input type="text" class="form-control" value="{{ $sd->aktual }}"
-                                                        required readonly style="background-color: white" />
-                                                </div>
-                                                <div class="col mb-3">
-                                                    <label class="form-label fw-bold">Progres</label>
-                                                    <span class="badge bg-success"
-                                                        style="width: 100%">{{ $sd->progres }}%</span>
-                                                    {{-- <input type="text" class="form-control" value="{{ $sd->progres }}"
-                                                    required readonly style="background-color: white" /> --}}
-                                                </div>
-                                                <div class="col mb-3">
-                                                    <label class="form-label fw-bold">Foto</label>
-                                                    <img src="{{ asset($sd->foto) }}" class="img-fluid" alt="">
-                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="col mb-3">
+                                                        <label class="form-label fw-bold">Waktu Kegiatan</label>
+                                                        <input type="text" class="form-control"
+                                                            value="{{ $sd->wkt_mulai }} - {{ $sd->wkt_selesai }}" required
+                                                            readonly style="background-color: #f5f5f5;" />
+                                                    </div>
+                                                    <div class="col mb-3">
+                                                        <label class="form-label fw-bold">Rencana</label>
+                                                        <textarea class="form-control" maxlength="255" rows="8" readonly style="background-color: #f5f5f5;">{{ $sd->rencana }}</textarea>
+                                                    </div>
+                                                    <div class="col mb-3">
+                                                        <label class="form-label fw-bold">Aktual</label>
+                                                        <textarea class="form-control" maxlength="255" rows="8" readonly style="background-color: #f5f5f5;">{{ $sd->aktual }}</textarea>
+                                                    </div>
+                                                    <div class="col mb-3">
+                                                        <label class="form-label fw-bold">Progres</label>
+                                                        <span class="badge bg-success"
+                                                            style="width: 100%">{{ $sd->progres }}%</span>
+                                                        {{-- <input type="text" class="form-control" value="{{ $sd->progres }}"
+                                                        required readonly style="background-color: white" /> --}}
+                                                    </div>
+                                                    <div class="col mb-3">
+                                                        <label class="form-label fw-bold">Foto</label>
+                                                        <img src="{{ asset($sd->foto) }}" class="img-fluid" alt="">
+                                                    </div>
 
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">Close</button>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            @endforeach
+                                @endforeach
+                            </tbody>
                         </table>
                     </div>
                     @foreach ($dailysdMobile as $sd)
@@ -115,7 +125,7 @@
                             <div class="card my-2" style="border-width: 2px;">
                                 <div
                                     class="card-header d-flex justify-content-between"style="background-color: white; border:none">
-                                    <b>{{ $sd->created_at->format('Y-m-d') }}</b> <span class="badge bg-success my-auto"
+                                    <b>{{ $sd->created_at->format('d-M-Y') }}</b> <span class="badge bg-success my-auto"
                                         style="width: 6rem">{{ $sd->progres }}%</span>
                                     <div class="dropdown">
                                         <button class="btn p-0" type="button" id="dropdownMenuButton"
@@ -132,15 +142,18 @@
                                 </div>
                                 <div class="card-body" style="background-color: white; border:none">
                                     <?php
-                                    $num_char = 50;
+                                    $num_char = 60;
                                     $text = $sd->rencana;
-                                    echo substr($text, 0, $num_char) . '...';
+                                    if (strlen($text) > $num_char) {
+                                        $text = substr($text, 0, $num_char) . '...';
+                                    }
+                                    echo $text;
                                     ?>
                                 </div>
                                 <div class="card-footer d-flex justify-content-end"
                                     style="background-color: white; border:none">
 
-                                    <button type="button" class="btn btn-inverse-info"data-bs-toggle="modal"
+                                    <button type="button" class="btn btn-outline-secondary"data-bs-toggle="modal"
                                         data-bs-target="#viewModalMobile-{{ $sd->id }}"><i data-feather="eye"
                                             class="icon-sm"></i></button>
                                 </div>
@@ -153,7 +166,7 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="exampleModalScrollableTitle">
-                                            {{ $sd->tgl_sd }}</h5>
+                                            {{ \Carbon\Carbon::parse($sd->tgl_sd)->format('d-M-Y') }}</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="btn-close"></button>
                                     </div>
@@ -162,17 +175,15 @@
                                             <label class="form-label fw-bold">Waktu Kegiatan</label>
                                             <input type="text" class="form-control"
                                                 value="{{ $sd->wkt_mulai }} - {{ $sd->wkt_selesai }}" required readonly
-                                                style="background-color: white" />
+                                                style="background-color: #f5f5f5;" />
                                         </div>
                                         <div class="col mb-3">
                                             <label class="form-label fw-bold">Rencana</label>
-                                            <input type="text" class="form-control" value="{{ $sd->rencana }}"
-                                                required readonly style="background-color: white" />
+                                            <textarea class="form-control" maxlength="255" rows="8" readonly style="background-color: #f5f5f5;">{{ $sd->rencana }}</textarea>
                                         </div>
                                         <div class="col mb-3">
                                             <label class="form-label fw-bold">Aktual</label>
-                                            <input type="text" class="form-control" value="{{ $sd->aktual }}"
-                                                required readonly style="background-color: white" />
+                                            <textarea class="form-control" maxlength="255" rows="8" readonly style="background-color: #f5f5f5;">{{ $sd->aktual }}</textarea>
                                         </div>
                                         <div class="col mb-3">
                                             <label class="form-label fw-bold">Progres</label>

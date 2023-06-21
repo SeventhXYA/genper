@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Divisi;
 use App\Weekly;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -50,11 +51,21 @@ class WeeklyController extends Controller
 
         $weekly = new Weekly($validated_data);
         $akundivisi = Auth::guard('divisi')->user();
-        $weekly->akundivisi()->associate($akundivisi);
-        $weekly->save();
+        $divisi = Divisi::where('akundivisi_id', $akundivisi->id)->first(); // Tambahkan 'first()' untuk mendapatkan satu objek Divisi
 
-        return redirect()->back()->with('success', 'Data berhasil disimpan!');
+        if ($divisi) {
+            $weekly->akundivisi()->associate($akundivisi);
+            $weekly->id_divisi = $divisi->id;
+            $weekly->id_akundivisi = $akundivisi->id; // Tambahkan id_akundivisi
+            $weekly->save();
+
+            return redirect()->back()->with('success', 'Data berhasil disimpan!');
+        }
+
+        // Jika Divisi tidak ditemukan, Anda bisa menangani kasus tersebut sesuai kebutuhan
+        return redirect()->back()->with('error', 'Divisi tidak ditemukan!');
     }
+
 
     public function update(Request $request, $id)
     {

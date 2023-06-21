@@ -10,7 +10,7 @@ class Weekly extends Model
     use HasFactory;
     protected $table = 'tb_weekly';
     protected $fillable = [
-        'id_akundivisi',
+        'id_divisi',
         'start_date',
         'end_date',
         'rencana',
@@ -21,5 +21,9 @@ class Weekly extends Model
     public function akundivisi()
     {
         return $this->belongsTo(Akundivisi::class, 'id_akundivisi');
+    }
+    public function divisi()
+    {
+        return $this->belongsTo(Divisi::class, 'id_divisi');
     }
 }

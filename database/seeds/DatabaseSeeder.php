@@ -60,34 +60,33 @@ class DatabaseSeeder extends Seeder
             'level' => 'Genper'
         ]);
 
-        Akundivisi::create([
-            'id_divisi' => 1,
-            'username' => 'divisiA',
-            'password' => bcrypt('divisiA'),
-            'id_level' => 2,
-        ]);
+        // Akundivisi::create([
+        //     'id_divisi' => 1,
+        //     'username' => 'divisiA',
+        //     'password' => bcrypt('divisiA'),
+        //     'id_level' => 2,
+        // ]);
 
-        Akundivisi::create([
-            'id_divisi' => 2,
-            'username' => 'divisiB',
-            'password' => bcrypt('divisiB'),
-            'id_level' => 2,
-        ]);
+        // Akundivisi::create([
+        //     'id_divisi' => 2,
+        //     'username' => 'divisiB',
+        //     'password' => bcrypt('divisiB'),
+        //     'id_level' => 2,
+        // ]);
 
-        Akundivisi::create([
-            'id_divisi' => 3,
-            'username' => 'divisiC',
-            'password' => bcrypt('divisiC'),
-            'id_level' => 2,
-        ]);
+        // Akundivisi::create([
+        //     'id_divisi' => 3,
+        //     'username' => 'divisiC',
+        //     'password' => bcrypt('divisiC'),
+        //     'id_level' => 2,
+        // ]);
 
         User::create([
-            'foto' => 'user.jpg',
             'nm_depan' => 'Admin',
             'nm_belakang' => 'Admin',
             'jk' => 'Laki-laki',
             'tmp_lahir' => 'Sungai Danau',
-            'tgl_lahir' => '05 Agustus 2002',
+            'tgl_lahir' => '2002/08/05 00:00:00',
             'nohp' => '082254388310',
             'email' => 'deathcrew17@gmail.com',
             'username' => 'admin',
@@ -96,12 +95,11 @@ class DatabaseSeeder extends Seeder
 
         ]);
         User::create([
-            'foto' => 'user.jpg',
             'nm_depan' => 'Satria',
             'nm_belakang' => 'Kurniawan',
             'jk' => 'Laki-laki',
             'tmp_lahir' => 'Sungai Danau',
-            'tgl_lahir' => '04 Agustus 2002',
+            'tgl_lahir' => '2002/08/04 00:00:00',
             'nohp' => '082254388230',
             'email' => 'deathcrew237@gmail.com',
             'id_divisi' => 1,
@@ -110,12 +108,11 @@ class DatabaseSeeder extends Seeder
             'id_level' => 3,
         ]);
         User::create([
-            'foto' => 'user.jpg',
             'nm_depan' => 'Jaka',
             'nm_belakang' => 'Permadi',
             'jk' => 'Laki-laki',
             'tmp_lahir' => 'Sungai Danau',
-            'tgl_lahir' => '25 Februari 2001',
+            'tgl_lahir' => '2002/02/23 00:00:00',
             'nohp' => '082223338230',
             'email' => 'jakaper@gmail.com',
             'id_divisi' => 2,

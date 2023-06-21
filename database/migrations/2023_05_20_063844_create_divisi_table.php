@@ -16,6 +16,7 @@ class CreateDivisiTable extends Migration
         Schema::create('tb_divisi', function (Blueprint $table) {
             $table->id();
             $table->string('divisi');
+            $table->foreignId('akundivisi_id')->nullable()->constrained('tb_akundivisi')->onUpdate('cascade')->onDelete('set null');
             $table->timestamps();
         });
     }

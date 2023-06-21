@@ -19,7 +19,7 @@ class CreateDailysdTable extends Migration
             $table->string('tgl_sd');
             $table->string('wkt_mulai');
             $table->string('wkt_selesai');
-            $table->string('rencana');
+            $table->text('rencana');
             $table->text('aktual');
             $table->integer('progres');
             $table->string('foto')->nullable();

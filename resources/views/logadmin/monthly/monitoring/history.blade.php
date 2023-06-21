@@ -46,7 +46,16 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $mn->created_at->format('d-M-Y') }}</td>
-                                        <td>{{ $mn->program }}</td>
+                                        <td>
+                                            <?php
+                                            $num_char = 70;
+                                            $text = $mn->program;
+                                            if (strlen($text) > $num_char) {
+                                                $text = substr($text, 0, $num_char) . '...';
+                                            }
+                                            echo $text;
+                                            ?>
+                                        </td>
                                         <td class="text-center">
                                             @if ($mn->keterangan == 0)
                                                 <span class="badge bg-warning text-white">Progress</span>

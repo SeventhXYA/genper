@@ -11,10 +11,12 @@
 |
 */
 
+use App\Http\Controllers\AkundivisiController;
 use App\Http\Controllers\DailysdController;
 use App\Http\Controllers\DailybpController;
 use App\Http\Controllers\DailyklController;
 use App\Http\Controllers\DailyicController;
+use App\Http\Controllers\DivisiController;
 use App\Http\Controllers\EvaluateController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\HomeController;
@@ -23,6 +25,7 @@ use App\Http\Controllers\IntervalController;
 use App\Http\Controllers\KgkoperasiController;
 use App\Http\Controllers\MonitoringController;
 use App\Http\Controllers\PdfController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\WeeklyController;
 use Illuminate\Support\Facades\Route;
 
@@ -46,6 +49,36 @@ Route::group(['middleware' => ['auth:web,divisi']], function () {
     Route::post('profile/update', [ProfileController::class, 'updateData'])->name('profile.update');
 
     Route::group(['middleware' => ['cekUserLogin:1']], function () {
+        Route::get('user/list', [UserController::class, 'index'])->name('user.list');
+        Route::get('user/new', [UserController::class, 'create'])->name('user.new');
+        Route::post('user/store', [UserController::class, 'store'])->name('user.store');
+        Route::get('user/edit/{id}', [UserController::class, 'edit'])->name('user.edit');
+        Route::get('user/detail/{id}', [UserController::class, 'detail'])->name('user.detail');
+        Route::post('user/update/{id}', [UserController::class, 'update'])->name('user.update');
+        Route::delete('user/delete/{user}', [UserController::class, 'destroy'])->name('user.delete');
+
+        Route::get('akundivisi/add/{id}', [AkundivisiController::class, 'create'])->name('akundivisi.add');
+        Route::post('akundivisi/store', [AkundivisiController::class, 'store'])->name('akundivisi.store');
+        Route::get('akundivisi/edit/{id}', [AkundivisiController::class, 'edit'])->name('akundivisi.edit');
+        Route::post('akundivisi/update/{id}', [AkundivisiController::class, 'update'])->name('akundivisi.update');
+        Route::delete('akundivisi/delete/{akundivisi}', [AkundivisiController::class, 'destroy'])->name('akundivisi.delete');
+
+        Route::get('akundivisi/list', [AkundivisiController::class, 'index'])->name('akundivisi.list');
+        Route::get('akundivisi/new', [AkundivisiController::class, 'create'])->name('akundivisi.new');
+        // Route::post('akundivisi/store', [AkundivisiController::class, 'store'])->name('akundivisi.store');
+        Route::get('akundivisi/edit/{id}', [AkundivisiController::class, 'edit'])->name('akundivisi.edit');
+        Route::get('akundivisi/detail/{id}', [AkundivisiController::class, 'detail'])->name('akundivisi.detail');
+        Route::post('akundivisi/update/{id}', [AkundivisiController::class, 'update'])->name('akundivisi.update');
+        Route::delete('akundivisi/delete/{akundivisi}', [AkundivisiController::class, 'destroy'])->name('akundivisi.delete');
+
+        Route::get('divisi/list', [DivisiController::class, 'index'])->name('divisi.list');
+        // Route::get('divisi/new', [DivisiController::class, 'create'])->name('divisi.new');
+        Route::post('divisi/store', [DivisiController::class, 'store'])->name('divisi.store');
+        // Route::get('divisi/edit/{id}', [DivisiController::class, 'edit'])->name('divisi.edit');
+        // Route::get('divisi/detail/{id}', [DivisiController::class, 'detail'])->name('divisi.detail');
+        Route::post('divisi/update/{id}', [DivisiController::class, 'update'])->name('divisi.update');
+        Route::delete('divisi/delete/{divisi}', [DivisiController::class, 'destroy'])->name('divisi.delete');
+
         Route::get('selfdevelopment/reportsd', [DailysdController::class, 'reportAdmin'])->name('reportsd');
         Route::delete('dailysd/delete/{dailysd}', [DailysdController::class, 'destroy'])->name('dailysd.delete');
 
@@ -94,7 +127,6 @@ Route::group(['middleware' => ['auth:web,divisi']], function () {
     Route::group(['middleware' => ['cekUserLogin:2']], function () {
         Route::get('events', [HomeController::class, 'events'])->name('events');
 
-        //menampilkan data kalender
         Route::get('events/{id}', [HomeController::class, 'show'])->name('show');
 
         Route::get('weekly/history', [WeeklyController::class, 'index'])->name('history');
@@ -105,6 +137,9 @@ Route::group(['middleware' => ['auth:web,divisi']], function () {
     });
 
     Route::group(['middleware' => ['cekUserLogin:3']], function () {
+
+        Route::get('eventsUser', [HomeController::class, 'eventsUser'])->name('eventsUser');
+        Route::get('eventsUser/{id}', [HomeController::class, 'show'])->name('show');
 
         Route::get('selfdevelopment/historysd', [DailysdController::class, 'index'])->name('selfdevelopment.historysd');
         Route::get('selfdevelopment/newsd', [DailysdController::class, 'create'])->name('selfdevelopment.newsd');

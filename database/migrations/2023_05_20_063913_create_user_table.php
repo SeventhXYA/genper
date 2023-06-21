@@ -15,7 +15,6 @@ class CreateUserTable extends Migration
     {
         Schema::create('tb_user', function (Blueprint $table) {
             $table->id();
-            $table->string('foto')->nullable();
             $table->string('nm_depan', 50);
             $table->string('nm_belakang', 50)->nullable();
             $table->string('jk', 20);
@@ -23,7 +22,7 @@ class CreateUserTable extends Migration
             $table->string('tgl_lahir');
             $table->string('nohp', 15);
             $table->string('email', 100)->unique();
-            $table->foreignId('id_divisi')->nullable()->constrained('tb_divisi')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('id_divisi')->nullable()->constrained('tb_divisi')->onUpdate('cascade')->onDelete('set null');
             $table->string('username', 50)->unique();
             $table->string('password');
             $table->foreignId('id_level')->constrained('tb_level')->onUpdate('cascade')->onDelete('cascade');

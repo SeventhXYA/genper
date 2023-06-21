@@ -34,7 +34,6 @@
                                     <th style="width:1rem;"> Tgl Laporan </th>
                                     <th>Kegiatan</th>
                                     <th>Pelaksana</th>
-                                    <th>Keterangan</th>
                                     <th style="width:1rem;"> Aksi </th>
                                 </tr>
                             </thead>
@@ -43,9 +42,17 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $kgk->created_at->format('d-M-Y') }}</td>
-                                        <td>{{ $kgk->kegiatan }}</td>
+                                        <td>
+                                            <?php
+                                            $num_char = 60;
+                                            $text = $kgk->kegiatan;
+                                            if (strlen($text) > $num_char) {
+                                                $text = substr($text, 0, $num_char) . '...';
+                                            }
+                                            echo $text;
+                                            ?>
+                                        </td>
                                         <td>{{ $kgk->pelaksana }}</td>
-                                        <td>{{ $kgk->keterangan }}</td>
                                         <td class="d-flex inline">
                                             <button type="button"
                                                 class="btn btn-outline-secondary btn-xs btn-icon"data-bs-toggle="modal"

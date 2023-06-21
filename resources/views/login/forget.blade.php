@@ -30,7 +30,8 @@
                                         @endif
                                     </div>
                                     <div>
-                                        <input class="btn btn-primary me-2 mb-2 mb-md-0" type="submit" value="Confirm" />
+                                        <input class="btn btn-primary me-2 mb-2 mb-md-0" type="submit"
+                                            value="Konfirmasi" />
                                         <a href="{{ route('login') }}">Login</a>
                                     </div>
                                 </form>

@@ -37,9 +37,12 @@
                                         <td>{{ $sd->user->divisi->divisi }}</td>
                                         <td>
                                             <?php
-                                            $num_char = 50;
+                                            $num_char = 40;
                                             $text = $sd->rencana;
-                                            echo substr($text, 0, $num_char) . '...';
+                                            if (strlen($text) > $num_char) {
+                                                $text = substr($text, 0, $num_char) . '...';
+                                            }
+                                            echo $text;
                                             ?>
                                         </td>
                                         <td><span class="badge bg-success" style="width: 6rem">{{ $sd->progres }}%</span>
@@ -125,9 +128,12 @@
                                         {{ $sd->user->nm_belakang }}</label><br>
                                     {{ $sd->user->divisi->divisi }} <br> <br>
                                     <?php
-                                    $num_char = 30;
+                                    $num_char = 40;
                                     $text = $sd->rencana;
-                                    echo substr($text, 0, $num_char) . '...';
+                                    if (strlen($text) > $num_char) {
+                                        $text = substr($text, 0, $num_char) . '...';
+                                    }
+                                    echo $text;
                                     ?>
                                 </div>
                                 <div class="card-footer d-flex justify-content-end"
