@@ -196,7 +196,10 @@ class HomeController extends Controller
     public function events()
     {
         $akundivisi = Auth::guard('divisi')->user();
-        $kalenderweekly = Weekly::where('id_akundivisi', $akundivisi->id)->select('id', 'rencana as title', 'start_date as start', 'end_date as end')->get()->toArray();
+        $kalenderweekly = Weekly::where('id_akundivisi', $akundivisi->id)
+            ->select('id', 'rencana as title', 'start_date as start', 'end_date as end')
+            ->get()
+            ->toArray();
         return response()->json($kalenderweekly);
     }
     public function show($id)

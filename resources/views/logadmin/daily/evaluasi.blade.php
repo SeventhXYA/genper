@@ -31,7 +31,7 @@
                             @foreach ($dailyev as $ev)
                                 <tbody>
                                     <tr>
-                                        <td>{{ $ev->created_at->format('Y-m-d') }}</td>
+                                        <td>{{ $ev->created_at->format('d-M-Y') }}</td>
                                         <td>{{ $ev->user->nm_depan }} {{ $ev->user->nm_belakang }}</td>
                                         <td>{{ $ev->user->divisi->divisi }}</td>
                                         <td>
@@ -46,14 +46,14 @@
                                         </td>
                                         <td class="d-flex inline">
                                             <button type="button"
-                                                class="btn btn-inverse-secondary btn-xs btn-icon"data-bs-toggle="modal"
+                                                class="btn btn-outline-secondary btn-xs btn-icon"data-bs-toggle="modal"
                                                 data-bs-target="#viewModal-{{ $ev->id }}"><i data-feather="eye"
                                                     class="icon-sm"></i></button>
                                             <form name="delete" action="{{ route('evaluasi.delete', $ev) }}"
                                                 method="POST">
                                                 @method('delete')
                                                 @csrf
-                                                <button type="submit" class="btn btn-inverse-danger btn-xs btn-icon ms-2"
+                                                <button type="submit" class="btn btn-outline-danger btn-xs btn-icon ms-2"
                                                     data-id="{{ $ev->id }}"><i data-feather="trash"
                                                         class="icon-sm"></i></button>
                                             </form>
@@ -99,7 +99,7 @@
                             <div class="card my-2" style="border-width: 2px;">
                                 <div
                                     class="card-header d-flex justify-content-between"style="background-color: white; border:none">
-                                    <b>{{ $ev->created_at->format('Y-m-d') }}</b>
+                                    <b>{{ $ev->created_at->format('d-M-Y') }}</b>
                                 </div>
                                 <div class="card-body" style="background-color: white; border:none">
                                     <label class="form-label fw-bold">{{ $ev->user->nm_depan }}
@@ -118,13 +118,13 @@
                                     style="background-color: white; border:none">
 
                                     <button type="button"
-                                        class="btn btn-inverse-secondary btn-icon btn-xl"data-bs-toggle="modal"
+                                        class="btn btn-outline-secondary btn-icon btn-xl"data-bs-toggle="modal"
                                         data-bs-target="#viewModalMobile-{{ $ev->id }}"><i data-feather="eye"
                                             class="icon-xl"></i></button>
                                     <form name="delete" action="{{ route('evaluasi.delete', $ev) }}" method="POST">
                                         @method('delete')
                                         @csrf
-                                        <button type="submit" class="btn btn-inverse-danger btn-xl btn-icon ms-2"
+                                        <button type="submit" class="btn btn-outline-danger btn-xl btn-icon ms-2"
                                             data-id="{{ $ev->id }}"><i data-feather="trash"
                                                 class="icon-xl"></i></button>
                                     </form>

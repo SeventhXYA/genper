@@ -4,6 +4,7 @@
     <link href="{{ asset('assets/plugins/select2/select2.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/plugins/jquery-tags-input/jquery.tagsinput.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/plugins/dropzone/dropzone.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/plugins/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/plugins/dropify/css/dropify.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/plugins/bootstrap-colorpicker/bootstrap-colorpicker.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet" />
@@ -35,7 +36,7 @@
                         <div class="col-lg-9 d-flex inline">
                             <input class="form-control" maxlength="255" type="text" placeholder="Nama Depan"
                                 autocomplete="off" required value="{{ $user->nm_depan }} {{ $user->nm_belakang }}"
-                                readonly>
+                                readonly style="background-color: white">
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -44,7 +45,8 @@
                         </div>
                         <div class="col-lg-9 inline">
                             <input class="form-control" maxlength="255" type="text" placeholder="Nama Belakang"
-                                autocomplete="off"value="{{ $user->jk }}" style="width: 30%" readonly>
+                                autocomplete="off"value="{{ $user->jk }}" style="width: 150px;background-color: white"
+                                readonly>
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -54,7 +56,7 @@
                         <div class="col-lg-9 inline">
                             <input class="form-control" maxlength="255" name="tmp_lahir" type="text"
                                 placeholder="Tempat Lahir" autocomplete="off" required value="{{ $user->tmp_lahir }}"
-                                readonly>
+                                readonlystyle="background-color: white">
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -64,7 +66,7 @@
                         <div class="col-lg-9 inline">
                             <input class="form-control" maxlength="255" type="text" placeholder="Nama Belakang"
                                 autocomplete="off"value="{{ \Carbon\Carbon::parse($user->tgl_lahir)->format('d-M-Y') }}"
-                                readonly>
+                                readonlystyle="background-color: white">
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -73,8 +75,8 @@
                         </div>
                         <div class="col-lg-9 inline">
                             <input class="form-control me-2" maxlength="255" name="nohp" type="text"
-                                placeholder="08**********" autocomplete="off" style="width: 30%" required
-                                value="{{ $user->nohp }}" readonly>
+                                placeholder="08**********" autocomplete="off" style="width: 150px;background-color: white"
+                                required value="{{ $user->nohp }}" readonly>
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -84,7 +86,7 @@
                         <div class="col-lg-9 inline">
                             <input class="form-control me-2" maxlength="255" name="email" type="email"
                                 placeholder="example@gmail.com" autocomplete="off" required value="{{ $user->email }}"
-                                readonly>
+                                readonly style="background-color: white">
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -93,7 +95,7 @@
                         </div>
                         <div class="col-lg-9 inline">
                             <input class="form-control me-2" maxlength="255" autocomplete="off" required
-                                value="{{ optional($user->divisi)->divisi }}" readonly>
+                                value="{{ optional($user->divisi)->divisi }}" readonly style="background-color: white">
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -102,8 +104,8 @@
                         </div>
                         <div class="col-lg-9 inline">
                             <input class="form-control me-2" maxlength="255" name="username" type="text"
-                                placeholder="Username" autocomplete="off" style="width: 30%" required
-                                value="{{ $user->username }}" readonly>
+                                placeholder="Username" autocomplete="off" style="width: 150px;background-color: white"
+                                required value="{{ $user->username }}" readonly>
                         </div>
                     </div>
                     <div class="row mb-5">
@@ -117,12 +119,6 @@
                                 <span class="badge bg-success text-white">GenPer</span>
                             @endif
                         </div>
-                    </div>
-                    <div class="my-2 d-flex justify-content-between">
-                        <a href="/user/edit/{{ $user->id }}" type="button" class="btn btn-warning me-2 text-white"
-                            style="width: 6rem">Ubah Data</a>
-                        <a href="{{ url('/user/list') }}" type="button" class="btn btn-secondary me-2"
-                            style="width: 6rem">Kembali</a>
                     </div>
                 </div>
             </div>
@@ -143,6 +139,7 @@
     <script src="{{ asset('assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/moment/moment.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.js') }}"></script>
+    <script src="{{ asset('assets/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/slider/js/slider.js') }}" rel="stylesheet"></script>
 @endpush
 
@@ -156,8 +153,14 @@
     <script src="{{ asset('assets/js/dropzone.js') }}"></script>
     <script src="{{ asset('assets/js/dropify.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap-colorpicker.js') }}"></script>
+    <script src="{{ asset('assets/js/sweet-alert.js') }}"></script>
     <script src="{{ asset('assets/js/datepicker.js') }}"></script>
     <script src="{{ asset('assets/js/timepicker.js') }}"></script>
+    <script>
+        @if (Session::has('success'))
+            window.onload = () => showSwal('mixin', '{{ Session::get('success') }}')
+        @endif
+    </script>
     <script>
         function togglePasswordVisibility() {
             var passwordInput = document.getElementsByName("password")[0];

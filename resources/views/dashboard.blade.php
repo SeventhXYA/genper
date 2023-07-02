@@ -602,8 +602,8 @@
                                                                 Kegiatan</label>
                                                         </div>
                                                         <div class="col-lg-8">
-                                                            <input class="form-control" name="start_date" type="date"
-                                                                autocomplete="off" />
+                                                            <input class="form-control" name="start_date" id="start_date"
+                                                                type="date" autocomplete="off" />
                                                         </div>
                                                     </div>
                                                     <div class="row mb-3">
@@ -612,8 +612,8 @@
                                                                 Kegiatan</label>
                                                         </div>
                                                         <div class="col-lg-8">
-                                                            <input class="form-control" name="end_date" type="date"
-                                                                autocomplete="off" />
+                                                            <input class="form-control" name="end_date" id="end_date"
+                                                                type="date" autocomplete="off" />
                                                         </div>
                                                     </div>
                                                     <div class="row mb-3">
@@ -1256,12 +1256,12 @@
                                 <div id='fullcalendar2'></div>
                             </div>
                         </div>
-                        <div class="modal fade" id="lihatRencana" tabindex="-1"
-                            aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                        <div class="modal fade" id="lihatRencana2" tabindex="-1"
+                            aria-labelledby="exampleModalScrollableTitle2" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-scrollable">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalScrollableTitle">
+                                        <h5 class="modal-title" id="exampleModalScrollableTitle2">
                                         </h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="btn-close"></button>
@@ -1270,19 +1270,19 @@
                                         <div class="col mb-3">
                                             <label class="form-label fw-bold">Tanggal
                                                 Mulai Kegiatan</label>
-                                            <input type="text" class="form-control" id="start_date" readonly
+                                            <input type="text" class="form-control" id="start_date2" readonly
                                                 style="background-color: #f5f5f5;" />
                                         </div>
                                         <div class="col mb-3">
                                             <label class="form-label fw-bold">Tanggal
                                                 Selesai Kegiatan</label>
-                                            <input type="text" class="form-control" id="end_date" readonly
+                                            <input type="text" class="form-control" id="end_date2" readonly
                                                 style="background-color: #f5f5f5;" />
                                         </div>
 
                                         <div class="col mb-3">
                                             <label class="form-label fw-bold">Rencana</label>
-                                            <textarea class="form-control" id="rencana" maxlength="255" rows="8" readonly
+                                            <textarea class="form-control" id="rencana2" maxlength="255" rows="8" readonly
                                                 style="background-color: #f5f5f5;"></textarea>
                                         </div>
                                     </div>
@@ -1514,7 +1514,7 @@
                 },
                 eventClick: function(event) {
                     $.get('/events/' + event.id, function(data) {
-                        $('#exampleModalScrollableTitle').text('Detail Rencana Kerja');
+                        $('#exampleModalScrollableTitle').text('Detail Rencana Mingguan');
                         $('#lihatRencana').modal('show');
                         $('#start_date').val(moment(data.start_date).format(
                             'YYYY-MM-DD HH:mm:ss'));
@@ -1545,12 +1545,13 @@
                 },
                 eventClick: function(event) {
                     $.get('/eventsUser/' + event.id, function(data) {
-                        $('#exampleModalScrollableTitle').text('Detail Rencana Kerja');
-                        $('#lihatRencana').modal('show');
-                        $('#start_date').val(moment(data.start_date).format(
+                        $('#exampleModalScrollableTitle2').text('Detail Rencana Mingguan');
+                        $('#lihatRencana2').modal('show');
+                        $('#start_date2').val(moment(data.start_date).format(
                             'YYYY-MM-DD HH:mm:ss'));
-                        $('#end_date').val(moment(data.end_date).format('YYYY-MM-DD HH:mm:ss'));
-                        $('#rencana').val(data.rencana);
+                        $('#end_date2').val(moment(data.end_date).format(
+                            'YYYY-MM-DD HH:mm:ss'));
+                        $('#rencana2').val(data.rencana);
                     });
                 },
             });
@@ -1559,4 +1560,15 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js'></script>
+    <script>
+        const startDateInput = document.getElementById("start_date");
+        const endDateInput = document.getElementById("end_date");
+
+        startDateInput.addEventListener("change", function() {
+            endDateInput.min = this.value; // Set minimum date of end_date to start_date's value
+            if (endDateInput.value < this.value) {
+                endDateInput.value = this.value; // Reset end_date's value if it's before start_date
+            }
+        });
+    </script>
 @endpush

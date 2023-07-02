@@ -17,6 +17,22 @@
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
+                    <div class="d-none d-md-flex justify-content-end">
+                        <form action="{{ route('cetak-dailysd') }}" method="GET">
+                            <div class="d-flex justify-content-between">
+                                <div class="d-flex inline  mb-3 me-2">
+                                    <input type="date" class="form-control" name="start_date">
+
+                                    <div><i class="link-icon icon-sm mt-3 mx-2" data-feather="minus"></i></div>
+                                    <input type="date" class="form-control" name="end_date">
+                                </div>
+                                {{-- <div class="d-flex justify-content-end"> --}}
+                                <button type="submit" class="btn btn-danger btn-icon-text mb-3"><i class="btn-icon-prepend"
+                                        data-feather="printer"></i>Cetak PDF</button>
+                                {{-- </div> --}}
+                            </div>
+                        </form>
+                    </div>
                     <div class="table-responsive d-none d-md-inline">
                         <table id="dataTableExample" class="table">
                             <thead>
@@ -32,7 +48,7 @@
                             @foreach ($dailysd as $sd)
                                 <tbody>
                                     <tr>
-                                        <td>{{ $sd->created_at->format('Y-m-d') }}</td>
+                                        <td>{{ $sd->created_at->format('d-M-Y') }}</td>
                                         <td>{{ $sd->user->nm_depan }} {{ $sd->user->nm_belakang }}</td>
                                         <td>{{ $sd->user->divisi->divisi }}</td>
                                         <td>
@@ -49,13 +65,13 @@
                                         </td>
                                         <td class="d-flex inline">
                                             <button type="button"
-                                                class="btn btn-inverse-secondary btn-xs btn-icon"data-bs-toggle="modal"
+                                                class="btn btn-outline-secondary btn-xs btn-icon"data-bs-toggle="modal"
                                                 data-bs-target="#viewModal-{{ $sd->id }}"><i data-feather="eye"
                                                     class="icon-sm"></i></button>
                                             <form name="delete" action="{{ route('dailysd.delete', $sd) }}" method="POST">
                                                 @method('delete')
                                                 @csrf
-                                                <button type="submit" class="btn btn-inverse-danger btn-xs btn-icon ms-2"
+                                                <button type="submit" class="btn btn-outline-danger btn-xs btn-icon ms-2"
                                                     data-id="{{ $sd->id }}"><i data-feather="trash"
                                                         class="icon-sm"></i></button>
                                             </form>
@@ -120,7 +136,7 @@
                             <div class="card my-2" style="border-width: 2px;">
                                 <div
                                     class="card-header d-flex justify-content-between"style="background-color: white; border:none">
-                                    <b>{{ $sd->created_at->format('Y-m-d') }}</b> <span class="badge bg-success my-auto"
+                                    <b>{{ $sd->created_at->format('d-M-Y') }}</b> <span class="badge bg-success my-auto"
                                         style="width: 6rem">{{ $sd->progres }}%</span>
                                 </div>
                                 <div class="card-body" style="background-color: white; border:none">
@@ -139,13 +155,13 @@
                                 <div class="card-footer d-flex justify-content-end"
                                     style="background-color: white; border:none">
                                     <button type="button"
-                                        class="btn btn-inverse-secondary btn-icon btn-xl"data-bs-toggle="modal"
+                                        class="btn btn-outline-secondary btn-icon btn-xl"data-bs-toggle="modal"
                                         data-bs-target="#viewModalMobile-{{ $sd->id }}"><i data-feather="eye"
                                             class="icon-xl"></i></button>
                                     <form name="delete" action="{{ route('dailysd.delete', $sd) }}" method="POST">
                                         @method('delete')
                                         @csrf
-                                        <button type="submit" class="btn btn-inverse-danger btn-xl btn-icon ms-2"
+                                        <button type="submit" class="btn btn-outline-danger btn-xl btn-icon ms-2"
                                             data-id="{{ $sd->id }}"><i data-feather="trash"
                                                 class="icon-xl"></i></button>
                                     </form>

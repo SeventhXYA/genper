@@ -29,12 +29,12 @@
                                         <input type="password" class="form-control" id="userPassword"
                                             autocomplete="current-password" name="password"placeholder="Password">
                                     </div>
-                                    <div class="form-check mb-3">
+                                    {{-- <div class="form-check mb-3">
                                         <input type="checkbox" class="form-check-input" id="authCheck">
                                         <label class="form-check-label" for="authCheck">
                                             Tampilkan Password
                                         </label>
-                                    </div>
+                                    </div> --}}
                                     <div>
                                         <input class="btn btn-primary me-2 mb-2 mb-md-0" type="submit" value="Login" />
                                         <a href="{{ route('forget') }}">Lupa password</a>

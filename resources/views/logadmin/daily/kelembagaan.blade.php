@@ -32,7 +32,7 @@
                             @foreach ($dailykl as $kl)
                                 <tbody>
                                     <tr>
-                                        <td>{{ $kl->created_at->format('Y-m-d') }}</td>
+                                        <td>{{ $kl->created_at->format('d-M-Y') }}</td>
                                         <td>{{ $kl->user->nm_depan }} {{ $kl->user->nm_belakang }}</td>
                                         <td>{{ $kl->user->divisi->divisi }}</td>
                                         <td>
@@ -49,13 +49,13 @@
                                         </td>
                                         <td class="d-flex inline">
                                             <button type="button"
-                                                class="btn btn-inverse-secondary btn-xs btn-icon"data-bs-toggle="modal"
+                                                class="btn btn-outline-secondary btn-xs btn-icon"data-bs-toggle="modal"
                                                 data-bs-target="#viewModal-{{ $kl->id }}"><i data-feather="eye"
                                                     class="icon-sm"></i></button>
                                             <form name="delete" action="{{ route('dailykl.delete', $kl) }}" method="POST">
                                                 @method('delete')
                                                 @csrf
-                                                <button type="submit" class="btn btn-inverse-danger btn-xs btn-icon ms-2"
+                                                <button type="submit" class="btn btn-outline-danger btn-xs btn-icon ms-2"
                                                     data-id="{{ $kl->id }}"><i data-feather="trash"
                                                         class="icon-sm"></i></button>
                                             </form>
@@ -120,7 +120,7 @@
                             <div class="card my-2" style="border-width: 2px;">
                                 <div
                                     class="card-header d-flex justify-content-between"style="background-color: white; border:none">
-                                    <b>{{ $kl->created_at->format('Y-m-d') }}</b> <span class="badge bg-success my-auto"
+                                    <b>{{ $kl->created_at->format('d-M-Y') }}</b> <span class="badge bg-success my-auto"
                                         style="width: 6rem">{{ $kl->progres }}%</span>
                                 </div>
                                 <div class="card-body" style="background-color: white; border:none">
@@ -139,13 +139,13 @@
                                 <div class="card-footer d-flex justify-content-end"
                                     style="background-color: white; border:none">
                                     <button type="button"
-                                        class="btn btn-inverse-secondary btn-icon btn-xl"data-bs-toggle="modal"
+                                        class="btn btn-outline-secondary btn-icon btn-xl"data-bs-toggle="modal"
                                         data-bs-target="#viewModalMobile-{{ $kl->id }}"><i data-feather="eye"
                                             class="icon-xl"></i></button>
                                     <form name="delete" action="{{ route('dailykl.delete', $kl) }}" method="POST">
                                         @method('delete')
                                         @csrf
-                                        <button type="submit" class="btn btn-inverse-danger btn-xl btn-icon ms-2"
+                                        <button type="submit" class="btn btn-outline-danger btn-xl btn-icon ms-2"
                                             data-id="{{ $kl->id }}"><i data-feather="trash"
                                                 class="icon-xl"></i></button>
                                     </form>

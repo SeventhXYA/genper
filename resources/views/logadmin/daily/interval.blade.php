@@ -31,7 +31,7 @@
                             @foreach ($interval as $int)
                                 <tbody>
                                     <tr>
-                                        <td>{{ $int->created_at->format('Y-m-d') }}</td>
+                                        <td>{{ $int->created_at->format('d-M-Y') }}</td>
                                         <td>{{ $int->user->nm_depan }} {{ $int->user->nm_belakang }}</td>
                                         <td>{{ $int->user->divisi->divisi }}</td>
                                         <td>
@@ -76,14 +76,14 @@
                                         </td>
                                         <td class="d-flex inline">
                                             {{-- <button type="button"
-                                                class="btn btn-inverse-secondary btn-xs btn-icon"data-bs-toggle="modal"
+                                                class="btn btn-outline-secondary btn-xs btn-icon"data-bs-toggle="modal"
                                                 data-bs-target="#viewModal-{{ $int->id }}"><i data-feather="eye"
                                                     class="icon-sm"></i></button> --}}
                                             <form name="delete" action="{{ route('interval.delete', $int) }}"
                                                 method="POST">
                                                 @method('delete')
                                                 @csrf
-                                                <button type="submit" class="btn btn-inverse-danger btn-xs btn-icon ms-2"
+                                                <button type="submit" class="btn btn-outline-danger btn-xs btn-icon ms-2"
                                                     data-id="{{ $int->id }}"><i data-feather="trash"
                                                         class="icon-sm"></i></button>
                                             </form>
@@ -148,7 +148,7 @@
                             <div class="card my-2" style="border-width: 2px;">
                                 <div
                                     class="card-header d-flex justify-content-between"style="background-color: white; border:none">
-                                    <b>{{ $int->created_at->format('Y-m-d') }}</b> <span class="badge bg-success my-auto"
+                                    <b>{{ $int->created_at->format('d-M-Y') }}</b> <span class="badge bg-success my-auto"
                                         style="width: 6rem">{{ $int->progres }}%</span>
                                     <div class="dropdown">
                                         <button class="btn p-0" type="button" id="dropdownMenuButton"
@@ -177,7 +177,7 @@
                                     style="background-color: white; border:none">
 
                                     <button type="button"
-                                        class="btn btn-inverse-secondary btn-icon btn-xl"data-bs-toggle="modal"
+                                        class="btn btn-outline-secondary btn-icon btn-xl"data-bs-toggle="modal"
                                         data-bs-target="#viewModalMobile-{{ $int->id }}"><i data-feather="eye"
                                             class="icon-xl"></i></button>
                                 </div>

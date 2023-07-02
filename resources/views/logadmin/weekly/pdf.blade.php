@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Daftar Surat Masuk</title>
+    <title>PROGRESS UNIT BISNIS KOPERASI BINA USAHA PERMATA</title>
     <style>
         table {
             width: 100%;

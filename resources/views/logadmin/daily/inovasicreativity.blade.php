@@ -32,7 +32,7 @@
                             @foreach ($dailyic as $ic)
                                 <tbody>
                                     <tr>
-                                        <td>{{ $ic->created_at->format('Y-m-d') }}</td>
+                                        <td>{{ $ic->created_at->format('d-M-Y') }}</td>
                                         <td>{{ $ic->user->nm_depan }} {{ $ic->user->nm_belakang }}</td>
                                         <td>{{ $ic->user->divisi->divisi }}</td>
                                         <td>
@@ -49,13 +49,13 @@
                                         </td>
                                         <td class="d-flex inline">
                                             <button type="button"
-                                                class="btn btn-inverse-secondary btn-xs btn-icon"data-bs-toggle="modal"
+                                                class="btn btn-outline-secondary btn-xs btn-icon"data-bs-toggle="modal"
                                                 data-bs-target="#viewModal-{{ $ic->id }}"><i data-feather="eye"
                                                     class="icon-sm"></i></button>
                                             <form name="delete" action="{{ route('dailyic.delete', $ic) }}" method="POST">
                                                 @method('delete')
                                                 @csrf
-                                                <button type="submit" class="btn btn-inverse-danger btn-xs btn-icon ms-2"
+                                                <button type="submit" class="btn btn-outline-danger btn-xs btn-icon ms-2"
                                                     data-id="{{ $ic->id }}"><i data-feather="trash"
                                                         class="icon-sm"></i></button>
                                             </form>
@@ -120,7 +120,7 @@
                             <div class="card my-2" style="border-width: 2px;">
                                 <div
                                     class="card-header d-flex justify-content-between"style="background-color: white; border:none">
-                                    <b>{{ $ic->created_at->format('Y-m-d') }}</b> <span class="badge bg-success my-auto"
+                                    <b>{{ $ic->created_at->format('d-M-Y') }}</b> <span class="badge bg-success my-auto"
                                         style="width: 6rem">{{ $ic->progres }}%</span>
                                 </div>
                                 <div class="card-body" style="background-color: white; border:none">
@@ -139,13 +139,13 @@
                                 <div class="card-footer d-flex justify-content-end"
                                     style="background-color: white; border:none">
                                     <button type="button"
-                                        class="btn btn-inverse-secondary btn-icon btn-xl"data-bs-toggle="modal"
+                                        class="btn btn-outline-secondary btn-icon btn-xl"data-bs-toggle="modal"
                                         data-bs-target="#viewModalMobile-{{ $ic->id }}"><i data-feather="eye"
                                             class="icon-xl"></i></button>
                                     <form name="delete" action="{{ route('dailyic.delete', $ic) }}" method="POST">
                                         @method('delete')
                                         @csrf
-                                        <button type="submit" class="btn btn-inverse-danger btn-xl btn-icon ms-2"
+                                        <button type="submit" class="btn btn-outline-danger btn-xl btn-icon ms-2"
                                             data-id="{{ $ic->id }}"><i data-feather="trash"
                                                 class="icon-xl"></i></button>
                                     </form>
