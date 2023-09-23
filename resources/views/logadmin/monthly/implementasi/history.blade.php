@@ -44,7 +44,16 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $imp->created_at->format('d-M-Y') }}</td>
-                                        <td>{{ $imp->program }}</td>
+                                        <td>
+                                            <?php
+                                            $num_char = 40;
+                                            $text = $imp->program;
+                                            if (strlen($text) > $num_char) {
+                                                $text = substr($text, 0, $num_char) . '...';
+                                            }
+                                            echo $text;
+                                            ?>
+                                        </td>
                                         <td>{{ $imp->pelaksana }}</td>
                                         <td class="text-center">{{ $imp->rab }}</td>
                                         <td class="text-center">

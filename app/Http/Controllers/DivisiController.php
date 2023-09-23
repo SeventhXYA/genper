@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Divisi;
+use App\Level;
 use Illuminate\Http\Request;
 
 class DivisiController extends Controller

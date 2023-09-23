@@ -25,8 +25,8 @@
         <div class="col-lg-8 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <form onsubmit="$('#submit').prop('disabled',true)" action="{{ route('user.store') }}" method="POST"
-                        enctype="multipart/form-data">
+                    <form onsubmit="$('#submit').prop('disabled',true)" id="form_pendaftaran"
+                        action="{{ route('user.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row mb-3">
                             <div class="col-lg-3">
@@ -66,8 +66,8 @@
                                 <label for="defaultconfig-0" class="col-form-label">Tanggal Lahir</label>
                             </div>
                             <div class="col-lg-9 inline">
-                                <input class="form-control me-2" maxlength="255" name="tgl_lahir" type="date"
-                                    autocomplete="off" style="width: 30%" required>
+                                <input id="tgl_lahir_input" class="form-control me-2" maxlength="255" name="tgl_lahir"
+                                    type="date" autocomplete="off" style="width: 30%" required>
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -85,7 +85,11 @@
                             </div>
                             <div class="col-lg-9 inline">
                                 <input class="form-control me-2" maxlength="255" name="email" type="email"
-                                    placeholder="example@gmail.com" autocomplete="off" required>
+                                    placeholder="example@gmail.com" autocomplete="off" required
+                                    value="{{ old('email') }}">
+                                @error('email')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -107,7 +111,11 @@
                             </div>
                             <div class="col-lg-9 inline">
                                 <input class="form-control me-2" maxlength="255" name="username" type="text"
-                                    placeholder="Username" autocomplete="off" style="width: 50%" required>
+                                    placeholder="Username" autocomplete="off" style="width: 50%" required
+                                    value="{{ old('username') }}">
+                                @error('username')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -143,7 +151,8 @@
                         <div class="my-2 d-flex justify-content-between">
                             <a href="{{ url('/user/list') }}" type="button" class="btn btn-secondary me-2"
                                 style="width: 6rem">Kembali</a>
-                            <button type="submit" class="btn btn-primary" style="width: 6rem">Tambah</button>
+                            <button type="button" class="btn btn-primary" onclick="checkMinimumAge()"
+                                style="width: 6rem">Tambah</button>
                         </div>
                     </form>
                 </div>
@@ -187,6 +196,21 @@
                 passwordInput.type = "text";
             } else {
                 passwordInput.type = "password";
+            }
+        }
+    </script>
+    <script>
+        function checkMinimumAge() {
+            const inputElement = document.getElementById("tgl_lahir_input");
+            const birthdate = new Date(inputElement.value);
+            const now = new Date();
+            const minimumAge = 15;
+            const requiredBirthdate = new Date(now.getFullYear() - minimumAge, now.getMonth(), now.getDate());
+
+            if (birthdate > requiredBirthdate) {
+                alert("Anda harus berusia minimal 15 tahun untuk mendaftar.");
+            } else {
+                document.getElementById("form_pendaftaran").submit();
             }
         }
     </script>

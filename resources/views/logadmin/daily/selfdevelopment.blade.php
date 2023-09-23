@@ -6,6 +6,9 @@
 @endpush
 
 @section('content')
+    @php
+        use Carbon\Carbon;
+    @endphp
     <nav class="page-breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Self-Development</a></li>
@@ -85,7 +88,7 @@
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="exampleModalScrollableTitle">
-                                                    {{ $sd->tgl_sd }}</h5>
+                                                    {{ \Carbon\Carbon::parse($sd->tgl_sd)->format('d-M-Y') }}</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="btn-close"></button>
                                             </div>
@@ -175,7 +178,7 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="exampleModalScrollableTitle">
-                                            {{ $sd->tgl_sd }}</h5>
+                                            {{ \Carbon\Carbon::parse($sd->tgl_sd)->format('d-M-Y') }}</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="btn-close"></button>
                                     </div>

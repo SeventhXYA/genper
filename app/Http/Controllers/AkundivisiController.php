@@ -93,20 +93,20 @@ class AkundivisiController extends Controller
         return redirect('divisi/list')->with('success', 'Data berhasil diubah!');
     }
 
-    public function detail($id)
-    {
-        $user = User::find($id);
-        $divisi = Divisi::all();
-        $level = Level::all();
-        return view('logadmin.data.user.detail', [
-            "title" => "Data Pengguna",
-            "sub" => "Detail Pengguna",
-        ], compact('user', 'divisi', 'level'));
-    }
+    // public function detail($id)
+    // {
+    //     $user = User::find($id);
+    //     $divisi = Divisi::all();
+    //     $level = Level::all();
+    //     return view('logadmin.data.user.detail', [
+    //         "title" => "Data Pengguna",
+    //         "sub" => "Detail Pengguna",
+    //     ], compact('user', 'divisi', 'level'));
+    // }
 
-    public function destroy(User $user)
+    public function destroy(Akundivisi $akundivisi)
     {
-        $user->delete();
+        $akundivisi->delete();
         return redirect()->back()->with('success', 'Data berhasil dihapus!');
     }
 }

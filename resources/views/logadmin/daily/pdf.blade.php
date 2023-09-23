@@ -95,6 +95,42 @@
             </table>
         @endif
     @endforeach
+    <div style="margin-top: 50px;">
+        <div style="text-align: right; margin-bottom:5px">
+            <b>Asamasam, {{ date('d-M-Y') }}</b>
+        </div>
+        <table style="width: 100%;">
+            <tr>
+                <td style="width: 33%; text-align: center;">
+                    <strong>Pembina Generasi Permata:</strong><br>
+                    <!-- Tempat untuk Nama atau NIP -->
+                </td>
+                <td style="width: 33%; text-align: center;">
+                    <strong>Di Review Oleh:</strong><br>
+                    <!-- Tempat untuk Nama atau NIP -->
+                </td>
+                <td style="width: 33%; text-align: center;">
+                    <strong>Mengetahui:</strong><br>
+                    <!-- Tempat untuk Nama atau NIP -->
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 33%; text-align: center;">
+                    <br><br><br><br><br>
+                    Raka Pradipta Permadi
+                </td>
+                <td style="width: 33%; text-align: center;">
+                    <br><br><br><br><br>
+                    HPMT
+                </td>
+                <td style="width: 33%; text-align: center;">
+                    <br><br><br><br><br>
+                    PT Arutmin Indonesia Tambang Asamasam
+                </td>
+            </tr>
+        </table>
+    </div>
+
 </body>
 
 

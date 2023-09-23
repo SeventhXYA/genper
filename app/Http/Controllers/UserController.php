@@ -43,10 +43,16 @@ class UserController extends Controller
             'nohp' => 'required',
             'email' => 'required|email:dns|unique:tb_user',
             'id_divisi' => 'sometimes',
-            'username' => ['required', 'min:4', 'max:30', 'unique:tb_user'],
+            'username' => ['required', 'max:30', 'unique:tb_user'],
             'password' => 'required',
             'id_level' => 'required',
         ]);
+
+        // $username = $validated_data('username');
+        // $existingUser = User::where('username', $username)->first();
+        // if ($existingUser) {
+        //     return redirect()->back()->withErrors(['username' => 'Username sudah terdaftar']);
+        // }
 
         $validated_data['password'] = Hash::make($validated_data['password']);
         $user = new User($validated_data);

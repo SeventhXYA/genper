@@ -498,7 +498,7 @@
     @if (auth()->user()->id_level == 2)
         <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
             <div>
-                <h4 class="mb-3 mb-md-0">Selamat Datang, {{ Auth::guard('divisi')->user()->divisi->divisi }}</h4>
+                <h4 class="mb-3 mb-md-0">Divisi {{ Auth::guard('divisi')->user()->divisi->divisi }}</h4>
             </div>
         </div>
         <div class="row">

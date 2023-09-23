@@ -36,9 +36,9 @@
                                 <label for="defaultconfig-0" class="col-form-label">Tanggal Kegiatan</label>
                             </div>
                             <div class="col-lg-8">
-                                <div class="input-group date" id="datePickerExample">
-                                    <input type="text" class="form-control"name="tgl_sd" value="{{ $dailysd->tgl_sd }}"
-                                        id="defaultconfig-0">
+                                <div class="input-group date">
+                                    <input type="text" class="form-control"name="tgl_sd"
+                                        value="{{ $dailysd->tgl_sd }}">
                                     <span class="input-group-text input-group-addon"><i data-feather="calendar"></i></span>
                                 </div>
                             </div>
